@@ -1,12 +1,11 @@
 # mobile_voting_verifier
 
-Second device verification tool for implementations based on the Polyas system. Created for "E-Voting - Trust in Verification Systems"  BSc project ITU Copenhagen.
+Second-device verification tool for the Polyas Core 3 Verifiable e-voting system implementations based on specifications from POLYAS GmbH. 
 
-## Getting Started
+Created for "E-Voting - Trust in Verification Systems" a BSc thesis at ITU Copenhagen in collaboration with The German Informatics Society.
 
-This project is a starting point for a Flutter application.
+Authored by:
+Andreas Kongstad & Christian Emil Stender
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Supervised by:
+Oksana Kulyk

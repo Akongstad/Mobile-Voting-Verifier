@@ -1,119 +1,166 @@
-import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/screens/home.dart';
 import 'package:mobile_voting_verifier/screens/qr_scanner.dart';
 
 final pages = [
   const PageData(
-      icon: Icons.qr_code_2_outlined,
+      icon: Icons.qr_code_scanner_rounded,
       title: "Scan Ballot QR-Code",
-      bgColor: Color(0xff3b1790),
+      bgColor: Colors.indigo,
       textColor: Colors.white,
+      gradiantColor: Color(0xff1eb090),
       destinationPage: QrScannerPage()),
   const PageData(
       icon: Icons.info_outline,
       title: "Information Page",
-      bgColor: Color(0xffff9200),
-      textColor: Color(0xff3b1790),
+      bgColor: Color(0xff1eb090),
+      textColor: Colors.white,
+      gradiantColor: Color(0xfffeae4f),
       destinationPage: HomePage(title: 'title')),
   const PageData(
       icon: Icons.web_outlined,
       title: "Visit Official Election Page",
-      bgColor: Colors.white,
-      textColor: Color(0xffff9200),
+      bgColor: Color(0xfffeae4f),
+      textColor: Colors.white,
+      gradiantColor: Colors.indigo,
       destinationPage: HomePage(title: 'title')),
 ];
 
 class PageData {
-  final String? title;
+  final String title;
+  final String description;
   final IconData? icon;
   final Color bgColor;
   final Color textColor;
   final Color gradiantColor;
   final Widget destinationPage;
 
-  const PageData(
-      {this.title,
-      this.icon,
-      this.bgColor = Colors.white,
-      this.textColor = Colors.black,
-      this.gradiantColor = Colors.blue,
-      required this.destinationPage});
+  const PageData({
+    this.title = "Default Title",
+    this.description = "Default Description",
+    this.icon,
+    this.bgColor = Colors.white,
+    this.textColor = Colors.black,
+    this.gradiantColor = Colors.blue,
+    required this.destinationPage});
 }
 
-class Catalog extends StatelessWidget {
+class Catalog extends StatefulWidget {
   const Catalog({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: ConcentricPageView(
-        colors: pages.map((p) => p.bgColor).toList(),
-        radius: screenWidth * 0.1,
-        nextButtonBuilder: (context) => Padding(
-          padding: const EdgeInsets.only(left: 3), // visual center
-          child: Icon(
-            Icons.navigate_next,
-            size: screenWidth * 0.08,
-          ),
-        ),
-        // enable itemcount to disable infinite scroll
-        // itemCount: pages.length,
-        // opacityFactor: 2.0,
-        scaleFactor: 2,
-        // verticalPosition: 0.7,
-        // direction: Axis.vertical,
-        // physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (index) {
-          final page = pages[index % pages.length];
-          return SafeArea(
-            child: _Page(page: page),
-          );
-        },
-      ),
-    );
-  }
+  State<Catalog> createState() => _CatalogState();
 }
-
-class _Page extends StatelessWidget {
-  final PageData page;
-
-  const _Page({Key? key, required this.page}) : super(key: key);
+class _CatalogState extends State<Catalog>{
+  // Store the currently visible page
+  int _currentPage = 0;
+  // Define a controller for the pageview
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          margin: const EdgeInsets.all(16.0),
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: page.textColor),
-          child: InkWell(
-            onTap: () {Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => page.destinationPage),
-              );
-            },
-            child: Icon(
-              page.icon,
-              size: screenHeight * 0.1,
-              color: page.bgColor,
-            ),
+    return Scaffold(
+      body: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        decoration: BoxDecoration(
+          gradient:  LinearGradient(
+              begin: Alignment.topLeft,
+              end: const Alignment(0.8, 1),
+              colors: [pages[_currentPage].bgColor, pages[_currentPage].gradiantColor,]
           ),
         ),
-        Text(
-          page.title ?? "",
-          style: TextStyle(
-              color: page.textColor,
-              fontSize: screenHeight * 0.035,
-              fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                // Pageview to render each page
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: pages.length,
+                  onPageChanged: (idx) {
+                    // Change current page when pageview changes
+                    setState(() {
+                      _currentPage = idx;
+                    });
+                  },
+                  itemBuilder: (context, idx) {
+                    final item = pages[idx];
+                    return Column(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => item.destinationPage));
+                                },
+                                child: Icon(item.icon,
+                                  size: MediaQuery.of(context).size.width/2,
+                                  color: Colors.grey[200],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Column(children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(item.title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: item.textColor,
+                                    )),
+                              ),
+                              Container(
+                                constraints:
+                                const BoxConstraints(maxWidth: 280),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0, vertical: 8.0),
+                                child: Text(item.description,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                      color: item.textColor,
+                                    )),
+                              )
+                            ]))
+                      ],
+                    );
+                  },
+                ),
+              ),
+
+              // Current page indicator
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: pages
+                    .map((item) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: pages[_currentPage] == item ? 36 : 10,
+                  height: 10,
+                  margin: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0)),
+                ))
+                    .toList(),
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }

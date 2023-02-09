@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/screens/catalog.dart';
-import 'package:mobile_voting_verifier/screens/home.dart';
 
 Future<void> main() async {
   /*await myErrorsHandler.initialize();
@@ -34,8 +33,10 @@ class MyApp extends StatelessWidget {
 
       title: 'Mobile Vote Verifier',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        scaffoldBackgroundColor: Colors.grey[200]
+        primarySwatch: Colors.blueGrey,
+        scaffoldBackgroundColor: Colors.grey[200],
+        navigationBarTheme: const NavigationBarThemeData(
+        )
       ),
       themeMode: ThemeMode.dark,
       home: const Catalog(),

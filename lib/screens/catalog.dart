@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/screens/home.dart';
 import 'package:mobile_voting_verifier/screens/qr_scanner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final pages = [
   const PageData(
@@ -19,11 +20,13 @@ final pages = [
       destinationPage: HomePage(title: 'title')),
   const PageData(
       icon: Icons.web_outlined,
-      title: "Visit Official Election Page",
+      title: "Visit Official Github Page",
       bgColor: Color(0xfffeae4f),
       textColor: Colors.white,
       gradiantColor: Colors.indigo,
-      destinationPage: HomePage(title: 'title')),
+      destinationPage: HomePage(title: 'title'),
+      url: 'https://github.com/Akongstad/Mobile-Voting-Verifier'
+  ),
 ];
 
 class PageData {
@@ -34,6 +37,7 @@ class PageData {
   final Color textColor;
   final Color gradiantColor;
   final Widget destinationPage;
+  final String? url; //Webpage link for pages pointing to web location
 
   const PageData({
     this.title = "Default Title",
@@ -42,7 +46,9 @@ class PageData {
     this.bgColor = Colors.white,
     this.textColor = Colors.black,
     this.gradiantColor = Colors.blue,
-    required this.destinationPage});
+    required this.destinationPage,
+    this.url
+  });
 }
 
 class Catalog extends StatefulWidget {
@@ -61,7 +67,7 @@ class _CatalogState extends State<Catalog>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 150),
         decoration: BoxDecoration(
           gradient:  LinearGradient(
               begin: Alignment.topLeft,
@@ -77,12 +83,9 @@ class _CatalogState extends State<Catalog>{
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: pages.length,
-                  onPageChanged: (idx) {
-                    // Change current page when pageview changes
-                    setState(() {
+                  onPageChanged: (idx) async => setState(() {
                       _currentPage = idx;
-                    });
-                  },
+                    }),
                   itemBuilder: (context, idx) {
                     final item = pages[idx];
                     return Column(
@@ -94,10 +97,21 @@ class _CatalogState extends State<Catalog>{
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {
+                                onTap: () async {
+                                  if (item.url != null) {
+                                    print("asdasda");
+                                    var uri = Uri.parse(item.url!);
+                                    var urlLaunchable = await canLaunchUrl(uri); //canLaunch is from url_launcher package
+                                    if(urlLaunchable){
+                                      await launchUrl(uri); //launch is from url_launcher package to launch URL
+                                    } else {
+                                      print("URL can't be launched.");
+                                    }
+                                  } else {
                                   Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) => item.destinationPage));
+                                  }
                                 },
                                 child: Icon(item.icon,
                                   size: MediaQuery.of(context).size.width/2,

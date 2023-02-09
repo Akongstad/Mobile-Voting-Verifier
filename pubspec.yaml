@@ -38,6 +38,7 @@ dependencies:
   elliptic: ^0.3.8
   mobile_scanner: ^2.1.0
   concentric_transition: ^1.0.3
+  url_launcher: ^6.1.9
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_voting_verifier/screens/catalog.dart';
 import 'package:mobile_voting_verifier/screens/home.dart';
 
 Future<void> main() async {
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[200]
       ),
       themeMode: ThemeMode.dark,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Catalog(),
     );
   }
 }

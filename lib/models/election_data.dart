@@ -9,24 +9,27 @@ class ElectionData {
     required this.languages,
     required this.title,
   });
+}
 
-  factory ElectionData.fromJson(Map<String, dynamic> json) {
-    return ElectionData(
-      title: I18n<String>(
-        default_: json['title']['default'],
-        value: json['title']['value'],
-      ),
-      languages: json['languages'],
-    );
+ElectionData electionDataFromJson(Map<String, dynamic> json) {
+  List<Language> langAsEnum = [];
+
+  for (dynamic element in json['languages']) {
+    langAsEnum.add(getLanguageFromString(element));
   }
 
-  List<Language> toEnumLanguages(List<String> languagesString) {
-    List<Language> languages = [];
+  return ElectionData(
+    languages: langAsEnum,
+    title: json['title'],
+  );
+}
 
-    for (var element in languagesString) {
-      languages.add(Language.fromString(element));
+Language getLanguageFromString(dynamic languageAsDynamic) {
+  for (Language element in Language.values) {
+    String languageAsString = languageAsDynamic as String;
+    if (element.toString() == languageAsString.toLowerCase()) {
+      return element;
     }
-
-    return languages;
   }
+  throw Exception("Localization failed");
 }

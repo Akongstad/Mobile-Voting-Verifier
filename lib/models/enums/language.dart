@@ -16,6 +16,4 @@ enum Language {
   ru,
   hu,
   ar;
-
-  static Language fromString(String str) => values.byName(str);
 }

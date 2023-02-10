@@ -10,7 +10,23 @@ class ElectionData {
     required this.title,
   });
 
-  /* ElectionData.fromJson(Map<String, dynamic> json, this.languages, this.title);
+  factory ElectionData.fromJson(Map<String, dynamic> json) {
+    return ElectionData(
+      title: I18n<String>(
+        default_: json['title']['default'],
+        value: json['title']['value'],
+      ),
+      languages: json['languages'],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {}; */
+  List<Language> toEnumLanguages(List<String> languagesString) {
+    List<Language> languages = [];
+
+    for (var element in languagesString) {
+      languages.add(Language.fromString(element));
+    }
+
+    return languages;
+  }
 }

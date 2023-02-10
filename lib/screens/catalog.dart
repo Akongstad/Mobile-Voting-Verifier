@@ -19,7 +19,7 @@ final pages = [
       gradiantColor: Color(0xfffeae4f),
       destinationPage: HomePage(title: 'title')),
   const PageData(
-      icon: Icons.web_outlined,
+      icon: Icons.code,
       title: "Visit Official Github Page",
       bgColor: Color(0xfffeae4f),
       textColor: Colors.white,
@@ -99,7 +99,6 @@ class _CatalogState extends State<Catalog>{
                               child: InkWell(
                                 onTap: () async {
                                   if (item.url != null) {
-                                    print("asdasda");
                                     var uri = Uri.parse(item.url!);
                                     var urlLaunchable = await canLaunchUrl(uri); //canLaunch is from url_launcher package
                                     if(urlLaunchable){

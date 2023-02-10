@@ -1,5 +1,19 @@
 class ResponseBean {}
 
-class Error extends ResponseBean {}
+class Error extends ResponseBean {
+  final String error;
+  final status = "ERROR";
 
-class OK<T> extends ResponseBean {}
+  Error({
+    required this.error,
+  });
+}
+
+class OK<T> extends ResponseBean {
+  final T value;
+  final status = "OK";
+
+  OK({
+    required this.value,
+  });
+}

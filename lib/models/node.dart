@@ -1,9 +1,50 @@
 class Node {}
 
-class Block extends Node {}
+class Block extends Node {
+  final Map<String, String> data;
+  final List<Node> nodes;
+  final String type;
+  final object = "block";
 
-class Inline extends Node {}
+  Block({
+    required this.data,
+    required this.nodes,
+    required this.type,
+  });
+}
 
-class Mark extends Node {}
+class Inline extends Node {
+  final Map<String, String> data;
+  final List<Node> nodes;
+  final String type;
+  final object = "inline";
 
-class Text extends Node {}
+  Inline({
+    required this.data,
+    required this.nodes,
+    required this.type,
+  });
+}
+
+class Text extends Node {
+  final Set<Mark> marks;
+  final String text;
+  final object = "text";
+
+  Text({
+    required this.marks,
+    required this.text,
+  });
+}
+
+class Mark {
+  final Map<String, String> data;
+  final String object;
+  final String type;
+
+  Mark({
+    required this.data,
+    required this.object,
+    required this.type,
+  });
+}

@@ -13,9 +13,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mobile Scanner',),
-      ),
       body: Stack(
         children:[ MobileScanner(
           allowDuplicates: false,
@@ -27,8 +24,18 @@ class _QrScannerPageState extends State<QrScannerPage> {
               debugPrint('Barcode found! $code');
             }
           }),
-          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.3))
+          QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1))
         ]
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'cancel',
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        backgroundColor: Colors.white,
+        splashColor: Colors.grey,
+        child: const Icon(Icons.cancel_outlined, color: Colors.black,),
       ),
     );
   }

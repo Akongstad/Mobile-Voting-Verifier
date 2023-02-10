@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:mobile_voting_verifier/models/document.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
-class Content<T> {}
+abstract class Content<T> {
+  //TODO: Fix abstraction
+}
 
 class RichText extends Content {
   final I18n<Document> value;

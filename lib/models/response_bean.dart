@@ -1,4 +1,4 @@
-class ResponseBean {}
+abstract class ResponseBean {}
 
 class Error extends ResponseBean {
   final String error;

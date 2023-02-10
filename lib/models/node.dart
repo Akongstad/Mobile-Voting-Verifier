@@ -1,4 +1,4 @@
-class Node {}
+abstract class Node {}
 
 class Block extends Node {
   final Map<String, String> data;

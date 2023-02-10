@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:mobile_voting_verifier/models/content.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
-class Core3Ballot {}
+abstract class Core3Ballot {}
 
 class Core3StandardBallot extends Core3Ballot {
   final Bool calculateAvailableVotes;

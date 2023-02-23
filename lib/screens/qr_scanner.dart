@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:mobile_voting_verifier/screens/totp_screen.dart';
 import 'package:mobile_voting_verifier/widgets/qr_scanner_overlay.dart';
 
 class QrScannerPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children:[ MobileScanner(
+        children:[ MobileScanner( //TODO Disable Multiple QR code Scans.
           allowDuplicates: false,
           onDetect: (barcode, args) {
             if (barcode.rawValue == null) {
@@ -22,6 +23,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
             } else {
               final String code = barcode.rawValue!;
               debugPrint('Barcode found! $code');
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  TotpScreen(qrData: code)));
             }
           }),
           QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1))
@@ -31,7 +33,12 @@ class _QrScannerPageState extends State<QrScannerPage> {
       floatingActionButton: FloatingActionButton(
         tooltip: 'cancel',
         onPressed: () {
+          //Production
           Navigator.pop(context);
+
+          //Development using emulator:
+          //TODO change before push
+          //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TotpScreen(qrData: "")));
         },
         backgroundColor: Colors.white,
         splashColor: Colors.grey,

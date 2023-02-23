@@ -29,4 +29,5 @@ class SecondDeviceLoginResponse {
     required this.title,
     required this.token,
   });
+
 }

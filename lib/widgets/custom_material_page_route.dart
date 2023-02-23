@@ -1,3 +1,5 @@
+// Custom route, that changes the transition animation of
+// MaterialPageRoute when using navigator
 import 'package:flutter/material.dart';
 
 class CustomRoute<T> extends MaterialPageRoute<T> {

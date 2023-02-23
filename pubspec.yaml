@@ -39,6 +39,8 @@ dependencies:
   mobile_scanner: ^2.1.0
   concentric_transition: ^1.0.3
   url_launcher: ^6.1.9
+  pinput: ^2.2.31
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:

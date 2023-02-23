@@ -1,22 +1,27 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mobile_voting_verifier/screens/totp_form_screen.dart';
 import 'package:mobile_voting_verifier/utilities/qr_utilities.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
 
-class TotpScreen extends StatefulWidget {
-  const TotpScreen({super.key, required this.qrData});
+class ScanValidationScreen extends StatelessWidget {
+  const ScanValidationScreen({super.key, required this.qrData});
 
   final String qrData;
 
   @override
-  State<StatefulWidget> createState() => _TotpState();
-}
-
-class _TotpState extends State<TotpScreen> {
-  @override
   Widget build(BuildContext context) {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
-    final valid = isValid(widget.qrData);
-    final scanParams = valid ? getParameters(widget.qrData) : {};
+    final valid = isValid(qrData);
+    final scanParams = valid ? getParameters(qrData) : {"":""};
+    Timer(const Duration(seconds: 1), () {
+      //TODO uncomment for production
+      /*if (valid){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(scanParams: scanParams)));
+      }*/
+      //Development:
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(scanParams: scanParams)));
+    });
     //TODO extact to individual widgets
     return Scaffold(
       body: valid //QR code is valid
@@ -29,9 +34,6 @@ class _TotpState extends State<TotpScreen> {
                           validQr: valid,
                         ),
                         //_FormContent(),
-                        Text("c: ${scanParams['c']}"),
-                        Text("vid: ${scanParams['vid']}"),
-                        Text("nonce: ${scanParams['nonce']}"),
                       ],
                     )
                   : Container(

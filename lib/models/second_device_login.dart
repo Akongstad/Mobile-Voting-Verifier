@@ -10,4 +10,17 @@ class SecondDeviceLogin {
     required this.password,
     required this.voterId,
   });
+
+  SecondDeviceLogin.fromJson(Map<String, dynamic> json)
+      : challengeCommitment = json['challengeCommitment'],
+        nonce = json['nonce'],
+        password = json['password'],
+        voterId = json['voterId'];
+
+  Map<String, dynamic> toJson() => {
+    'challengeCommitment': challengeCommitment,
+    'nonce': nonce,
+    'password' : password,
+    'voterId' : voterId
+  };
 }

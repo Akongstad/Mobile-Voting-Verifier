@@ -40,6 +40,13 @@ dependencies:
   concentric_transition: ^1.0.3
   url_launcher: ^6.1.9
 
+  flutter_launcher_icons: ^0.11.0
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/appstore.png"
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

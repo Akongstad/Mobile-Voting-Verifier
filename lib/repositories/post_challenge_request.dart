@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
 import 'package:mobile_voting_verifier/models/response_bean.dart';
+import 'package:mobile_voting_verifier/models/second_device_final_msg.dart';
 
-Future<OK> createChallenge(http.Client client,
+Future<SecondDeviceFinalMsg> createChallenge(http.Client client,
     ChallengeRequest challengeRequest, String authToken) async {
   final response = await client.post(
     Uri.parse('/rest/challenge'), //TODO: placeholder endpoint
@@ -15,8 +16,9 @@ Future<OK> createChallenge(http.Client client,
     body: challengeRequest.toJson(),
   );
 
-  if (response.statusCode == 200) {
-    return OK.fromJson(jsonDecode(response.body));
+  if (response.statusCode == 200 &&
+      jsonDecode(response.body)['status'] == "OK") {
+    return SecondDeviceFinalMsg.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 401) {
     throw Exception('Unauthorized');
   } else {

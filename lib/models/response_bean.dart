@@ -16,4 +16,10 @@ class OK<T> extends ResponseBean {
   OK({
     required this.value,
   });
+
+  factory OK.fromJson(Map<String, dynamic> json) {
+    return OK(
+      value: json['value'],
+    );
+  }
 }

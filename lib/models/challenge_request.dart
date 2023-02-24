@@ -5,7 +5,7 @@ class ChallengeRequest {
   ChallengeRequest(
       {required this.challenge, required this.challengeRandomCoin});
 
-  //Parse from json to ChallengeRequest
+  //Parse from JSON to ChallengeRequest
   ChallengeRequest.fromJson(Map<String, dynamic> json)
       : challenge = json['challenge'],
         challengeRandomCoin = json['challengeRandomCoin'];

@@ -20,11 +20,13 @@ void main() {
       var actual = await fetchElectionData(client);
       var expected = ElectionData(title: 'My Election Title');
 
-      expect(await fetchElectionData(client), isA<ElectionData>());
+      expect(actual, isA<ElectionData>());
       expect(actual.title, expected.title);
     });
 
-    test('throws an exception if the http call completes with an error', () {
+    test(
+        'throws an exception if the http call completes with an unexpected error',
+        () {
       final client = MockClient();
 
       when(client.get(Uri.parse('/rest/electionData')))

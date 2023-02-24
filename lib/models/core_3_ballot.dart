@@ -60,7 +60,10 @@ class AutofillConfig {
   });
 }
 
-enum AutofillSpec { balanced, topdown }
+enum AutofillSpec {
+  balanced,
+  topdown;
+}
 
 class CandidateList {
   final AutofillConfig? autofillConfig;
@@ -130,4 +133,7 @@ class DerivedListVotesSpec {
   });
 }
 
-enum Variant { eachVoteCounts, atMostOne }
+enum Variant {
+  eachVoteCounts,
+  atMostOne;
+}

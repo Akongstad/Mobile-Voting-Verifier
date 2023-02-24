@@ -1,1 +1,6 @@
-enum ObjectType { document, block, inline, text }
+enum ObjectType {
+  document,
+  block,
+  inline,
+  text;
+}

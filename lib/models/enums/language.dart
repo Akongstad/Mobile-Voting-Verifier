@@ -15,5 +15,5 @@ enum Language {
   se,
   ru,
   hu,
-  ar
+  ar;
 }

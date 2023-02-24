@@ -32,8 +32,7 @@ bool isValid(String qr)  {
   var qrArr = qr.split(regex);
 
   //Extract values
-  if (qrArr.length != 4) return false;
-  else return true;
+  return !(qrArr.length != 4);
 }
 Map<String, String> getParameters(String qr)  {
   //Split qr on parametar values.

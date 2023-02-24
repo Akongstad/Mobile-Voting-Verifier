@@ -29,4 +29,33 @@ class SecondDeviceLoginResponse {
     required this.title,
     required this.token,
   });
+  //TODO Add fromJson factory methods to subtypes.
+  SecondDeviceLoginResponse.fromJson(Map<String, dynamic> json)
+      : allowInvalid = json['allowInvalid'],
+        ballotVoterId = json['ballotVoterId'],
+        contentAbove = json['contentAbove'],
+        electionId = json['electionId'],
+        initialMessage = json['initialMessage'],
+        languages = json['languages'],
+        logo = json['logo'],
+        messages = json['messages'],
+        publicLabel = json['publicLabel'],
+        title = json['title'],
+        token = json['token'];
+
+
+  Map<String, dynamic> toJson() => {
+    'allowInvalid ': allowInvalid,
+    'ballotVoterId': ballotVoterId,
+    'contentAbove' : contentAbove ?? "",
+    'electionId' : electionId,
+    'initialMessage' : initialMessage,
+    'languages' : languages,
+    'logo' : logo ?? "",
+    'messages' :  messages,
+    'publicLabel' : publicLabel,
+    'title' : title,
+    'token' : token
+  };
+
 }

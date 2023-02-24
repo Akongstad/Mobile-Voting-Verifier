@@ -1,16 +1,18 @@
-import 'package:mobile_voting_verifier/models/enums/language.dart';
-import 'package:mobile_voting_verifier/models/i_18_n.dart';
+//import 'package:mobile_voting_verifier/models/enums/language.dart';
+//import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
 class ElectionData {
-  final List<Language> languages;
-  final I18n<String> title;
+  //final List<Language> languages; //TODO: Use Languages and I18n
+  final String title; //I18n<String> title;
 
   ElectionData({
-    required this.languages,
+    //required this.languages,
     required this.title,
   });
 
-  /* ElectionData.fromJson(Map<String, dynamic> json, this.languages, this.title);
-
-  Map<String, dynamic> toJson() => {}; */
+  factory ElectionData.fromJson(Map<String, dynamic> json) {
+    return ElectionData(
+      title: json['title']['default'],
+    );
+  }
 }

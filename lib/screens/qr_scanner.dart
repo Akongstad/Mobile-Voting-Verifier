@@ -34,11 +34,11 @@ class _QrScannerPageState extends State<QrScannerPage> {
         tooltip: 'cancel',
         onPressed: () {
           //Production
-          //Navigator.pop(context);
+          Navigator.pop(context);
 
           //Development using emulator:
           //TODO change before push
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ScanValidationScreen(qrData: "")));
+          /*Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ScanValidationScreen(qrData: "")));*/
         },
         backgroundColor: Colors.white,
         splashColor: Colors.grey,

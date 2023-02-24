@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mobile_voting_verifier/screens/totp_form_screen.dart';
 import 'package:mobile_voting_verifier/utilities/qr_utilities.dart';
+import 'package:mobile_voting_verifier/widgets/TOTPHeaderWidget.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
+import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
 class ScanValidationScreen extends StatelessWidget {
   const ScanValidationScreen({super.key, required this.qrData});
@@ -14,26 +14,35 @@ class ScanValidationScreen extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
     final valid = isValid(qrData);
     final scanParams = valid ? getParameters(qrData) : {"":""};
-    Timer(const Duration(seconds: 1), () {
+    /*Future.delayed(const Duration(seconds: 1), () {
       //TODO uncomment for production
-      /*if (valid){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(scanParams: scanParams)));
-      }*/
+      if (valid){
+        print("called");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));
+      }
       //Development:
-      Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(scanParams: scanParams)));
-    });
-    //TODO extact to individual widgets
+      *//*Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));*//*
+    });*/
+    //TODO extract to individual widgets
     return Scaffold(
       body: valid //QR code is valid
           ? Center(
-              child: isSmallScreen
-                  ? Column(
+              child: isSmallScreen ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Logo(
-                          validQr: valid,
+                          validQr: valid
                         ),
                         //_FormContent(),
+                        SingleChildScrollView(
+                          padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                          child: Column(
+                            children: [
+                              const TOTPHeaderWidget(),
+                              PinputWidget(scanParams: scanParams),
+                            ],
+                          ),
+                        ),
                       ],
                     )
                   : Container(
@@ -44,6 +53,7 @@ class ScanValidationScreen extends StatelessWidget {
                           Expanded(
                             child: Logo(validQr: valid),
                           ),
+
                           //Expanded(
                           //child: Center(child: _FormContent()),
                           //),
@@ -73,8 +83,7 @@ class ScanValidationScreen extends StatelessWidget {
                     )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context)
-            .popUntil((route) => !Navigator.canPop(context)),
+        onPressed: () => Navigator.of(context).pop(),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
     );

@@ -1,29 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_voting_verifier/models/second_device_login.dart';
 import 'package:mobile_voting_verifier/repositories/post_login_request.dart';
-import 'package:mobile_voting_verifier/utilities/api_calls.dart';
 import 'package:pinput/pinput.dart';
+
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
-class TOTPScreen extends StatefulWidget {
-  const TOTPScreen({Key? key, required this.scanParams}) : super(key: key);
+class PinputWidget extends StatefulWidget {
+  const PinputWidget({Key? key, required this.scanParams}) : super(key: key);
   final Map<String, String> scanParams;
 
   @override
-  State<TOTPScreen> createState() => _TOTPScreenState();
+  State<PinputWidget> createState() => _PinputWidgetState();
 }
 
-class _TOTPScreenState extends State<TOTPScreen> {
-  final controller = TextEditingController();
-  final focusNode = FocusNode();
+class _PinputWidgetState extends State<PinputWidget> {
+  late TextEditingController controller;
+  late FocusNode _node;
 
   //Dispose after controller and focusNode after use
   @override
   void dispose() {
     controller.dispose();
-    focusNode.dispose();
+    _node.dispose();
     super.dispose();
+  }
+
+  //Init focusNode and controller
+  //Focus nodes request focus to the pinput widget
+  //Text controller used to interact with the input
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _node = FocusNode(debugLabel: 'Pin');
+    controller = TextEditingController();
+  }
+
+  String? _validate(String? pin) {
+    try {
+      var loginResponse =
+          login(widget.scanParams['vid']!, widget.scanParams['nonce']!, pin!);
+      return null;
+    } on ArgumentError catch (e) {
+      return e.name;
+    } catch (e) {
+      debugPrint(e.toString());
+      return "Missing params";
+    } finally {
+      controller.clear();
+    }
   }
 
   @override
@@ -36,7 +61,7 @@ class _TOTPScreenState extends State<TOTPScreen> {
         color: const Color.fromRGBO(70, 69, 66, 1),
       ),
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(232, 235, 241, 0.37),
+        color: Colors.black12,
         borderRadius: BorderRadius.circular(24),
       ),
     );
@@ -57,19 +82,27 @@ class _TOTPScreenState extends State<TOTPScreen> {
 
     return Pinput(
       length: 6,
-      validator: (pin) {
-        //vid, nonce, pw
-        var loginResponse = login(widget.scanParams['vid']!, widget.scanParams['nonce']!, pin!);
-        return throw UnimplementedError();
-      },
-      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+      validator: (pin) => _validate(pin),
+      autofocus: true,
+      onTap: () => _node.requestFocus(),
+      onTapOutside: (e) => FocusScope.of(context).unfocus(),
       controller: controller,
-      focusNode: focusNode,
+      focusNode: _node,
       defaultPinTheme: defaultPinTheme,
+      submittedPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          color: Colors.grey,
+          borderRadius: BorderRadius.circular(19),
+          border: Border.all(color: Colors.black),
+        ),
+      ),
+      errorPinTheme: defaultPinTheme.copyBorderWith(
+        border: Border.all(color: Colors.redAccent),
+      ),
       separator: const SizedBox(width: 16),
       focusedPinTheme: defaultPinTheme.copyWith(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.black12,
           borderRadius: BorderRadius.circular(8),
           boxShadow: const [
             BoxShadow(

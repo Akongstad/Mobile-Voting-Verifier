@@ -1,37 +1,36 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/election_data.dart';
-import 'package:mobile_voting_verifier/models/enums/language.dart';
-import 'package:mobile_voting_verifier/models/i_18_n.dart';
-import 'package:test/test.dart';
+import 'package:mobile_voting_verifier/repositories/fetch_election_data.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'fetch_election_data_test.mocks.dart';
+
+@GenerateMocks([http.Client])
 void main() {
-  var client = MockClient((request) async {
-    if (request.url.path != "/rest/electionData") {
-      return Response("", 404);
-    }
-    return Response(
-        json.encode({
-          'title': {'default': 'My Election Title', 'value': {}},
-          'languages': ['EN', 'DE']
-        }),
-        200,
-        headers: {'content-type': 'application/json'});
-  });
+  group('fetchElectionData', () {
+    test('returns ElectionData if the http call completes successfully',
+        () async {
+      final client = MockClient();
 
-  test('Election data should be fetched from vote server API', () async {
-    var response = await client.get(Uri.https('', '/rest/electionData'));
+      when(client.get(Uri.parse('/rest/electionData'))).thenAnswer((_) async =>
+          http.Response('{"title": {"default": "My Election Title"}}', 200));
 
-    var matcher = electionDataFromJson(jsonDecode(response.body));
+      var actual = await fetchElectionData(client);
+      var expected = ElectionData(title: 'My Election Title');
 
-    ElectionData expected = ElectionData(
-        languages: [Language.en, Language.de],
-        title: I18n(default_: "My Election Title", value: {}));
+      expect(await fetchElectionData(client), isA<ElectionData>());
+      expect(actual.title, expected.title);
+    });
 
-    expect(expected.languages, matcher.languages);
-    expect(expected.title.default_, matcher.title.default_);
-    expect(expected.title.value, matcher.title.value);
+    test('throws an exception if the http call completes with an error', () {
+      final client = MockClient();
+
+      when(client.get(Uri.parse('/rest/electionData')))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+
+      expect(fetchElectionData(client), throwsException);
+    });
   });
 }

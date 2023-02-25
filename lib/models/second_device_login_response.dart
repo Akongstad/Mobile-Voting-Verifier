@@ -29,33 +29,39 @@ class SecondDeviceLoginResponse {
     required this.title,
     required this.token,
   });
-  //TODO Add fromJson factory methods to subtypes.
-  SecondDeviceLoginResponse.fromJson(Map<String, dynamic> json)
-      : allowInvalid = json['allowInvalid'],
-        ballotVoterId = json['ballotVoterId'],
-        contentAbove = json['contentAbove'],
-        electionId = json['electionId'],
-        initialMessage = json['initialMessage'],
-        languages = json['languages'],
-        logo = json['logo'],
-        messages = json['messages'],
-        publicLabel = json['publicLabel'],
-        title = json['title'],
-        token = json['token'];
 
+  //TODO Add fromJson factory methods to subtypes.
+  SecondDeviceLoginResponse.fromJson(Map<String, dynamic> jsonData)
+      : token = jsonData['value']['token'],
+        ballotVoterId = jsonData['value']['ballotVoterId'],
+        electionId = jsonData['value']['electionId'],
+        languages = (jsonData['value']['languages'] as List)
+            .map((e) => Language.fromJson(e))
+            .toList(),
+        title = I18n.fromJsonString(jsonData['value']['title']),
+        contentAbove = Text.fromJson(jsonData['value']['contentAbove']["value"]),
+        //TODO handle polymorphism
+        publicLabel = jsonData['value']['publicLabel'],
+        messages = (jsonData['value']['messages'] as Map).map(
+            (key, value) =>
+                MapEntry(key, I18n.fromJsonString(value))),
+        allowInvalid = jsonData['value']['allowInvalid'] as bool,
+        initialMessage = jsonData['value']['initialMessage'],
+        logo = null;
+
+        //logo = I18n.fromJsonMap(jsonData['logo'], ImageRef.fromJson);
 
   Map<String, dynamic> toJson() => {
-    'allowInvalid ': allowInvalid,
-    'ballotVoterId': ballotVoterId,
-    'contentAbove' : contentAbove ?? "",
-    'electionId' : electionId,
-    'initialMessage' : initialMessage,
-    'languages' : languages,
-    'logo' : logo ?? "",
-    'messages' :  messages,
-    'publicLabel' : publicLabel,
-    'title' : title,
-    'token' : token
-  };
-
+        'allowInvalid ': allowInvalid,
+        'ballotVoterId': ballotVoterId,
+        'contentAbove': contentAbove ?? "",
+        'electionId': electionId,
+        'initialMessage': initialMessage,
+        'languages': languages,
+        'logo': logo ?? "",
+        'messages': messages,
+        'publicLabel': publicLabel,
+        'title': title,
+        'token': token
+      };
 }

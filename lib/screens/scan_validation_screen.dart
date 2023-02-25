@@ -11,38 +11,37 @@ class ScanValidationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool first = false; //Show checkmark widget
+    Future.delayed(const Duration(seconds: 1), () =>  {
+      first = true,
+      (context as Element).markNeedsBuild()
+    });
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
     final valid = isValid(qrData);
-    final scanParams = valid ? getParameters(qrData) : {"":""};
-    /*Future.delayed(const Duration(seconds: 1), () {
-      //TODO uncomment for production
-      if (valid){
-        print("called");
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));
-      }
-      //Development:
-      *//*Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));*//*
-    });*/
+    final scanParams = valid ? getParameters(qrData) : {"": ""};
     //TODO extract to individual widgets
     return Scaffold(
       body: valid //QR code is valid
           ? Center(
-              child: isSmallScreen ? Column(
+              child: isSmallScreen
+                  ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Logo(
-                          validQr: valid
-                        ),
-                        //_FormContent(),
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
-                          child: Column(
-                            children: [
-                              const TOTPHeaderWidget(),
-                              PinputWidget(scanParams: scanParams),
-                            ],
+                        AnimatedCrossFade(
+                          firstChild: Logo(validQr: valid),
+                          crossFadeState: first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          duration: const Duration(milliseconds: 200),
+                          secondChild: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                            child: Column(
+                              children: [
+                                const TOTPHeaderWidget(),
+                                PinputWidget(scanParams: scanParams),
+                                //_FormContent(),
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     )
                   : Container(
@@ -60,7 +59,8 @@ class ScanValidationScreen extends StatelessWidget {
                         ],
                       ),
                     ))
-          : Center( //QR code isInvalid
+          : Center(
+              //QR code isInvalid
               child: isSmallScreen
                   ? Column(
                       mainAxisSize: MainAxisSize.min,

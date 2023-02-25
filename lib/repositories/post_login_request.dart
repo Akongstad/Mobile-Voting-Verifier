@@ -28,10 +28,10 @@ Future<SecondDeviceLoginResponse> login(String voterId, String nonce, String pas
   );
   return await httpResponse.then((value) async {
     var responseData = await compute(parseResponseData, value.body);
-    if (!responseData.containsKey("status") && responseData["status"] != "ERROR")
+    if (responseData["status"] != "OK")
     {
       //Login succeeded
-      return SecondDeviceLoginResponse.fromJson(responseData);
+      return SecondDeviceLoginResponse.fromJson(responseData["value"]);
     }
     //Login Failed
     return throw ArgumentError("Invalid TOTP Password", "FailedLoginEvent");

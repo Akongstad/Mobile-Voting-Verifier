@@ -15,10 +15,9 @@ import 'post_challenge_request_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   group('postChallengeRequest', () {
+    final client = MockClient();
     test('returns ResponseBean OK if the http call completes successfully',
         () async {
-      final client = MockClient();
-
       ChallengeRequest challengeRequest = ChallengeRequest(
           challenge: BigInt.parse('111222333444555666777888'),
           challengeRandomCoin: BigInt.parse('999999900000008888888001'));
@@ -46,8 +45,6 @@ void main() {
     });
 
     test('throws an exception if the http call completes unauthorized', () {
-      final client = MockClient();
-
       ChallengeRequest challengeRequest = ChallengeRequest(
           challenge: BigInt.parse('111222333444555666777888'),
           challengeRandomCoin: BigInt.parse('999999900000008888888001'));
@@ -69,8 +66,6 @@ void main() {
     test(
         'throws an exception if the http call completes with an unexpected error',
         () {
-      final client = MockClient();
-
       ChallengeRequest challengeRequest = ChallengeRequest(
           challenge: BigInt.parse('111222333444555666777888'),
           challengeRandomCoin: BigInt.parse('999999900000008888888001'));

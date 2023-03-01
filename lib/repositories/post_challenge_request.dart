@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
-import 'package:mobile_voting_verifier/models/response_bean.dart';
 import 'package:mobile_voting_verifier/models/second_device_final_msg.dart';
 
 Future<SecondDeviceFinalMsg> createChallenge(http.Client client,
@@ -20,8 +19,8 @@ Future<SecondDeviceFinalMsg> createChallenge(http.Client client,
       jsonDecode(response.body)['status'] == "OK") {
     return SecondDeviceFinalMsg.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 401) {
-    throw Exception('Unauthorized');
+    return throw Exception('Unauthorized');
   } else {
-    throw Exception('Failed to post challengeRequest');
+    return throw Exception('Failed to post challengeRequest');
   }
 }

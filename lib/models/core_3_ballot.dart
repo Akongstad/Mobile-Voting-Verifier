@@ -3,10 +3,14 @@ import 'dart:ffi';
 import 'package:mobile_voting_verifier/models/content.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
-abstract class Core3Ballot {}
+abstract class Core3Ballot {
+  Core3Ballot();
+
+  Core3Ballot.fromJson();
+}
 
 class Core3StandardBallot extends Core3Ballot {
-  final Bool calculateAvailableVotes;
+  final bool calculateAvailableVotes;
   final String? colorSchema;
   final Content? contentAbove;
   final Content? contentBelow;
@@ -20,10 +24,10 @@ class Core3StandardBallot extends Core3Ballot {
   final int minVotes;
   final int? minVotesForCandidates;
   final int? minVotesForLists;
-  final Bool prohibitLessVotes;
-  final Bool prohibitMoreVotes;
-  final Bool showAbstainOption;
-  final Bool showInvalidOption;
+  final bool prohibitLessVotes;
+  final bool prohibitMoreVotes;
+  final bool showAbstainOption;
+  final bool showInvalidOption;
   final I18n<String> title;
   final type = "STANDARD_BALLOT";
 
@@ -48,6 +52,31 @@ class Core3StandardBallot extends Core3Ballot {
     required this.showInvalidOption,
     required this.title,
   });
+
+  factory Core3StandardBallot.fromJson(Map<String, dynamic> json) => Core3StandardBallot(
+          calculateAvailableVotes: json['calculateAvailableVotes'] as bool,
+          colorSchema: json['colorSchema'],
+          contentAbove: Text.fromJson(json['contentAbove']["value"]),
+          contentBelow: Text.fromJson(json['contentBelow']["value"]),
+          externalIdentification: json['externalIdentification'],
+          id: json['id'],
+          lists: (json['lists'] as List)
+              .map((e) => CandidateList.fromJson(e))
+              .toList(),
+          maxListsWithChoices: (json['maxListsWithChoices'] ?? 1 << 31) as int,
+          maxVotes: json['maxVotes'] as int,
+          maxVotesForCandidates: (json['maxVotesForCandidates'] ??
+              1 << 31) as int,
+          maxVotesForLists: (json['maxVotesForLists'] ?? 1 << 31) as int,
+          minVotes: (json['minVotes'] as int),
+          minVotesForCandidates: (json['minVotesForCandidates'] ?? 0) as int,
+          minVotesForLists: (json['minVotesForLists'] ?? 0) as int,
+          prohibitLessVotes: json['prohibitLessVotes'] as bool,
+          prohibitMoreVotes: json['prohibitMoreVotes'] as bool,
+          showAbstainOption: json['showAbstainOption'] as bool,
+          showInvalidOption: json['showInvalidOption'] as bool,
+          title: I18n.fromJsonString(json['title'])
+      );
 }
 
 class AutofillConfig {
@@ -97,6 +126,10 @@ class CandidateList {
     this.title,
     required this.voteCandidateXorList,
   });
+
+  factory CandidateList.fromJson(Map<String, dynamic> json){
+    return throw UnimplementedError();
+  }
 }
 
 class CandidateSpec {

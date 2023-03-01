@@ -30,7 +30,6 @@ class _PinputWidgetState extends State<PinputWidget> {
   //Text controller used to interact with the input
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _node = FocusNode(debugLabel: 'Pin');
     controller = TextEditingController();
@@ -83,7 +82,7 @@ class _PinputWidgetState extends State<PinputWidget> {
     return Pinput(
       length: 6,
       validator: (pin) => _validate(pin),
-      autofocus: true,
+      autofocus: false,
       onTap: () => _node.requestFocus(),
       onTapOutside: (e) => FocusScope.of(context).unfocus(),
       controller: controller,

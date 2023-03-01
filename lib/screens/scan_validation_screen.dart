@@ -1,48 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_voting_verifier/utilities/qr_utilities.dart';
 import 'package:mobile_voting_verifier/widgets/TOTPHeaderWidget.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
 import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
-class ScanValidationScreen extends StatelessWidget {
-  const ScanValidationScreen({super.key, required this.qrData});
+class ScanValidationScreen extends StatefulWidget {
+   const ScanValidationScreen({super.key, required this.valid, required this.scanParams});
 
-  final String qrData;
+   //valid qr-data?
+   final bool valid;
+   //If valid. Scan params else null
+   final Map<String, String>? scanParams;
 
   @override
+  State<ScanValidationScreen> createState() => _ScanValidationScreenState();
+}
+
+class _ScanValidationScreenState extends State<ScanValidationScreen> {
+  bool first = true;//Show checkmark widget
+  @override
   Widget build(BuildContext context) {
+    //Init crossfade animation
+    if (first) Future.delayed(const Duration(seconds: 2), () =>  setState(() => first = false));
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
-    final valid = isValid(qrData);
-    final scanParams = valid ? getParameters(qrData) : {"":""};
-    /*Future.delayed(const Duration(seconds: 1), () {
-      //TODO uncomment for production
-      if (valid){
-        print("called");
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));
-      }
-      //Development:
-      *//*Navigator.push(context, MaterialPageRoute(builder: (context) => TOTPScreen(PinputWidget(scanParams: scanParams))));*//*
-    });*/
     //TODO extract to individual widgets
     return Scaffold(
-      body: valid //QR code is valid
+      body: widget.valid //QR code is valid
           ? Center(
-              child: isSmallScreen ? Column(
+              child: isSmallScreen
+                  ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Logo(
-                          validQr: valid
-                        ),
-                        //_FormContent(),
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
-                          child: Column(
-                            children: [
-                              const TOTPHeaderWidget(),
-                              PinputWidget(scanParams: scanParams),
-                            ],
+                        AnimatedCrossFade(
+                          firstChild: Logo(validQr: widget.valid),
+                          crossFadeState: first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          duration: const Duration(milliseconds: 200),
+                          secondChild: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                            child: Column(
+                              children: [
+                                const TOTPHeaderWidget(),
+                                PinputWidget(scanParams: widget.scanParams!),
+                                //_FormContent(),
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     )
                   : Container(
@@ -51,7 +53,7 @@ class ScanValidationScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Logo(validQr: valid),
+                            child: Logo(validQr: widget.valid),
                           ),
 
                           //Expanded(
@@ -60,13 +62,14 @@ class ScanValidationScreen extends StatelessWidget {
                         ],
                       ),
                     ))
-          : Center( //QR code isInvalid
+          : Center(
+              //QR code isInvalid
               child: isSmallScreen
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Logo(
-                          validQr: valid,
+                          validQr: widget.valid,
                         ),
                       ],
                     )
@@ -76,14 +79,14 @@ class ScanValidationScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Logo(validQr: valid),
+                            child: Logo(validQr: widget.valid),
                           ),
                         ],
                       ),
                     )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Navigator.of(context).popUntil((route) => !Navigator.canPop(context)),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
     );

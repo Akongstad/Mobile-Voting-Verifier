@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/screens/catalog.dart';
-
+/*
+* Notes
+* Use icons.adaptive to auto fit platform
+*/
 Future<void> main() async {
   /*await myErrorsHandler.initialize();
   FlutterError.onError = (details) {
@@ -21,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      showPerformanceOverlay: true,
       builder: (context, widget) { // Custom error widget for build phase errors
         Widget error = const Text('...rendering error...');
         if (widget is Scaffold || widget is Navigator) {

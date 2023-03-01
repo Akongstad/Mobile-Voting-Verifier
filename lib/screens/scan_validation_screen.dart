@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_voting_verifier/models/qr_code.dart';
 import 'package:mobile_voting_verifier/widgets/TOTPHeaderWidget.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
 import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
 class ScanValidationScreen extends StatefulWidget {
-   const ScanValidationScreen({super.key, required this.valid, required this.scanParams});
+   const ScanValidationScreen({super.key, required this.valid, required this.qrCode});
 
    //valid qr-data?
    final bool valid;
    //If valid. Scan params else null
-   final Map<String, String>? scanParams;
+   final QRCode qrCode;
 
   @override
   State<ScanValidationScreen> createState() => _ScanValidationScreenState();
@@ -39,7 +40,7 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
                             child: Column(
                               children: [
                                 const TOTPHeaderWidget(),
-                                PinputWidget(scanParams: widget.scanParams!),
+                                PinputWidget(qrCode: widget.qrCode),
                                 //_FormContent(),
                               ],
                             ),

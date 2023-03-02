@@ -39,7 +39,7 @@ class SecondDeviceLoginResponse {
             .map((e) => Language.fromJson(e))
             .toList(),
         title = I18n.fromJsonString(jsonData['value']['title']),
-        contentAbove = Text.fromJson(jsonData['value']['contentAbove']["value"]),
+        contentAbove = Content.fromJson(jsonData['value']['contentAbove']["value"]),
         //TODO handle polymorphism
         publicLabel = jsonData['value']['publicLabel'],
         messages = (jsonData['value']['messages'] as Map).map(

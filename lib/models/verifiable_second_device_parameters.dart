@@ -15,6 +15,5 @@ class VerifiableSecondDeviceParameters {
       : publicKey = json["publicKey"],
         verificationKey = json["verificationKey"],
         ballots = (json["ballots"] as List)
-            .map((e) => Core3StandardBallot.fromJson(e))
-            .toList();
+            .map((e) => Core3Ballot.fromJson(e)).toList();
 }

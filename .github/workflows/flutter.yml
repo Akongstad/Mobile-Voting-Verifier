@@ -18,5 +18,6 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.8.0-10.1.pre'
+        channel: 'beta'
     - run: flutter pub get
     - run: flutter test

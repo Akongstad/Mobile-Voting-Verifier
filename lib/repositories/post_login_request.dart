@@ -1,12 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/second_device_login.dart';
 import 'package:mobile_voting_verifier/models/second_device_login_response.dart';
-
-Future<String> calculateChallengeCommitment() async {
-  return throw UnimplementedError();
-}
 
 Future<SecondDeviceLoginResponse> login(http.Client client, String voterId,
     String nonce, String password, String challengeCommitment) async {

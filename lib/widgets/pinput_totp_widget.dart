@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_voting_verifier/models/qr_code.dart';
 import 'package:mobile_voting_verifier/repositories/post_login_request.dart';
 import 'package:pinput/pinput.dart';
+import 'package:http/io_client.dart' as http;
 
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
 class PinputWidget extends StatefulWidget {
-  const PinputWidget({Key? key, required this.scanParams}) : super(key: key);
-  final Map<String, String> scanParams;
+  const PinputWidget({Key? key, required this.qrCode}) : super(key: key);
+  final QRCode qrCode;
 
   @override
   State<PinputWidget> createState() => _PinputWidgetState();
@@ -37,8 +39,9 @@ class _PinputWidgetState extends State<PinputWidget> {
 
   String? _validate(String? pin) {
     try {
-      var loginResponse =
-          login(widget.scanParams['vid']!, widget.scanParams['nonce']!, pin!);
+      String challengeCommitment =
+          "challenge"; //calculateChallengeCommitment(); //TODO
+      var loginResponse = login(http.IOClient(), widget.qrCode.vid, widget.qrCode.nonce, pin!, challengeCommitment);
       return null;
     } on ArgumentError catch (e) {
       return e.name;

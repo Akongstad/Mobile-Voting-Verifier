@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:mobile_voting_verifier/models/qr_code.dart';
 import 'package:mobile_voting_verifier/screens/scan_validation_screen.dart';
-import 'package:mobile_voting_verifier/utilities/qr_utilities.dart';
 import 'package:mobile_voting_verifier/widgets/qr_scanner_overlay.dart';
 //Page with qr-scanner
 class QrScannerPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class QrScannerPage extends StatelessWidget {
             } else {
               final String code = barcode.rawValue!;
               debugPrint('Barcode found! $code');
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  ScanValidationScreen(valid: isValid(code), scanParams: getParameters(code))));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  ScanValidationScreen(valid: QRCode.isValid(code), qrCode: QRCode.fromString(code))));
             }
           }),
           QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1))

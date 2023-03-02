@@ -25,8 +25,7 @@ final pages = [
       textColor: Colors.white,
       gradiantColor: Colors.indigo,
       destinationPage: HomePage(title: 'title'),
-      url: 'https://github.com/Akongstad/Mobile-Voting-Verifier'
-  ),
+      url: 'https://github.com/Akongstad/Mobile-Voting-Verifier'),
 ];
 
 class PageData {
@@ -39,16 +38,15 @@ class PageData {
   final Widget destinationPage;
   final String? url; //Webpage link for pages pointing to web location
 
-  const PageData({
-    this.title = "Default Title",
-    this.description = "Default Description",
-    this.icon,
-    this.bgColor = Colors.white,
-    this.textColor = Colors.black,
-    this.gradiantColor = Colors.blue,
-    required this.destinationPage,
-    this.url
-  });
+  const PageData(
+      {this.title = "Default Title",
+      this.description = "Default Description",
+      this.icon,
+      this.bgColor = Colors.white,
+      this.textColor = Colors.black,
+      this.gradiantColor = Colors.blue,
+      required this.destinationPage,
+      this.url});
 }
 
 class Catalog extends StatefulWidget {
@@ -57,7 +55,8 @@ class Catalog extends StatefulWidget {
   @override
   State<Catalog> createState() => _CatalogState();
 }
-class _CatalogState extends State<Catalog>{
+
+class _CatalogState extends State<Catalog> {
   // Store the currently visible page
   int _currentPage = 0;
   // Define a controller for the pageview
@@ -69,11 +68,13 @@ class _CatalogState extends State<Catalog>{
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         decoration: BoxDecoration(
-          gradient:  LinearGradient(
+          gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: const Alignment(0.8, 1),
-              colors: [pages[_currentPage].bgColor, pages[_currentPage].gradiantColor,]
-          ),
+              colors: [
+                pages[_currentPage].bgColor,
+                pages[_currentPage].gradiantColor,
+              ]),
         ),
         child: SafeArea(
           child: Column(
@@ -84,8 +85,8 @@ class _CatalogState extends State<Catalog>{
                   controller: _pageController,
                   itemCount: pages.length,
                   onPageChanged: (idx) async => setState(() {
-                      _currentPage = idx;
-                    }),
+                    _currentPage = idx;
+                  }),
                   itemBuilder: (context, idx) {
                     final item = pages[idx];
                     return Column(
@@ -100,20 +101,24 @@ class _CatalogState extends State<Catalog>{
                                 onTap: () async {
                                   if (item.url != null) {
                                     var uri = Uri.parse(item.url!);
-                                    var urlLaunchable = await canLaunchUrl(uri); //canLaunch is from url_launcher package
-                                    if(urlLaunchable){
-                                      await launchUrl(uri); //launch is from url_launcher package to launch URL
+                                    var urlLaunchable = await canLaunchUrl(
+                                        uri); //canLaunch is from url_launcher package
+                                    if (urlLaunchable) {
+                                      await launchUrl(
+                                          uri); //launch is from url_launcher package to launch URL
                                     } else {
                                       print("URL can't be launched.");
                                     }
                                   } else {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (context) => item.destinationPage));
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                item.destinationPage));
                                   }
                                 },
-                                child: Icon(item.icon,
-                                  size: MediaQuery.of(context).size.width/2,
+                                child: Icon(
+                                  item.icon,
+                                  size: MediaQuery.of(context).size.width / 2,
                                   color: Colors.grey[200],
                                 ),
                               ),
@@ -130,13 +135,13 @@ class _CatalogState extends State<Catalog>{
                                         .textTheme
                                         .titleLarge
                                         ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: item.textColor,
-                                    )),
+                                          fontWeight: FontWeight.bold,
+                                          color: item.textColor,
+                                        )),
                               ),
                               Container(
                                 constraints:
-                                const BoxConstraints(maxWidth: 280),
+                                    const BoxConstraints(maxWidth: 280),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0, vertical: 8.0),
                                 child: Text(item.description,
@@ -145,8 +150,8 @@ class _CatalogState extends State<Catalog>{
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
-                                      color: item.textColor,
-                                    )),
+                                          color: item.textColor,
+                                        )),
                               )
                             ]))
                       ],
@@ -160,14 +165,14 @@ class _CatalogState extends State<Catalog>{
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: pages
                     .map((item) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: pages[_currentPage] == item ? 36 : 10,
-                  height: 10,
-                  margin: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0)),
-                ))
+                          duration: const Duration(milliseconds: 250),
+                          width: pages[_currentPage] == item ? 36 : 10,
+                          height: 10,
+                          margin: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ))
                     .toList(),
               ),
             ],

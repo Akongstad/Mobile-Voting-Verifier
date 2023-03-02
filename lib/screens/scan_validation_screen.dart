@@ -5,23 +5,26 @@ import 'package:mobile_voting_verifier/widgets/logo.dart';
 import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
 class ScanValidationScreen extends StatefulWidget {
-   const ScanValidationScreen({super.key, required this.valid, required this.qrCode});
+  const ScanValidationScreen(
+      {super.key, required this.valid, required this.qrCode});
 
-   //valid qr-data?
-   final bool valid;
-   //If valid. Scan params else null
-   final QRCode qrCode;
+  //valid qr-data?
+  final bool valid;
+  //If valid. Scan params else null
+  final QRCode qrCode;
 
   @override
   State<ScanValidationScreen> createState() => _ScanValidationScreenState();
 }
 
 class _ScanValidationScreenState extends State<ScanValidationScreen> {
-  bool first = true;//Show checkmark widget
+  bool first = true; //Show checkmark widget
   @override
   Widget build(BuildContext context) {
     //Init crossfade animation
-    if (first) Future.delayed(const Duration(seconds: 2), () =>  setState(() => first = false));
+    if (first)
+      Future.delayed(
+          const Duration(seconds: 2), () => setState(() => first = false));
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
     //TODO extract to individual widgets
     return Scaffold(
@@ -33,7 +36,9 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
                       children: [
                         AnimatedCrossFade(
                           firstChild: Logo(validQr: widget.valid),
-                          crossFadeState: first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          crossFadeState: first
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
                           duration: const Duration(milliseconds: 200),
                           secondChild: SingleChildScrollView(
                             padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
@@ -87,7 +92,8 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
                     )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).popUntil((route) => !Navigator.canPop(context)),
+        onPressed: () => Navigator.of(context)
+            .popUntil((route) => !Navigator.canPop(context)),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
     );

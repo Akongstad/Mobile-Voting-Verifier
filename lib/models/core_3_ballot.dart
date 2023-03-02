@@ -53,7 +53,8 @@ class Core3StandardBallot extends Core3Ballot {
     required this.title,
   });
 
-  factory Core3StandardBallot.fromJson(Map<String, dynamic> json) => Core3StandardBallot(
+  factory Core3StandardBallot.fromJson(Map<String, dynamic> json) =>
+      Core3StandardBallot(
           calculateAvailableVotes: json['calculateAvailableVotes'] as bool,
           colorSchema: json['colorSchema'],
           contentAbove: Text.fromJson(json['contentAbove']["value"]),
@@ -65,8 +66,8 @@ class Core3StandardBallot extends Core3Ballot {
               .toList(),
           maxListsWithChoices: (json['maxListsWithChoices'] ?? 1 << 31) as int,
           maxVotes: json['maxVotes'] as int,
-          maxVotesForCandidates: (json['maxVotesForCandidates'] ??
-              1 << 31) as int,
+          maxVotesForCandidates:
+              (json['maxVotesForCandidates'] ?? 1 << 31) as int,
           maxVotesForLists: (json['maxVotesForLists'] ?? 1 << 31) as int,
           minVotes: (json['minVotes'] as int),
           minVotesForCandidates: (json['minVotesForCandidates'] ?? 0) as int,
@@ -75,23 +76,28 @@ class Core3StandardBallot extends Core3Ballot {
           prohibitMoreVotes: json['prohibitMoreVotes'] as bool,
           showAbstainOption: json['showAbstainOption'] as bool,
           showInvalidOption: json['showInvalidOption'] as bool,
-          title: I18n.fromJsonString(json['title'])
-      );
+          title: I18n.fromJsonString(json['title']));
 }
 
 class AutofillConfig {
-  final Bool skipVoted;
+  final bool skipVoted;
   final AutofillSpec spec;
 
   AutofillConfig({
     required this.skipVoted,
     required this.spec,
   });
+
+  AutofillConfig.fromJson(Map<String, dynamic> json)
+      : skipVoted = json['skipVoted'] as bool,
+        spec = AutofillSpec.fromJson(json['spec']);
 }
 
 enum AutofillSpec {
-  balanced,
-  topdown;
+  BALANCED,
+  TOPDOWN;
+
+  static AutofillSpec fromJson(String json) => values.byName(json);
 }
 
 class CandidateList {
@@ -127,7 +133,7 @@ class CandidateList {
     required this.voteCandidateXorList,
   });
 
-  factory CandidateList.fromJson(Map<String, dynamic> json){
+  factory CandidateList.fromJson(Map<String, dynamic> json) {
     return throw UnimplementedError();
   }
 }

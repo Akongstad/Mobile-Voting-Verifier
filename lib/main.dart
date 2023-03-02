@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      showPerformanceOverlay: true,
+      showPerformanceOverlay: false, // For testing UI performance
       builder: (context, widget) { // Custom error widget for build phase errors
         Widget error = const Text('...rendering error...');
         if (widget is Scaffold || widget is Navigator) {

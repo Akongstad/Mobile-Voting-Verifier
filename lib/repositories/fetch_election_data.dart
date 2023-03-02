@@ -10,6 +10,6 @@ Future<ElectionData> fetchElectionData(http.Client client) async {
   if (response.statusCode == 200) {
     return ElectionData.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load election data');
+    return throw Exception('Failed to load election data');
   }
 }

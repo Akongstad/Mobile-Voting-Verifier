@@ -4,37 +4,37 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/second_device_login.dart';
 import 'package:mobile_voting_verifier/models/second_device_login_response.dart';
 
-Future<String> calculateChallengeCommitment() async{
+Future<String> calculateChallengeCommitment() async {
   return throw UnimplementedError();
 }
-Future<Map<String, dynamic>> parseResponseData(String responseBody) async =>
-    jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-
-
-Future<SecondDeviceLoginResponse> login(String voterId, String nonce, String password) async {
-  //Calculate challenge commitment
-  var challengeCommitment = calculateChallengeCommitment();
+Future<SecondDeviceLoginResponse> login(http.Client client, String voterId,
+    String nonce, String password, String challengeCommitment) async {
   //Generate login request
-  var loginRequest = SecondDeviceLogin(challengeCommitment: await challengeCommitment,
-      nonce: nonce, password: password, voterId: voterId);
+  var loginRequest = SecondDeviceLogin(
+      challengeCommitment: challengeCommitment,
+      nonce: nonce,
+      password: password,
+      voterId: voterId);
   //Perform http request
-  var httpResponse = http.post(
-    Uri.parse('rest/login'), //TODO change to actual URL
+  final response = await client.post(
+    Uri.parse('/rest/login'), //TODO change to actual URL
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: loginRequest.toJson(),
   );
-  return await httpResponse.then((value) async {
-    var responseData = await compute(parseResponseData, value.body);
-    if (responseData["status"] != "OK")
-    {
-      //Login succeeded
-      return SecondDeviceLoginResponse.fromJson(responseData["value"]);
-    }
+
+  if (response.statusCode == 200 &&
+      jsonDecode(response.body)["status"] == "OK") {
+    //Login succeeded
+    return SecondDeviceLoginResponse.fromJson(jsonDecode(response.body));
+  } else if (response.statusCode == 200) {
     //Login Failed
     return throw ArgumentError("Invalid TOTP Password", "FailedLoginEvent");
-  });
+  } else {
+    return throw ArgumentError(
+        "Failed to connect to end-point due to status code: ${response.statusCode}",
+        "HTTPConnectionFailedEvent");
+  }
 }
-

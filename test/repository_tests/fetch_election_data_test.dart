@@ -10,10 +10,10 @@ import 'fetch_election_data_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   group('fetchElectionData', () {
+    final client = MockClient();
+
     test('returns ElectionData if the http call completes successfully',
         () async {
-      final client = MockClient();
-
       when(client.get(Uri.parse('/rest/electionData'))).thenAnswer((_) async =>
           http.Response('{"title": {"default": "My Election Title"}}', 200));
 
@@ -27,8 +27,6 @@ void main() {
     test(
         'throws an exception if the http call completes with an unexpected error',
         () {
-      final client = MockClient();
-
       when(client.get(Uri.parse('/rest/electionData')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 

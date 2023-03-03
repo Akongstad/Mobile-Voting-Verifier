@@ -1,9 +1,7 @@
 import 'package:mobile_voting_verifier/models/content.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
-sealed
-
-class Core3Ballot {
+sealed class Core3Ballot {
 
   Core3Ballot();
 

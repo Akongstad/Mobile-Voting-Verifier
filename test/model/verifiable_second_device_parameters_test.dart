@@ -138,8 +138,6 @@ void main() {
 
   group('verifyHash tests', () {
     // Arrange
-    const publicParametersString = "{\"publicKey\":\"0279c6148c38b2ed3d52dcc3f21c30b4923ed764a94e39d6bf62030e7e66e5d6a1\",\"verificationKey\":\"30820122300d06092a864886f70d01010105000382010f003082010a0282010100883474dfb66b3b466636932bdd9c4edbd5052860009e87e552bbbe2c6602fdc009fa444eebe3249a9ca63de9891707025a3dfba4b825dc481c9f28c7d70aa0b63f77fe5a970f557892826162c5bbe683db5a01d508b5885d9a0e1a36ac73D\",\"ballots\":[{\"type\":\"STANDARD_BALLOT\",\"id\":\"0\",\"title\":{\"default\":\"ballot 0\",\"value\":{}},\"lists\":[{\"id\":\"0-0\",\"title\":{\"default\":\"List 0\",\"value\":{}},\"columnHeaders\":[{\"default\":\"List 0\",\"value\":{}}],\"candidates\":[{\"id\":\"0-0-0\",\"columns\":[],\"maxVotes\":1,\"minVotes\":0},{\"id\":\"0-0-1\",\"columns\":[],\"maxVotes\":1,\"minVotes\":0}],\"maxVotesOnList\":999,\"minVotesOnList\":0,\"maxVotesForList\":999,\"minVotesForList\":0,\"voteCandidateXorList\":false,\"countCandidateVotesAsListVotes\":false}],\"showInvalidOption\":true,\"showAbstainOption\":false,\"maxVotes\":999,\"minVotes\":0,\"prohibitMoreVotes\":true,\"prohibitLessVotes\":true,\"calculateAvailableVotes\":false}]}";
-    const fingerprint = "fcb12ff5a3d533e171168f8fa605993710aea070285e67a0d60fc4dd2c01d166";
     test('verifyHash returns true given correct matching fingerprint and string', () async {
       //Assert
       var actual = await VerifiableSecondDeviceParameters.verifyHash();

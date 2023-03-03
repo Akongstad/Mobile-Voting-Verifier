@@ -38,5 +38,5 @@ class Text extends Content {
 
   @override
   Text.fromJson(Map<String, dynamic> json) :
-        value = I18n.fromJsonString(json);
+        value = I18n.fromJsonString(json['value']);
 }

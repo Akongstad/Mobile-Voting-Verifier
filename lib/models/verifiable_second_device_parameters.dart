@@ -26,6 +26,7 @@ class VerifiableSecondDeviceParameters {
   factory VerifiableSecondDeviceParameters.fromString(String jsonString) =>
       VerifiableSecondDeviceParameters.fromJson(json.decode(jsonString));
 
+  //------UTILITIES for checking integrity of second device parameters----------
   /*
   * Read jsonObject from file.
   * Used with verify hash to verify public parameters fingerprint.
@@ -41,15 +42,30 @@ class VerifiableSecondDeviceParameters {
   }
 
   /*
-  * The verification procedure check 1
-  * The fingerprint FINGERPRINT is in fact the SHA256 hash of PUBLIC_PARAMETERS_JSON
+  * Verification procedure for preconfigured parameters
+  * The fingerprint FINGERPRINT is in fact the SHA512 hash of PUBLIC_PARAMETERS_JSON
   */
-  static Future<bool> verifyHash() async {
+  static Future<bool> verifyFingerprint() async {
     final paramsJson = await jsonFromFile("assets/public_parameters.json");
     var paramsBytes = utf8.encode(paramsJson["publicParametersJson"]);
-    const Hash algorithm = sha256;
-    var paramsSHA256 = algorithm.convert(paramsBytes);
+    const Hash algorithm = sha512;
+    var paramsSHA512 = algorithm.convert(paramsBytes);
 
-    return paramsSHA256.toString() == paramsJson["fingerprint"];
+    return paramsSHA512.toString() == paramsJson["fingerprint"];
+  }
+  /*
+  * The verification procedure for parameters from the SecondDeviceInitialMsg
+  * The fingerprint is in fact the SHA256 hash of secondDevicePublicParameters
+  * from SecondDeviceInitialMsg
+  */
+  static Future<bool> verifySecondDeviceParameters(String secondDevicePublicParameters) async {
+    final paramsJson = await jsonFromFile("assets/public_parameters.json");
+    var fingerprint = paramsJson["fingerprint"];
+
+    var paramsBytes = utf8.encode(secondDevicePublicParameters);
+    const Hash algorithm = sha512;
+    var paramsSHA512 = algorithm.convert(paramsBytes);
+
+    return paramsSHA512.toString() == fingerprint;
   }
 }

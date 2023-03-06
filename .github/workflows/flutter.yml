@@ -20,4 +20,4 @@ jobs:
         channel: 'beta'
     - run: flutter --version
     - run: flutter pub get
-    - run: flutter test
+    - run: flutter test --enable-experiment=sealed-class --enable-experiment=patterns

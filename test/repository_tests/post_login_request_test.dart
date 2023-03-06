@@ -61,8 +61,7 @@ void main() {
       expect(actual.title.default_, expected.title.default_);
       expect(actual.title.value, expected.title.value);
 
-      expect((actual.contentAbove as Text).contentType,
-          (expected.contentAbove as Text).contentType);
+      expect(actual.contentAbove?.contentType, expected.contentAbove?.contentType);
       expect((actual.contentAbove as Text).value.default_,
           (expected.contentAbove as Text).value.default_);
       expect((actual.contentAbove as Text).value.value,

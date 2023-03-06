@@ -3,21 +3,15 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_voting_verifier/models/second_device_login.dart';
 import 'package:mobile_voting_verifier/models/second_device_login_response.dart';
 
-Future<SecondDeviceLoginResponse> login(http.Client client, String voterId,
-    String nonce, String password, String challengeCommitment) async {
-  //Generate login request
-  var loginRequest = SecondDeviceLogin(
-      challengeCommitment: challengeCommitment,
-      nonce: nonce,
-      password: password,
-      voterId: voterId);
+Future<SecondDeviceLoginResponse> login(
+    http.Client client, SecondDeviceLogin secondDeviceLogin) async {
   //Perform http request
   final response = await client.post(
     Uri.parse('/rest/login'), //TODO change to actual URL
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: loginRequest.toJson(),
+    body: secondDeviceLogin.toJson(),
   );
 
   if (response.statusCode == 200 &&

@@ -35,12 +35,7 @@ void main() {
           '{"value": {"token" : "MDIwNWJmMmUxNDQ5NmY2OGMwZjg2ZjZiMzEzZjIxMGE5MzkzZWRiMDgzODIxZGNjNGY5OTE0Y2FiOWM1MWM5ZjJl", "ballotVoterId" : "0205bf2e14496f68c0f86f6b313f210a9393edb083821dcc4f9914cab9c51c9f2e", "electionId" : "bfced618-34aa-4b78-ba5b-d21dc04a1a7e", "languages" : ["EN", "DE"], "title" : {"default": "My Election Title", "value" : {}}, "contentAbove": {"value" : {"default": "This is content above", "value": {}}, "contentType": "TEXT"}, "publicLabel" : "A", "messages" : {}, "allowInvalid" : true, "initialMessage": "initialMessage"}, "status": "OK" }',
           200));
 
-      var actual = await login(
-          client,
-          'voterA',
-          '93af68ebc62f281518067b28edcdcb59b05397d8b95be4b01327fbc41ab025a5',
-          '530728',
-          'challenge-commitment');
+      var actual = await login(client, loginRequest);
 
       final expected = SecondDeviceLoginResponse(
           allowInvalid: true,
@@ -66,8 +61,7 @@ void main() {
       expect(actual.title.default_, expected.title.default_);
       expect(actual.title.value, expected.title.value);
 
-      expect((actual.contentAbove as Text).contentType,
-          (expected.contentAbove as Text).contentType);
+      expect(actual.contentAbove?.contentType, expected.contentAbove?.contentType);
       expect((actual.contentAbove as Text).value.default_,
           (expected.contentAbove as Text).value.default_);
       expect((actual.contentAbove as Text).value.value,
@@ -99,8 +93,7 @@ void main() {
       )).thenAnswer((_) async =>
           http.Response('{"error": "INVALID_LOGIN", "status" : "ERROR"}', 200));
 
-      expect(login(client, 'voterId', 'nonce', 'invalid-password', 'challenge'),
-          throwsArgumentError);
+      expect(login(client, loginRequest), throwsArgumentError);
     });
   });
 }

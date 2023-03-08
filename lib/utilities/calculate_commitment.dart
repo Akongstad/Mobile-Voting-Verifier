@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
@@ -8,6 +8,9 @@ import 'package:mobile_voting_verifier/models/challenge_request.dart';
   //The String is the challenge commitment c and the ChallengeRequest is the sampled BigInt e and BigInt r, which should be saved for later use. 
 } */
 
+Uint8List int32ToBytes(int value) =>
+    Uint8List(4)..buffer.asByteData().setInt32(0, value, Endian.big);
+
 List<int> keyDerivationFunction(int returnLength, List<int> initialSeed,
     List<int> label, List<int> context) {
   var hmacSha512 = Hmac(sha512, initialSeed);
@@ -16,11 +19,11 @@ List<int> keyDerivationFunction(int returnLength, List<int> initialSeed,
   for (var i = 0; i < (returnLength / 64).ceil(); i++) {
     blockList.add(hmacSha512
         .convert([
-          [i],
+          int32ToBytes(i),
           label,
           [0x00],
           context,
-          [returnLength]
+          int32ToBytes(returnLength)
         ].expand((x) => x).toList())
         .bytes);
   }

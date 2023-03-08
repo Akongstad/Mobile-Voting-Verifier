@@ -3,7 +3,40 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import "dart:typed_data";
-import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
+
+/*
+Algorithm 1
+*/ 
+
+List<int> keyDerivationFunction(int returnLength, List<int> initialSeed,
+    List<int> label, List<int> context) {
+  var hmacSha512 = Hmac(sha512, initialSeed);
+  List<List<int>> blockList = List.empty(growable: true);
+
+  for (var i = 0; i < (returnLength / 64).ceil(); i++) {
+    blockList.add(hmacSha512
+        .convert([
+          _int32ToBytesBigEndian(i),
+          label,
+          [0x00],
+          context,
+          _int32ToBytesBigEndian(returnLength)
+        ].expand((x) => x).toList())
+        .bytes);
+  }
+
+  List<int> returnlist = [];
+
+  for (var element in blockList.sublist(0, (returnLength / 64).ceil() - 1)) {
+    returnlist.addAll(element);
+  }
+
+  for (var i = 0; i < (returnLength % 64); i++) {
+    returnlist.add(blockList.last[i]);
+  }
+
+  return returnlist;
+}
 
 /*
 * Algorithm 2
@@ -18,6 +51,7 @@ import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
 * Use stringBuilder
 * Takes a record because compute() only parses 1 argument
 */
+
 Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lSeedI) async  {
   //Concat seed and i: seed||i
   //String byteArray =  keyDerivationFunction( (l/8).ceil(), k, "generator", "POLYAS");

@@ -84,7 +84,7 @@ Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lSeedI) async  {
   return n;
 }
 
-Stream<Future<BigInt>> numbersFromSeedAsync(int l, List<int> seed) async* {
+Stream<Future<BigInt>> numbersFromSeedFuturesAsync(int l, List<int> seed) async* {
   var max = pow(2, l);
   var guard = max <= 0 ? (1 << 31) : max;
    for (int i = 1; i < 100000; i++) {
@@ -92,7 +92,7 @@ Stream<Future<BigInt>> numbersFromSeedAsync(int l, List<int> seed) async* {
   }
 }
 
-Stream<BigInt> numbersFromSeedAsync2(int l, List<int> seed) async* {
+Stream<BigInt> numbersFromSeedAsync(int l, List<int> seed) async* {
   var max = pow(2, l);
   var guard = max <= 0 ? (1 << 31) : max;
   for (int i = 1; i < 100000; i++) {

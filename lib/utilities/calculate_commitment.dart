@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'dart:typed_data';
-
+import 'package:pointycastle/pointycastle.dart';
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
 
-Future<(String, ChallengeRequest)> calculateChallengeCommitment() async {
+Future<(String, ChallengeRequest)> calculateChallengeCommitment(BigInt k, (BigInt x, BigInt y) G) async {
   return throw UnimplementedError();
 }
 
@@ -11,14 +11,14 @@ Future<BigInt> sampleFromPrimeOrder() async {
   var primeOrder = BigInt.parse('fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141', radix: 16);
 
   while (true) {
-    var randSample = randomBigIntFromPrimerOrder(primeOrder);
+    var randSample = _randomBigIntFromPrimerOrder(primeOrder);
     if (randSample < primeOrder){
       return randSample;
     }
   }
 }
 
-BigInt randomBigIntFromPrimerOrder(BigInt primeOrder) {
+BigInt _randomBigIntFromPrimerOrder(BigInt primeOrder) {
   const size = 32;
   final random = Random.secure();
   final builder = BytesBuilder();

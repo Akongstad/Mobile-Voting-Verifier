@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
+import "dart:typed_data";
 
 String keyDerivationFunction(
     int returnLength, String initialSeed, String label, String context) {
@@ -44,6 +45,7 @@ String keyDerivationFunction(
 * Considerations: --------------------------------------------------------------
 *  Make parrallell
 * Use stringBuilder
+* Takes a record because compute() only parses 1 argument
 */
 Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lseedk) async  {
   //Concat seed and i: seed||i
@@ -52,13 +54,16 @@ Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lseedk) async  {
   final l = lseedk.$1;
   final seed = lseedk.$2;
   final i = lseedk.$3;
-  final k = seed.join("") + i.toString();
+  final k = seed.addAll(int32ToBytes(i));
+  //final input = keyDerivationFunction(l, k, "generator", "Polyas");
   const input =
-      "32 88 92 2A 96 65 33 C7 93 ED 53 20 45 FF FC 3C E6 BA 77 F2 7E 8F 60 C9 A3 D8 22 21 D8 6F 51 DD A0 07 36 DB A3 F8 AE 1D 94 B1 75 62 E8 38 D5 7F B8 54 00 D1 47 C6 E9 58 5E D4 D8 59 E4 61 20 B2 75";
-  var byteArray = input.split(" ");
-  var binArray = byteArray
-      .map((e) => int.parse(e, radix: 16).toRadixString(2).padLeft(8, "0"))
+      [0x32, 0x88, 0x92, 0x2A, 0x96, 0x65, 0x33, 0xC7, 0x93, 0xED, 0x53, 0x20, 0x45, 0xFF, 0xFC, 0x3C, 0xE6, 0xBA, 0x77, 0xF2, 0x7E, 0x8F, 0x60, 0xC9, 0xA3, 0xD8, 0x22, 0x21, 0xD8, 0x6F, 0x51, 0xDD, 0xA0, 0x07, 0x36, 0xDB, 0xA3, 0xF8, 0xAE, 0x1D, 0x94, 0xB1, 0x75, 0x62, 0xE8, 0x38, 0xD5, 0x7F, 0xB8, 0x54, 0x00, 0xD1, 0x47, 0xC6, 0xE9, 0x58, 0x5E, 0xD4, 0xD8, 0x59, 0xE4, 0x61, 0x20, 0xB2, 0x75];
+  var byteArray = input;
+
+  var binArray = byteArray   //O(the number fo bytes)!!!!
+      .map((e) => e.toRadixString(2).padLeft(8, "0"))
       .join();
+
   var bitLenght = byteArray.length * 8;
   var excessBits = bitLenght - l;
   if (excessBits > 0) {
@@ -93,7 +98,7 @@ Iterable<BigInt> numbersFromSeed(int l, List<int> seed) sync* {
     //Concat seed and i: seed||i
     var k = seed.join("") + i.toString();
     //String byteArray =  keyDerivationFunction( (l/8).ceil(), k, "generator", "POLYAS");
-    // Ignore the appropriate number of left-most bits from the byte array above,
+    //
     var input =
         "32 88 92 2A 96 65 33 C7 93 ED 53 20 45 FF FC 3C E6 BA 77 F2 7E 8F 60 C9 A3 D8 22 21 D8 6F 51 DD A0 07 36 DB A3 F8 AE 1D 94 B1 75 62 E8 38 D5 7F B8 54 00 D1 47 C6 E9 58 5E D4 D8 59 E4 61 20 B2 75";
     var byteArray = input.split(" ");
@@ -118,3 +123,8 @@ Iterable<BigInt> numbersFromSeed(int l, List<int> seed) sync* {
     yield n;
   }
 }
+
+/*------------------------------------HELPERS----------------------------------*/
+// Magical function from int32 to byte[]
+Uint8List int32ToBytes(int value) =>
+    Uint8List(4)..buffer.asInt32List()[0] = value;

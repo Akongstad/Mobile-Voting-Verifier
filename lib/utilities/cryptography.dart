@@ -18,16 +18,16 @@ import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
 * Use stringBuilder
 * Takes a record because compute() only parses 1 argument
 */
-Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lseedk) async  {
+Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lSeedI) async  {
   //Concat seed and i: seed||i
   //String byteArray =  keyDerivationFunction( (l/8).ceil(), k, "generator", "POLYAS");
   // Ignore the appropriate number of left-most bits from the byte array above,
-  final l = lseedk.$1;
-  final seed = lseedk.$2;
-  final i = lseedk.$3;
-  seed.addAll(int32ToBytes(i));
+  final l = lSeedI.$1;
+  final seed = lSeedI.$2;
+  final i = lSeedI.$3;
+  final k = seed + _int32ToBytesBigEndian(i);
 
-  final input = keyDerivationFunction(l, seed, utf8.encode("generator"), utf8.encode("Polyas"));
+  final input = keyDerivationFunction(l, k, utf8.encode("generator"), utf8.encode("Polyas"));
 
   var binArray = input   //O(the number fo bytes)!!!!
       .map((e) => e.toRadixString(2).padLeft(8, "0"))
@@ -94,6 +94,9 @@ Iterable<BigInt> numbersFromSeed(int l, List<int> seed) sync* {
 }
 
 /*------------------------------------HELPERS----------------------------------*/
-// Magical function from int32 to byte[]
-Uint8List int32ToBytes(int value) =>
+// Magical function from int32 to byte[] with LittleEndian byte ordering.
+Uint8List _int32ToBytesLittleEndian(int value) =>
     Uint8List(4)..buffer.asInt32List()[0] = value;
+// Magical function from int32 to byte[] with BigEndian byte ordering.
+Uint8List _int32ToBytesBigEndian(int value) =>
+    Uint8List(4)..buffer.asByteData().setInt32(0, value, Endian.big);

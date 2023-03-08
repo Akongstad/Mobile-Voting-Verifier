@@ -3,36 +3,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import "dart:typed_data";
-
-String keyDerivationFunction(
-    int returnLength, String initialSeed, String label, String context) {
-  var initialSeedEncoded = utf8.encode(initialSeed);
-  var labelEncoded = utf8.encode(label);
-  var contextEncoded = utf8.encode(context);
-
-  var hmacSha512 = Hmac(sha512, initialSeedEncoded);
-  var returnList = List.empty(growable: true);
-
-  for (var i = 0; i < (returnLength / 64).ceil(); i++) {
-    returnList.add(hmacSha512
-        .convert([
-          [i],
-          labelEncoded,
-          [0x00],
-          contextEncoded,
-          [returnLength]
-        ].expand((x) => x).toList())
-        .toString());
-  }
-
-  var returnString = '';
-  for (var element in returnList.sublist(0, (returnLength / 64).ceil() - 1)) {
-    returnString += element;
-  }
-
-  return returnString +
-      returnList.last.toString().substring(0, (returnLength % 64) * 2);
-}
+import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
 
 /*
 * Algorithm 2
@@ -54,29 +25,27 @@ Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lseedk) async  {
   final l = lseedk.$1;
   final seed = lseedk.$2;
   final i = lseedk.$3;
-  final k = seed.addAll(int32ToBytes(i));
-  //final input = keyDerivationFunction(l, k, "generator", "Polyas");
-  const input =
-      [0x32, 0x88, 0x92, 0x2A, 0x96, 0x65, 0x33, 0xC7, 0x93, 0xED, 0x53, 0x20, 0x45, 0xFF, 0xFC, 0x3C, 0xE6, 0xBA, 0x77, 0xF2, 0x7E, 0x8F, 0x60, 0xC9, 0xA3, 0xD8, 0x22, 0x21, 0xD8, 0x6F, 0x51, 0xDD, 0xA0, 0x07, 0x36, 0xDB, 0xA3, 0xF8, 0xAE, 0x1D, 0x94, 0xB1, 0x75, 0x62, 0xE8, 0x38, 0xD5, 0x7F, 0xB8, 0x54, 0x00, 0xD1, 0x47, 0xC6, 0xE9, 0x58, 0x5E, 0xD4, 0xD8, 0x59, 0xE4, 0x61, 0x20, 0xB2, 0x75];
-  var byteArray = input;
+  seed.addAll(int32ToBytes(i));
 
-  var binArray = byteArray   //O(the number fo bytes)!!!!
+  final input = keyDerivationFunction(l, seed, utf8.encode("generator"), utf8.encode("Polyas"));
+
+  var binArray = input   //O(the number fo bytes)!!!!
       .map((e) => e.toRadixString(2).padLeft(8, "0"))
       .join();
 
-  var bitLenght = byteArray.length * 8;
+  var bitLenght = input.length * 8;
   var excessBits = bitLenght - l;
   if (excessBits > 0) {
     binArray.replaceRange(0, excessBits, "");
   }
   //Padding for  bytearray to make sure bigint t is not interpreted as a negative integer
-  var pad = "0";
+  var pad = '0';
   binArray = pad + binArray;
   assert(binArray.length == l + pad.length);
 
   var n = BigInt.tryParse(binArray, radix: 2);
   if (n == null) {
-    throw ArgumentError.value(byteArray);
+    throw ArgumentError.value(input);
   }
   return n;
 }

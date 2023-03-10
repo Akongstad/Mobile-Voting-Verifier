@@ -9,6 +9,9 @@ import 'package:mobile_voting_verifier/models/challenge_request.dart';
  */
 Future<(String, ChallengeRequest)> calculateChallengeCommitment(
     ElipticCurveRepository ecRepository, BigInt e, BigInt r) async {
+
+  return throw UnimplementedError(); //TODO: Ask Tomasz Truderung
+
   final primeOrder = ecRepository.curve.n;
 
   // Define Independent generators.

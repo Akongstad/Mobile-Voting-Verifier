@@ -3,28 +3,13 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hex/hex.dart';
-import 'package:mobile_voting_verifier/repositories/ec_encoding_api.dart';
 import 'package:mobile_voting_verifier/repositories/eliptic_curve_repository.dart';
-import 'package:mobile_voting_verifier/repositories/hashing_api.dart';
+import 'package:mobile_voting_verifier/repositories/api/hashing_api.dart';
 import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
 import "package:pointycastle/export.dart";
 
 
 void main() {
-  group("decodeECPoint tests", () {
-    final expected = BigInt.parse(
-        "723700557733226221397318656304299424082937404160253525246609900049430216698");
-    final point = (BigInt.parse(
-        "7fffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffe21",
-        radix: 16),
-    BigInt.parse(
-        "2af4d53f09f4d4ede3caf3f0e06ccfc0f55289d83fed859ca504d6033bec629b",
-        radix: 16));
-    test('check numbersFromSeedAsync from example', () async {
-      final actual = await ECEncodingAPI.decodePoint(point.$1, point.$2);
-      expect(actual, expected);
-    });
-  });
   group("calculateCommitment tests", () {
     test('Test calculateCommitment against specification', () async {
       const challengeCommitmentExpected = "030e1a9be2459151057e9d731b524ca435f1c05bc0a95d3d82b30512d306172b17";
@@ -34,7 +19,6 @@ void main() {
       final r = BigInt.parse(
           "44267717001895006656767798790813376597351395807170189462353830054915294464906",
           radix: 10);
-      //d656d5b7f5af594457a68f3ad544d767f30094ac414a51c6bb7fdd912a16f36b
       var ecRepo = ElipticCurveRepository.noSeed();
       var actual = await calculateChallengeCommitment(ecRepo, e, r);
       expect(actual.$1, challengeCommitmentExpected);

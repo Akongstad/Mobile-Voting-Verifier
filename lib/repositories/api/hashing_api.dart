@@ -30,7 +30,7 @@ abstract class HashingAPI {
 
   /*------------------------------------HELPERS----------------------------------*/
   static Future<Uint8List> _bigIntToBytesPadWithLength(BigInt x) async {
-    final bytes = await _bigIntToBytes(x);
+    final bytes = await bigIntToBytes(x);
     final result =  await _int32ToBytesBigEndian(bytes.length) + bytes;
     return Uint8List.fromList(result);
   }
@@ -39,12 +39,14 @@ abstract class HashingAPI {
       Uint8List(4)..buffer.asByteData().setInt32(0, value, Endian.big);
 
   /// Convert a bigint to a byte array
-  static Future<Uint8List> _bigIntToBytes(BigInt bigInt) async =>
+  static Future<Uint8List> bigIntToBytes(BigInt bigInt) async =>
       _hexToBytes(bigInt.toRadixString(16).padLeft(32, "0"));
 
   /// Converts a hex string to a Uint8List
   static Future<Uint8List> _hexToBytes(String hex) async =>
       Uint8List.fromList(HEX.decode(hex));
+  static Future<String> bytesToHex(List<int> bytes ) async =>
+      HEX.encode(bytes);
 
   /// Convert a bytes to a bigint
   static Future<BigInt> _bytesToBigInt(List<int> bytes) async =>

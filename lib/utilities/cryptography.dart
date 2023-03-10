@@ -51,7 +51,6 @@ List<int> keyDerivationFunction(int returnLength, List<int> initialSeed,
 * Use stringBuilder
 * Takes a record because compute() only parses 1 argument
 */
-
 Future<BigInt> _numberFromSeedAsync((int, List<int>, int) lSeedI) async  {
   //Concat seed and i: seed||i
   //String byteArray =  keyDerivationFunction( (l/8).ceil(), k, "generator", "POLYAS");

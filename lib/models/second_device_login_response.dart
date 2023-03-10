@@ -8,7 +8,7 @@ class SecondDeviceLoginResponse {
   final String ballotVoterId;
   final Content? contentAbove;
   final String electionId;
-  final String initialMessage;
+  final String initialMessageJSON;
   final List<Language> languages;
   final I18n<ImageRef>? logo;
   final Map<String, I18n> messages;
@@ -21,7 +21,7 @@ class SecondDeviceLoginResponse {
     required this.ballotVoterId,
     this.contentAbove,
     required this.electionId,
-    required this.initialMessage,
+    required this.initialMessageJSON,
     required this.languages,
     this.logo,
     required this.messages,
@@ -39,24 +39,25 @@ class SecondDeviceLoginResponse {
             .map((e) => Language.fromJson(e))
             .toList(),
         title = I18n.fromJsonString(jsonData['value']['title']),
-        contentAbove = jsonData['value']['contentAbove'] != null ? Content.fromJson(jsonData['value']['contentAbove']) : null,
+        contentAbove = jsonData['value']['contentAbove'] != null
+            ? Content.fromJson(jsonData['value']['contentAbove'])
+            : null,
         //TODO handle polymorphism
         publicLabel = jsonData['value']['publicLabel'],
-        messages = (jsonData['value']['messages'] as Map).map(
-            (key, value) =>
-                MapEntry(key, I18n.fromJsonString(value))),
+        messages = (jsonData['value']['messages'] as Map)
+            .map((key, value) => MapEntry(key, I18n.fromJsonString(value))),
         allowInvalid = jsonData['value']['allowInvalid'] as bool,
-        initialMessage = jsonData['value']['initialMessage'],
+        initialMessageJSON = jsonData['value']['initialMessage'],
         logo = null;
 
-        //logo = I18n.fromJsonMap(jsonData['logo'], ImageRef.fromJson);
+  //logo = I18n.fromJsonMap(jsonData['logo'], ImageRef.fromJson);
 
   Map<String, dynamic> toJson() => {
         'allowInvalid ': allowInvalid,
         'ballotVoterId': ballotVoterId,
         'contentAbove': contentAbove ?? "",
         'electionId': electionId,
-        'initialMessage': initialMessage,
+        'initialMessage': initialMessageJSON,
         'languages': languages,
         'logo': logo ?? "",
         'messages': messages,

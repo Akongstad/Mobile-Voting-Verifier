@@ -11,7 +11,7 @@ main() {
       ballotVoterId:
           "0205bf2e14496f68c0f86f6b313f210a9393edb083821dcc4f9914cab9c51c9f2e",
       electionId: "bfced618-34aa-4b78-ba5b-d21dc04a1a7e",
-      initialMessage:
+      initialMessageJSON:
           "{\"secondDeviceParametersJson\":\"{\\\"publicKey\\\":\\\"030588c6c80497da9e50bf56a4853c9fd3dd945a5e2ed741ccf783c5538611da26\",\"",
       languages: [Language.EN, Language.DE],
       messages: {},
@@ -51,7 +51,7 @@ main() {
           jsonSecondDeviceLoginResponse);
 
       //Actual, expected
-      expect(actual.initialMessage, secondDeviceLoginResponse.initialMessage);
+      expect(actual.initialMessageJSON, secondDeviceLoginResponse.initialMessageJSON);
       expect(actual.messages, secondDeviceLoginResponse.messages);
       expect(actual.electionId, secondDeviceLoginResponse.electionId);
 

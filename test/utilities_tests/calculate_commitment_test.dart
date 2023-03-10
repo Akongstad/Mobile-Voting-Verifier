@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hex/hex.dart';
+import 'package:mobile_voting_verifier/models/challenge_request.dart';
 import 'package:mobile_voting_verifier/repositories/eliptic_curve_repository.dart';
 import 'package:mobile_voting_verifier/repositories/api/hashing_api.dart';
 import 'package:mobile_voting_verifier/utilities/calculate_commitment.dart';
@@ -19,9 +20,11 @@ void main() {
       final r = BigInt.parse(
           "44267717001895006656767798790813376597351395807170189462353830054915294464906",
           radix: 10);
+      var challengeRequest = ChallengeRequest(challenge: e, challengeRandomCoin: r);
       var ecRepo = ElipticCurveRepository.noSeed();
       var actual = await calculateChallengeCommitment(ecRepo, e, r);
       expect(actual.$1, challengeCommitmentExpected);
+      expect(actual.$2, challengeRequest);
     });
   });
 
@@ -95,6 +98,7 @@ void main() {
       expect(q, nImplementation);
       expect(GEncoded.toUpperCase(), expectedGEncoded);
     });
+
     test('Test point.getEncoded', () async {
       final point = secp256k1.curve.createPoint(BigInt.parse(
           "75788b8a22a04baad44c66ec80e86928597979bf1b287760ad4e3153293d613b",

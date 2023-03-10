@@ -30,6 +30,7 @@ void main() {
         expect(actual.root2.toInt(), sols[i].$2);
       }
     });
+    
     test('test solve given BigInt input return expected output', () async {
       final expectedRoot1 = BigInt.parse("32102985369940620849741983987300038903725266634508");
       final expectedRoot2 = BigInt.parse("67897014630059379150258016012699961096274733366069");

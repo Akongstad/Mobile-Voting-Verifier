@@ -59,6 +59,7 @@ class Catalog extends StatefulWidget {
 class _CatalogState extends State<Catalog> {
   // Store the currently visible page
   int _currentPage = 0;
+  double _actionButtonSize = 80;
   // Define a controller for the pageview
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -69,34 +70,46 @@ class _CatalogState extends State<Catalog> {
         notchMargin: 5.0,
         color: Colors.white,
         shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-                onPressed: () => {},
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.home_outlined, color: Colors.grey,),
-                    Text("Home", style: TextStyle(color: Colors.grey, fontSize: 10),)
-                  ],
+        child: SizedBox(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(right: _actionButtonSize/2),
+                  child: TextButton(
+                      onPressed: () => {},
+                      child: const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.home_outlined, color: Colors.grey,),
+                          Text("Home", style: TextStyle(color: Colors.grey, fontSize: 10),)
+                        ],
+                      ),
+                  ),
                 ),
-            ),
-            TextButton(
-              onPressed: () => {},
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.info_outlined, color: Colors.grey,),
-                  Text("More", style: TextStyle(color: Colors.grey, fontSize: 10),)
-                ],
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: _actionButtonSize/2),
+                  child: TextButton(
+                    onPressed: () => {},
+                    child: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.info_outlined, color: Colors.grey,),
+                        Text("More", style: TextStyle(color: Colors.grey, fontSize: 10),)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),),
       floatingActionButton: SizedBox(
-        height: 80,
-        width: 80,
+        height: _actionButtonSize,
+        width: _actionButtonSize,
         child: FloatingActionButton(
           onPressed: () => {},
           backgroundColor: Colors.white,

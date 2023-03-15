@@ -3,6 +3,60 @@ import 'package:mobile_voting_verifier/models/core_3_ballot.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 import 'package:mobile_voting_verifier/models/verifiable_second_device_parameters.dart';
 
+void assertVerifiableSecondDeviceParameters( VerifiableSecondDeviceParameters actual, VerifiableSecondDeviceParameters expected){
+  expect(actual.verificationKey, expected.verificationKey);
+  expect(actual.publicKey, expected.publicKey);
+  expect(actual.ballots.length, expected.ballots.length);
+
+  expect(actual.ballots.first.showAbstainOption, expected.ballots.first.showAbstainOption);
+  expect(actual.ballots.first.title.default_, expected.ballots.first.title.default_);
+  expect(actual.ballots.first.showInvalidOption, expected.ballots.first.showInvalidOption);
+  expect(actual.ballots.first.prohibitMoreVotes, expected.ballots.first.prohibitMoreVotes);
+  expect(actual.ballots.first.prohibitLessVotes, expected.ballots.first.prohibitLessVotes);
+  expect(actual.ballots.first.minVotesForLists, expected.ballots.first.minVotesForLists);
+  expect(actual.ballots.first.minVotesForCandidates, expected.ballots.first.minVotesForCandidates);
+  expect(actual.ballots.first.maxVotesForLists, expected.ballots.first.maxVotesForLists);
+
+  expect(actual.ballots.first.maxVotesForCandidates, expected.ballots.first.maxVotesForCandidates);
+
+  expect(actual.ballots.first.maxListsWithChoices, expected.ballots.first.maxListsWithChoices);
+  expect(actual.ballots.first.externalIdentification, expected.ballots.first.externalIdentification);
+  expect(actual.ballots.first.contentBelow, expected.ballots.first.contentBelow);
+  expect(actual.ballots.first.contentAbove, expected.ballots.first.contentAbove);
+  expect(actual.ballots.first.colorSchema, expected.ballots.first.colorSchema);
+  expect(actual.ballots.first.calculateAvailableVotes, expected.ballots.first.calculateAvailableVotes);
+  expect(actual.ballots.first.id, expected.ballots.first.id);
+}
+//VerifiableSecondDeviceParameters.ballots.lists
+void assertVerifiableSecondDeviceParametersBallotsCandidateLists(List<CandidateList> actual, List<CandidateList> expected){
+  expect(actual.length, expected.length);
+  expect(actual.first.id, expected.first.id);
+  expect(actual.first.externalIdentification, expected.first.externalIdentification);
+  expect(actual.first.title?.value, expected.first.title?.value);
+  expect(actual.first.columnHeaders.first.value, expected.first.columnHeaders.first.value);
+
+  expect(actual.first.autofillConfig?.skipVoted, expected.first.autofillConfig?.skipVoted);
+  expect(actual.first.autofillConfig?.spec.name, expected.first.autofillConfig?.spec.name);
+
+  expect(actual.first.maxVotesForList, expected.first.maxVotesForList);
+  expect(actual.first.maxVotesOnList, expected.first.maxVotesOnList);
+  expect(actual.first.maxVotesTotal, expected.first.maxVotesTotal);
+
+  expect(actual.first.minVotesForList, expected.first.minVotesForList);
+  expect(actual.first.minVotesOnList, expected.first.minVotesOnList);
+  expect(actual.first.minVotesTotal, expected.first.minVotesTotal);
+
+  expect(actual.first.voteCandidateXorList, expected.first.voteCandidateXorList);
+  expect(actual.first.derivedListVotes, expected.first.derivedListVotes);
+
+  expect(actual.first.candidates.first.externalIdentification, expected.first.externalIdentification);
+  expect(actual.first.candidates.first.id, expected.first.candidates.first.id);
+  expect(actual.first.candidates.first.minVotes, expected.first.candidates.first.minVotes);
+  expect(actual.first.candidates.first.maxVotes, expected.first.candidates.first.maxVotes);
+  expect(actual.first.candidates.first.writeInSize, expected.first.candidates.first.writeInSize);
+  expect(actual.first.candidates.first.columns, expected.first.candidates.first.columns);
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final verifiableSecondDeviceParameters = VerifiableSecondDeviceParameters(
@@ -18,7 +72,6 @@ void main() {
               minVotesForList: 0,
               minVotesOnList: 0,
               voteCandidateXorList: false,
-              countCandidateVotesAsListVotes: false,
               title: I18n(default_: "List 0", value: {}))],
           maxVotes: 999,
           minVotes: 0,
@@ -63,7 +116,6 @@ void main() {
             "maxVotesForList": 999,
             "minVotesForList": 0,
             "voteCandidateXorList": false,
-            "countCandidateVotesAsListVotes": false
           }
         ],
         "showInvalidOption": true,
@@ -80,59 +132,12 @@ void main() {
   group(' VerifiableSecondDeviceParameters.fromJson returns valid VerifiableSecondDeviceParameters object', () {
     test('VerifiableSecondDeviceParameters.fromJson returns valid VerifiableSecondDeviceParameters object given valid json', () {
       final actual = VerifiableSecondDeviceParameters.fromJson(verifiableSecondDeviceParametersJson);
-      expect(actual.verificationKey, verifiableSecondDeviceParameters.verificationKey);
-      expect(actual.publicKey, verifiableSecondDeviceParameters.publicKey);
-      expect(actual.ballots.length, verifiableSecondDeviceParameters.ballots.length);
-
-      expect(actual.ballots.first.showAbstainOption, verifiableSecondDeviceParameters.ballots.first.showAbstainOption);
-      expect(actual.ballots.first.title.default_, verifiableSecondDeviceParameters.ballots.first.title.default_);
-      expect(actual.ballots.first.showInvalidOption, verifiableSecondDeviceParameters.ballots.first.showInvalidOption);
-      expect(actual.ballots.first.prohibitMoreVotes, verifiableSecondDeviceParameters.ballots.first.prohibitMoreVotes);
-      expect(actual.ballots.first.prohibitLessVotes, verifiableSecondDeviceParameters.ballots.first.prohibitLessVotes);
-      expect(actual.ballots.first.minVotesForLists, verifiableSecondDeviceParameters.ballots.first.minVotesForLists);
-      expect(actual.ballots.first.minVotesForCandidates, verifiableSecondDeviceParameters.ballots.first.minVotesForCandidates);
-      expect(actual.ballots.first.maxVotesForLists, verifiableSecondDeviceParameters.ballots.first.maxVotesForLists);
-
-      expect(actual.ballots.first.maxVotesForCandidates, verifiableSecondDeviceParameters.ballots.first.maxVotesForCandidates);
-
-      expect(actual.ballots.first.maxListsWithChoices, verifiableSecondDeviceParameters.ballots.first.maxListsWithChoices);
-      expect(actual.ballots.first.externalIdentification, verifiableSecondDeviceParameters.ballots.first.externalIdentification);
-      expect(actual.ballots.first.contentBelow, verifiableSecondDeviceParameters.ballots.first.contentBelow);
-      expect(actual.ballots.first.contentAbove, verifiableSecondDeviceParameters.ballots.first.contentAbove);
-      expect(actual.ballots.first.colorSchema, verifiableSecondDeviceParameters.ballots.first.colorSchema);
-      expect(actual.ballots.first.calculateAvailableVotes, verifiableSecondDeviceParameters.ballots.first.calculateAvailableVotes);
-      expect(actual.ballots.first.id, verifiableSecondDeviceParameters.ballots.first.id);
+      assertVerifiableSecondDeviceParameters(actual, verifiableSecondDeviceParameters);
     });
     test('fromJson returns valid VerifiableSecondDeviceParameters.ballots.lists object given valid json', () {
       final actual = VerifiableSecondDeviceParameters.fromJson(verifiableSecondDeviceParametersJson).ballots.first.lists;
       final expected = verifiableSecondDeviceParameters.ballots.first.lists;
-      expect(actual.length, expected.length);
-      expect(actual.first.id, expected.first.id);
-      expect(actual.first.externalIdentification, expected.first.externalIdentification);
-      expect(actual.first.title?.value, expected.first.title?.value);
-      expect(actual.first.countCandidateVotesAsListVotes, expected.first.countCandidateVotesAsListVotes);
-      expect(actual.first.columnHeaders.first.value, expected.first.columnHeaders.first.value);
-
-      expect(actual.first.autofillConfig?.skipVoted, expected.first.autofillConfig?.skipVoted);
-      expect(actual.first.autofillConfig?.spec.name, expected.first.autofillConfig?.spec.name);
-
-      expect(actual.first.maxVotesForList, expected.first.maxVotesForList);
-      expect(actual.first.maxVotesOnList, expected.first.maxVotesOnList);
-      expect(actual.first.maxVotesTotal, expected.first.maxVotesTotal);
-
-      expect(actual.first.minVotesForList, expected.first.minVotesForList);
-      expect(actual.first.minVotesOnList, expected.first.minVotesOnList);
-      expect(actual.first.minVotesTotal, expected.first.minVotesTotal);
-
-      expect(actual.first.voteCandidateXorList, expected.first.voteCandidateXorList);
-      expect(actual.first.derivedListVotes, expected.first.derivedListVotes);
-
-      expect(actual.first.candidates.first.externalIdentification, expected.first.externalIdentification);
-      expect(actual.first.candidates.first.id, expected.first.candidates.first.id);
-      expect(actual.first.candidates.first.minVotes, expected.first.candidates.first.minVotes);
-      expect(actual.first.candidates.first.maxVotes, expected.first.candidates.first.maxVotes);
-      expect(actual.first.candidates.first.writeInSize, expected.first.candidates.first.writeInSize);
-      expect(actual.first.candidates.first.columns, expected.first.candidates.first.columns);
+      assertVerifiableSecondDeviceParametersBallotsCandidateLists(actual, expected);
     });
   });
 

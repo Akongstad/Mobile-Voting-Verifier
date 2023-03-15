@@ -46,10 +46,10 @@ abstract class HashingAPI {
 
   /// Convert a BigInt to a Uint8List
   static Future<Uint8List> _bigIntToBytes(BigInt bigInt) async =>
-      _hexToBytes(bigInt.toRadixString(16).padLeft(32, "0"));
+      hexToBytes(bigInt.toRadixString(16).padLeft(32, "0"));
 
   /// Converts a hex string to a Uint8List
-  static Future<Uint8List> _hexToBytes(String hex) async =>
+  static Future<Uint8List> hexToBytes(String hex) async =>
       Uint8List.fromList(HEX.decode(hex));
 
   /// Converts a byte array to hex String
@@ -58,4 +58,7 @@ abstract class HashingAPI {
   /// Convert a byte array to a BigInt
   static Future<BigInt> _bytesToBigInt(List<int> bytes) async =>
       BigInt.parse(HEX.encode(bytes), radix: 16);
+  static Future<ECPoint> _bytesToECPoint(
+          List<int> bytes, ECDomainParameters curveParams) async =>
+      curveParams.curve.decodePoint(bytes)!;
 }

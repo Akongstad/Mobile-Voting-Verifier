@@ -30,7 +30,6 @@ class SecondDeviceLoginResponse {
     required this.token,
   });
 
-  //TODO Add fromJson factory methods to subtypes.
   SecondDeviceLoginResponse.fromJson(Map<String, dynamic> jsonData)
       : token = jsonData['value']['token'],
         ballotVoterId = jsonData['value']['ballotVoterId'],

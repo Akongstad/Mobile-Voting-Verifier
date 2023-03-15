@@ -157,7 +157,6 @@ class CandidateList {
   final int? minVotesTotal;
   final I18n<String>? title;
   final bool voteCandidateXorList;
-  final bool countCandidateVotesAsListVotes;
 
   CandidateList({
     this.autofillConfig,
@@ -174,7 +173,6 @@ class CandidateList {
     this.minVotesTotal,
     this.title,
     required this.voteCandidateXorList,
-    required this.countCandidateVotesAsListVotes
   });
 
   factory CandidateList.fromJson(Map<String, dynamic> json) {
@@ -193,7 +191,6 @@ class CandidateList {
         minVotesTotal: json["minVotesTotal"] != null ? json["minVotesTotal"] as int : null,
         title: json["title"] != null ? I18n.fromJsonString(json["title"]): null,
         voteCandidateXorList: json["voteCandidateXorList"] as bool,
-        countCandidateVotesAsListVotes: json["countCandidateVotesAsListVotes"] as bool
     );
   }
 }

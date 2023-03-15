@@ -65,6 +65,52 @@ class _CatalogState extends State<Catalog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 5.0,
+        color: Colors.white,
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+                onPressed: () => {},
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.home_outlined, color: Colors.grey,),
+                    Text("Home", style: TextStyle(color: Colors.grey, fontSize: 10),)
+                  ],
+                ),
+            ),
+            TextButton(
+              onPressed: () => {},
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.info_outlined, color: Colors.grey,),
+                  Text("More", style: TextStyle(color: Colors.grey, fontSize: 10),)
+                ],
+              ),
+            ),
+          ],
+        ),),
+      floatingActionButton: SizedBox(
+        height: 80,
+        width: 80,
+        child: FloatingActionButton(
+          onPressed: () => {},
+          backgroundColor: Colors.white,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.qr_code_scanner_rounded, color: Colors.redAccent, size: 35,),
+              //Text("Scan", style: TextStyle(color: Colors.grey, fontSize: 10),)
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         decoration: BoxDecoration(

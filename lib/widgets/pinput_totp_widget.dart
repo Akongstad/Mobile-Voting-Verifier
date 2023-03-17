@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
-import 'package:mobile_voting_verifier/screens/ballot_audit_screen.dart';
+import 'package:mobile_voting_verifier/screens/scan_validation_screen.dart';
 import 'package:pinput/pinput.dart';
-import 'package:mobile_voting_verifier/utilities/api_calls.dart';
 
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
@@ -40,8 +41,8 @@ class _PinputWidgetState extends State<PinputWidget> {
   String? _validate(String? pin) {
     try {
       if (pin == "196308") {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const BallotAuditScreen()));
+        sleep(const Duration(milliseconds: 500));
+        pinValidated = true;
         /*  TODO:
         String challengeCommitment =
             "challenge"; //calculateChallengeCommitment(); 

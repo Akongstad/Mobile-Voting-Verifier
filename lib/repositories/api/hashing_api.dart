@@ -4,22 +4,40 @@ import 'package:crypto/crypto.dart';
 import 'package:hex/hex.dart';
 import 'package:pointycastle/export.dart';
 
-// Hashing API refering to chapter A.1.2 in polyas 3.0 system specifications version 1.3.0
+// Define the HashingAPI interface
 abstract class HashingAPI {
-  static Future<List<int>> encodeString(String s) async => utf8.encode(s);
+  Future<List<int>> encodeString(String s) async => utf8.encode(s);
+  Future<List<int>> encodeInt(int x);
+  Future<List<int>> encodeBigInt(BigInt bigInt);
+  Future<List<int>> encodeECPoint(ECPoint point);
+  Future<List<int>> encodeElGamalCipher(BigInt x, BigInt y);
+  Future<BigInt> nonUniformHashIntoZq(List<int> bytes, ECDomainParameters ec);
+  Future<BigInt> uniFormHashIntoZq(List<int> bytes);
+}
 
-  static Future<List<int>> encodeInt(int x) async => _int32ToBytesBigEndian(x);
+// Implement the HashingAPI interface
+class DefaultHashingAPI implements HashingAPI {
+  @override
+  Future<List<int>> encodeString(String s) async => utf8.encode(s);
 
-  static Future<List<int>> encodeBigInt(BigInt bigInt) async =>
+  @override
+  Future<List<int>> encodeInt(int x) async =>
+      _int32ToBytesBigEndian(x);
+
+  @override
+  Future<List<int>> encodeBigInt(BigInt bigInt) async =>
       _bigIntToBytesPadWithLength(bigInt);
 
-  static Future<List<int>> encodeECPoint(ECPoint point) async =>
+  @override
+  Future<List<int>> encodeECPoint(ECPoint point) async =>
       point.getEncoded(true);
 
-  static Future<List<int>> encodeElGamalCipher(BigInt x, BigInt y) async =>
+  @override
+  Future<List<int>> encodeElGamalCipher(BigInt x, BigInt y) async =>
       throw UnimplementedError();
 
-  static Future<BigInt> nonUniformHashIntoZq(
+  @override
+  Future<BigInt> nonUniformHashIntoZq(
       List<int> bytes, ECDomainParameters ec) async {
     final hashedCHex = sha512.convert(bytes);
     final hashedCHexBytes = hashedCHex.bytes;
@@ -27,11 +45,9 @@ abstract class HashingAPI {
     final hashedToBigintZq = hashedToBigint % ec.n;
     return hashedToBigintZq;
   }
-
-  static Future<BigInt> uniFormHashIntoZq(List<int> bytes) async =>
+  @override
+  Future<BigInt> uniFormHashIntoZq(List<int> bytes) async =>
       throw UnimplementedError();
-
-  /*------------------------------------HELPERS----------------------------------*/
 
   // Specific conversion of BigInt to Uint8List with padding
   static Future<Uint8List> _bigIntToBytesPadWithLength(BigInt x) async {

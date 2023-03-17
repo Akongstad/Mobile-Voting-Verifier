@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_voting_verifier/repositories/api/ec_encoding_api.dart';
+import 'package:mobile_voting_verifier/repositories/eliptic_curve_repository.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 
 void main() {
@@ -27,7 +28,7 @@ void main() {
   group("encodePoint tests", () {
     test('encodePoint returns expected point given example input message',
         () async {
-      final primeP = ECEncodingAPI.specP;
+      final primeP = IEllipticCurveRepository.p;
       final actual = await ECEncodingAPI.encodeToPoint(
           expectedDecodedMessage, primeP, params);
       expect(actual, expectedEncodedpoint);

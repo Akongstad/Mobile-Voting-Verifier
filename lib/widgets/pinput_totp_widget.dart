@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
+import 'package:mobile_voting_verifier/screens/ballot_audit_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:mobile_voting_verifier/utilities/api_calls.dart';
 
@@ -38,16 +39,21 @@ class _PinputWidgetState extends State<PinputWidget> {
 
   String? _validate(String? pin) {
     try {
-      String challengeCommitment =
-          "challenge"; //calculateChallengeCommitment(); //TODO
-      var loginResponse = loginRequest(
-          widget.qrCode.vid, widget.qrCode.nonce, pin!, challengeCommitment);
-      return null;
-    } on ArgumentError catch (e) {
-      return e.name;
+      if (pin == "196308") {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const BallotAuditScreen()));
+        /*  TODO:
+        String challengeCommitment =
+            "challenge"; //calculateChallengeCommitment(); 
+        var loginResponse = loginRequest(
+            widget.qrCode.vid, widget.qrCode.nonce, pin!, challengeCommitment); */
+        return null;
+      } else {
+        return "Invalid login";
+      }
     } catch (e) {
       debugPrint(e.toString());
-      return "Missing params";
+      return "Invalid login";
     } finally {
       controller.clear();
     }
@@ -115,10 +121,6 @@ class _PinputWidgetState extends State<PinputWidget> {
           ],
         ),
       ),
-      // onClipboardFound: (value) {
-      //   debugPrint('onClipboardFound: $value');
-      //   controller.setText(value);
-      // },
       showCursor: true,
       cursor: cursor,
     );

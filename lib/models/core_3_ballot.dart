@@ -7,7 +7,8 @@ sealed class Core3Ballot {
 
   factory Core3Ballot.fromJson(Map<String, dynamic> json) =>
     switch(json["type"]) {
-      "STANDARD_BALLOT" => Core3StandardBallot.fromJson(json)
+      "STANDARD_BALLOT" => Core3StandardBallot.fromJson(json),
+      _ => Core3StandardBallot.fromJson(json),
     };
 
   // Overridable getters, such that fields can be accessed polymorphically

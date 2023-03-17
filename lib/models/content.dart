@@ -7,7 +7,8 @@ sealed class Content<T> {
   factory Content.fromJson(Map<String, dynamic> json)
     => switch(json["contentType"]) {
       "RICH_TEXT" => RichText.fromJson(json) as Content<T>,
-      "TEXT" => Text.fromJson(json) as Content<T>};
+      "TEXT" => Text.fromJson(json) as Content<T>,
+      _ => Text.fromJson(json) as Content<T>};
 
   // Accessor methods to be overridden
   String get contentType => throw ArgumentError("");

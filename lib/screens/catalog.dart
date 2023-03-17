@@ -35,7 +35,7 @@ class _CatalogState extends State<Catalog> {
                 child: Padding(
                   padding: EdgeInsets.only(right: _actionButtonSize / 2),
                   child: TextButton(
-                    onPressed: () => _pageController.jumpToPage(-1),
+                    onPressed: () => _pageController.jumpToPage(0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -59,7 +59,7 @@ class _CatalogState extends State<Catalog> {
                 child: Padding(
                   padding: EdgeInsets.only(left: _actionButtonSize / 2),
                   child: TextButton(
-                    onPressed: () => _pageController.jumpToPage(2),
+                    onPressed: () => _pageController.jumpToPage(1),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -86,6 +86,7 @@ class _CatalogState extends State<Catalog> {
         height: _actionButtonSize,
         width: _actionButtonSize,
         child: FloatingActionButton(
+          splashColor: themeColor!.withOpacity(0.5),
           onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const QrScannerPage())),
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -104,18 +105,19 @@ class _CatalogState extends State<Catalog> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: pages.length,
-        onPageChanged: (int index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-        itemBuilder: (context, index) {
-          return buildPage(context, index, _actionButtonSize);
-        },
-        physics: const NeverScrollableScrollPhysics(),
+      body: SafeArea(
+        child: PageView.builder(
+          controller: _pageController,
+          itemCount: pages.length,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentPage = index;
+            });
+          },
+          itemBuilder: (context, index) {
+            return buildPage(context, index, _actionButtonSize, _pageController);
+          },
+        ),
       ),
     );
   }

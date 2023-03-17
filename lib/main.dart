@@ -34,16 +34,44 @@ class MyApp extends StatelessWidget {
         if (widget != null) return widget;
         throw ('widget is null');
       },
-
       title: 'Mobile Vote Verifier',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        scaffoldBackgroundColor: Colors.grey[200],
-        navigationBarTheme: const NavigationBarThemeData(
-        )
+        scaffoldBackgroundColor: const Color.fromRGBO(244, 245, 247, 1),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Color.fromRGBO(151, 36, 46, 1.0),
+          elevation: 0,
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
+            textStyle: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(47, 67, 80,1),
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: Color.fromRGBO(47, 67, 80,1),
+          ),
+          bodySmall: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: Color.fromRGBO(47, 67, 80,1),
+          ),
+        ),
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: const Catalog(),
     );
+
   }
 }

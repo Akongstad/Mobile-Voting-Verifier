@@ -21,10 +21,11 @@ void main() {
           "44267717001895006656767798790813376597351395807170189462353830054915294464906",
           radix: 10);
       var challengeRequest = ChallengeRequest(challenge: e, challengeRandomCoin: r);
-      var ecRepo = ElipticCurveRepository.noSeed();
+      var ecRepo = EllipticCurveRepository.noSeed();
       var actual = await calculateChallengeCommitment(ecRepo, e, r);
-      /*expect(actual.$1, challengeCommitmentExpected);
-      expect(actual.$2, challengeRequest);*/
+      //expect(actual.$1, challengeCommitmentExpected);
+      expect(actual.$2.challengeRandomCoin, challengeRequest.challengeRandomCoin);
+      expect(actual.$2.challenge, challengeRequest.challenge);
     });
   });
 
@@ -91,7 +92,7 @@ void main() {
           "115792089237316195423570985008687907852837564279074904382605163141518161494337");
       var GImplemenation = secp256k1.G;
       var GPoint = secp256k1.curve.createPoint(G.$1, G.$2);
-      var GEncoded = HEX.encode(await HashingAPI.encodeECPoint(GPoint));
+      var GEncoded = HEX.encode(await DefaultHashingAPI().encodeECPoint(GPoint));
       expect(GPoint.x, GImplemenation.x);
       expect(GPoint.y, GImplemenation.y);
       expect(p, qImplementation);

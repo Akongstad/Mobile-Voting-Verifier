@@ -18,7 +18,7 @@ void main() {
           "0275788B8A22A04BAAD44C66EC80E86928597979BF1B287760AD4E3153293D613B"
               .toLowerCase();
 
-      var pointBytes = await HashingAPI.encodeECPoint(point);
+      var pointBytes = await DefaultHashingAPI().encodeECPoint(point);
       var pointAsHex = HEX.encode(pointBytes);
 
       expect(pointAsHex, expected);
@@ -30,7 +30,7 @@ void main() {
           "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798"
               .toLowerCase();
 
-      var pointBytes = await HashingAPI.encodeECPoint(point);
+      var pointBytes = await DefaultHashingAPI().encodeECPoint(point);
       var pointAsHex = HEX.encode(pointBytes);
 
       expect(pointAsHex, expected);

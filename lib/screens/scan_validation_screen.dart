@@ -22,9 +22,10 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
   @override
   Widget build(BuildContext context) {
     //Init crossfade animation
-    if (first)
+    if (first) {
       Future.delayed(
           const Duration(seconds: 2), () => setState(() => first = false));
+    }
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
     //TODO extract to individual widgets
     return Scaffold(
@@ -94,6 +95,7 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context)
             .popUntil((route) => !Navigator.canPop(context)),
+        backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
     );

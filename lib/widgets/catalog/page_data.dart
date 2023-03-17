@@ -91,7 +91,8 @@ class PageData {
       this.url});
 }
 
-Widget buildPage(BuildContext context, int index, double actionButtonSize, PageController pageController) {
+Widget buildPage(BuildContext context, int index, double actionButtonSize,
+    PageController pageController) {
   final page = pages[index];
   return page.title == "Info"
       ? Column(
@@ -122,40 +123,44 @@ Widget buildPage(BuildContext context, int index, double actionButtonSize, PageC
             ),
           ],
         )
-      : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(page.title, style: Theme.of(context).textTheme.displayLarge),
-            const SizedBox(height: 10),
-            Text(page.headerDescription,
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromRGBO(133, 153, 170, 1))),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () => { pageController.jumpToPage(1)},
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [page.textColor, page.gradiantColor],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+      : Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(page.title, style: Theme.of(context).textTheme.displayLarge),
+              const SizedBox(height: 10),
+              Text(page.headerDescription,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(133, 153, 170, 1))),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () => {pageController.jumpToPage(1)},
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [page.textColor, page.gradiantColor],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  borderRadius: BorderRadius.circular(15),
+                  child: const Text("See Walkthrough",
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
                 ),
-                child: const Text("See Walkthrough",
-                    style: TextStyle(fontSize: 15, color: Colors.white)),
               ),
-            ),
-             SizedBox(height:MediaQuery.of(context).size.height * 0.05 ),
-             Icon(Icons.arrow_downward_rounded,
-               size: MediaQuery.of(context).size.height * 0.1,
-               color: page.textColor,
-             ),
-          ],
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              Icon(
+                Icons.arrow_downward_rounded,
+                size: MediaQuery.of(context).size.height * 0.1,
+                color: page.textColor,
+              ),
+            ],
+          ),
         );
 }

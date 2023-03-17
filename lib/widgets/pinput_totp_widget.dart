@@ -1,16 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
-import 'package:mobile_voting_verifier/screens/scan_validation_screen.dart';
 import 'package:pinput/pinput.dart';
 
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
 class PinputWidget extends StatefulWidget {
-  const PinputWidget({Key? key, required this.qrCode}) : super(key: key);
+   PinputWidget({Key? key, required this.qrCode, required this.pinValidated}) : super(key: key);
   final QRCode qrCode;
+  Function pinValidated;
 
   @override
   State<PinputWidget> createState() => _PinputWidgetState();
@@ -19,6 +18,7 @@ class PinputWidget extends StatefulWidget {
 class _PinputWidgetState extends State<PinputWidget> {
   late TextEditingController controller;
   late FocusNode _node;
+  final formKey = GlobalKey<FormState>();
 
   //Dispose after controller and focusNode after use
   @override
@@ -42,7 +42,7 @@ class _PinputWidgetState extends State<PinputWidget> {
     try {
       if (pin == "196308") {
         sleep(const Duration(milliseconds: 500));
-        pinValidated = true;
+        widget.pinValidated();
         /*  TODO:
         String challengeCommitment =
             "challenge"; //calculateChallengeCommitment(); 
@@ -89,41 +89,43 @@ class _PinputWidgetState extends State<PinputWidget> {
       ),
     );
 
-    return Pinput(
-      length: 6,
-      validator: (pin) => _validate(pin),
-      autofocus: false,
-      onTap: () => _node.requestFocus(),
-      onTapOutside: (e) => FocusScope.of(context).unfocus(),
-      controller: controller,
-      focusNode: _node,
-      defaultPinTheme: defaultPinTheme,
-      submittedPinTheme: defaultPinTheme.copyWith(
-        decoration: defaultPinTheme.decoration!.copyWith(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(19),
-          border: Border.all(color: Colors.black),
+    return Form(
+      key: formKey,
+      child: Pinput(
+        length: 6,
+        validator: (pin) => _validate(pin),
+        autofocus: false,
+        onTapOutside: (e) => FocusScope.of(context).unfocus(),
+        controller: controller,
+        focusNode: _node,
+        defaultPinTheme: defaultPinTheme,
+        submittedPinTheme: defaultPinTheme.copyWith(
+          decoration: defaultPinTheme.decoration!.copyWith(
+            color: Colors.grey,
+            borderRadius: BorderRadius.circular(19),
+            border: Border.all(color: Colors.black),
+          ),
         ),
-      ),
-      errorPinTheme: defaultPinTheme.copyBorderWith(
-        border: Border.all(color: Colors.redAccent),
-      ),
-      separator: const SizedBox(width: 16),
-      focusedPinTheme: defaultPinTheme.copyWith(
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.05999999865889549),
-              offset: Offset(0, 3),
-              blurRadius: 16,
-            )
-          ],
+        errorPinTheme: defaultPinTheme.copyBorderWith(
+          border: Border.all(color: Colors.redAccent),
         ),
+        separator: const SizedBox(width: 16),
+        focusedPinTheme: defaultPinTheme.copyWith(
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.05999999865889549),
+                offset: Offset(0, 3),
+                blurRadius: 16,
+              )
+            ],
+          ),
+        ),
+        showCursor: true,
+        cursor: cursor,
       ),
-      showCursor: true,
-      cursor: cursor,
     );
   }
 }

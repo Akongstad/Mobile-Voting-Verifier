@@ -18,10 +18,11 @@ class ScanValidationScreen extends StatefulWidget {
   State<ScanValidationScreen> createState() => _ScanValidationScreenState();
 }
 
-bool pinValidated = false;
-
 class _ScanValidationScreenState extends State<ScanValidationScreen> {
+  bool pinValidated = false;
+  Function setPinValidated() => () => setState(() => pinValidated = true);
   bool first = true; //Show checkmark widget
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,87 +31,55 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
       Future.delayed(
           const Duration(seconds: 2), () => setState(() => first = false));
     }
-    final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: widget.valid //QR code is valid
           ? SafeArea(
-              child: Center(
-                  child: isSmallScreen
-                      ? Column(
-                          mainAxisSize: MainAxisSize.min,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedCrossFade(
+                    firstChild: Logo(validQr: widget.valid),
+                    crossFadeState: first
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: const Duration(milliseconds: 300),
+                    secondChild: AnimatedCrossFade(
+                      firstCurve: Curves.easeOut,
+                      secondCurve: Curves.easeIn,
+                      firstChild: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                        child: Column(
                           children: [
-                            AnimatedCrossFade(
-                              firstChild: Logo(validQr: widget.valid),
-                              crossFadeState: first
-                                  ? CrossFadeState.showFirst
-                                  : CrossFadeState.showSecond,
-                              duration: const Duration(milliseconds: 300),
-                              secondChild: AnimatedCrossFade(
-                                firstChild: SingleChildScrollView(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(24, 64, 24, 24),
-                                  child: Column(
-                                    children: [
-                                      const TOTPHeaderWidget(),
-                                      PinputWidget(qrCode: widget.qrCode),
-                                    ],
-                                  ),
-                                ),
-                                crossFadeState: !pinValidated
-                                    ? CrossFadeState.showFirst
-                                    : CrossFadeState.showSecond,
-                                duration: const Duration(milliseconds: 300),
-                                secondChild: const SingleChildScrollView(
-                                    padding:
-                                        EdgeInsets.fromLTRB(24, 64, 24, 24),
-                                    child: BallotAuditScreen()),
-                              ),
-                            ),
+                            const TOTPHeaderWidget(),
+                            PinputWidget(qrCode: widget.qrCode, pinValidated: setPinValidated(),),
                           ],
-                        )
-                      : Container(
-                          padding: const EdgeInsets.all(32.0),
-                          constraints: const BoxConstraints(maxWidth: 800),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Logo(validQr: widget.valid),
-                              ),
-
-                              //Expanded(
-                              //child: Center(child: _FormContent()),
-                              //),
-                            ],
-                          ),
-                        )),
+                        ),
+                      ),
+                      crossFadeState: !pinValidated
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                      duration: const Duration(milliseconds: 300),
+                      secondChild: const SingleChildScrollView(
+                          padding: EdgeInsets.fromLTRB(24, 64, 24, 24),
+                          child: BallotAuditScreen()),
+                    ),
+                  ),
+                ],
+              ),
             )
           : SafeArea(
-              child: Center(
-                  //QR code isInvalid
-                  child: isSmallScreen
-                      ? Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Logo(
-                              validQr: widget.valid,
-                            ),
-                          ],
-                        )
-                      : Container(
-                          padding: const EdgeInsets.all(32.0),
-                          constraints: const BoxConstraints(maxWidth: 800),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Logo(validQr: widget.valid),
-                              ),
-                            ],
-                          ),
-                        )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Logo(
+                    validQr: widget.valid,
+                  ),
+                ],
+              ),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => actionButtonHelper(context),
+        onPressed: () => Navigator.of(context).popUntil((route) => !Navigator.canPop(context)),
         backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
@@ -118,7 +87,4 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
   }
 }
 
-void actionButtonHelper(BuildContext context) {
-  pinValidated = false;
-  Navigator.of(context).popUntil((route) => !Navigator.canPop(context));
-}
+

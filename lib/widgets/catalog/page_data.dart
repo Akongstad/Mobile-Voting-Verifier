@@ -13,7 +13,7 @@ final pages = [
     bgColor: Color.fromRGBO(244, 245, 247, 1),
     gradiantColor: Color.fromRGBO(126, 40, 83, 1),
     textColor: Color.fromRGBO(151, 36, 46, 1.0),
-    title: "Information",
+    title: "Info",
     headerDescription: "How to verify your ballot?",
     descriptions: [
       ExpansionTile(
@@ -22,7 +22,7 @@ final pages = [
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-            "Open the QR-Code scanner by pressing the button with the QR-code icon at the bottom of the application"),
+            "Open the QR-Code scanner by pressing the button at the bottom of the application"),
         //trailing: Icon(Icons.more_vert_outlined),
       ),
       ExpansionTile(

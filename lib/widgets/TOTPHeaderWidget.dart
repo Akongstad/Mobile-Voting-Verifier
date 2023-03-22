@@ -10,7 +10,7 @@ class TOTPHeaderWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Verification',
+          'Login',
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.w700,
@@ -19,7 +19,7 @@ class TOTPHeaderWidget extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Enter password from voting device',
+          'Enter the 6 digit password from the voting device',
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: const Color.fromRGBO(133, 153, 170, 1),

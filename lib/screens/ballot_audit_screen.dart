@@ -35,21 +35,28 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                       size: 100,
                       color: Color.fromRGBO(0, 128, 64, 1.0),
                     ),
-                    Padding(padding: EdgeInsetsDirectional.all(2.0)),
+                    Padding(
+                        padding:
+                            EdgeInsetsDirectional.symmetric(vertical: 2.0)),
                     Text('Your ballot has been validated',
                         style: TextStyle(
                             fontSize: 28,
                             color: Color.fromRGBO(0, 128, 64, 1.0)),
                         textAlign: TextAlign.center),
-                    Padding(padding: EdgeInsetsDirectional.all(8.0)),
+                    Padding(
+                        padding:
+                            EdgeInsetsDirectional.symmetric(vertical: 8.0)),
                     Text(
                         'Please note that the following is an image of your ballot or ballots in the ballot box.',
                         textAlign: TextAlign.center),
                     Text('You can no longer change your ballot.',
                         textAlign: TextAlign.center),
                     Padding(
-                        padding: EdgeInsetsDirectional.all(
-                            20.0)), //TODO: INSERT BALLOT HERE
+                        padding: EdgeInsetsDirectional.symmetric(
+                            vertical: 8.0)), //TODO: INSERT BALLOT HERE
+                    Text(
+                        'If the recorded vote is different from the vote you intended, please contact 12-345-678',
+                        textAlign: TextAlign.center),
                   ],
                 ),
               ),

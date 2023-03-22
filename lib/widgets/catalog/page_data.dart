@@ -53,19 +53,6 @@ final pages = [
         subtitle: Text("Input the pin code from your voting device"),
         trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
-        title: Text("Step 6",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            "If the pin code is valid, your ballot will be displayed on the screen."),
-        trailing: Icon(Icons.more_vert_outlined),
-      ),
-      ExpansionTile(
-        title: Text("Step 7",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text("Verify the ballot has been cast as intended"),
-        trailing: Icon(Icons.more_vert_outlined),
-      ),
     ],
   ),
 ];

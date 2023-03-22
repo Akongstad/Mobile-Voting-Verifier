@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mobile_voting_verifier/screens/qr_scanner.dart';
 import 'package:mobile_voting_verifier/widgets/catalog/page_data.dart';
+import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
 
 class Catalog extends StatefulWidget {
   const Catalog({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class _CatalogState extends State<Catalog> {
 
   // Store the currently visible page
   int _currentPage = 0;
+  //Define pageindicator
 
   // Define a controller for the pageview
   final PageController _pageController = PageController(initialPage: 0);
@@ -87,8 +90,10 @@ class _CatalogState extends State<Catalog> {
         width: _actionButtonSize,
         child: FloatingActionButton(
           splashColor: themeColor!.withOpacity(0.5),
-          onPressed: () => Navigator.of(context).push(
+          onPressed: () => {
+            Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const QrScannerPage())),
+          },
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +109,7 @@ class _CatalogState extends State<Catalog> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      extendBody: true,
+      //extendBody: true,
       body: SafeArea(
         child: PageView.builder(
           controller: _pageController,

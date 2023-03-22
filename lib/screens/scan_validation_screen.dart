@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
-import 'package:mobile_voting_verifier/screens/ballot_audit_screen.dart';
+import 'package:mobile_voting_verifier/screens/welcome_page.dart';
 import 'package:mobile_voting_verifier/widgets/TOTPHeaderWidget.dart';
+import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
 import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
@@ -22,7 +23,7 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
   bool first = true;
 
   Function setPinValidated() => () => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => const BallotAuditScreen()));
+      .push(MaterialPageRoute(builder: (context) => const WelcomePage()));
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +38,24 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedOpacity(
-                    opacity: first ? 0.0 : 1.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
-                      child: Column(
-                        children: [
-                          const TOTPHeaderWidget(),
-                          PinputWidget(
-                            qrCode: widget.qrCode,
-                            pinValidated: setPinValidated(),
-                          ),
-                        ],
+                  const CurrentPageIndicator(
+                    currentStep: 2,
+                  ),
+                  Expanded(
+                    child: AnimatedOpacity(
+                      opacity: first ? 0.0 : 1.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                        child: Column(
+                          children: [
+                            const TOTPHeaderWidget(),
+                            PinputWidget(
+                              qrCode: widget.qrCode,
+                              pinValidated: setPinValidated(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )

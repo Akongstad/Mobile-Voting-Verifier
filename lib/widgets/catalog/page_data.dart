@@ -4,7 +4,7 @@ final pages = [
   const PageData(
       icon: Icons.home_outlined,
       title: "Home",
-      headerDescription: "Press button below to scan QR-code",
+      headerDescription: "Press button below to begin verifying your ballot",
       bgColor: Color.fromRGBO(244, 245, 247, 1),
       gradiantColor: Color.fromRGBO(126, 40, 83, 1),
       textColor: Color.fromRGBO(151, 36, 46, 1.0)),
@@ -18,39 +18,40 @@ final pages = [
     descriptions: [
       ExpansionTile(
         title: Text(
-          "Step 1",
+          "Begin the verification process",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-            "Open the QR-Code scanner by pressing the button with the qr-code below"),
+            "Open the QR-Code scanner by pressing the button at the bottom of the screen"),
+        trailing: Icon(Icons.more_vert_outlined),
+      ),
+      ExpansionTile(
+        title: Text("Step 1",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        subtitle: Text(
+          "Point your camera at the QR-Code displayed on the voting device",
+        ),
         trailing: Icon(Icons.more_vert_outlined),
       ),
       ExpansionTile(
         title: Text("Step 2",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-          "Allow the app to access your camera",
-        ),
+            "Enter the 6 digit one-time password displayed on the voting device"),
         trailing: Icon(Icons.more_vert_outlined),
       ),
       ExpansionTile(
-        title: Text("Step 3",
+        title: Text("Step 3", 
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "Point your camera at the QR-Code on your ballot displayed on the main voting screen"),
+            "Press the 'Audit ballot' button to proceed the verification process"),
         trailing: Icon(Icons.more_vert_outlined),
       ),
       ExpansionTile(
         title: Text("Step 4",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "If the QR-Code is valid, you will be redirected to the verification screen"),
-        trailing: Icon(Icons.more_vert_outlined),
-      ),
-      ExpansionTile(
-        title: Text("Step 5",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text("Input the pin code from your voting device"),
+            "Check that the vote shown is cast as intended and confirm that the vote is correct"),
         trailing: Icon(Icons.more_vert_outlined),
       ),
     ],
@@ -118,13 +119,17 @@ Widget buildPage(BuildContext context, int index, double actionButtonSize,
             children: [
               Text(page.title, style: Theme.of(context).textTheme.displayLarge),
               const SizedBox(height: 10),
-              Text(page.headerDescription,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(133, 153, 170, 1))),
+              Text(
+                page.headerDescription,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromRGBO(133, 153, 170, 1),
+                ),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 10),
-              TextButton(
+              /* TextButton(
                 onPressed: () => {pageController.jumpToPage(1)},
                 child: Container(
                   padding:
@@ -140,7 +145,7 @@ Widget buildPage(BuildContext context, int index, double actionButtonSize,
                   child: const Text("See Walkthrough",
                       style: TextStyle(fontSize: 15, color: Colors.white)),
                 ),
-              ),
+              ), */
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Icon(
                 Icons.arrow_downward_rounded,

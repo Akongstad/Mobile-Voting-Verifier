@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TOTPHeaderWidget extends StatelessWidget {
-  const TOTPHeaderWidget({Key? key}) : super(key: key);
+class WelcomePageHeader extends StatelessWidget {
+  const WelcomePageHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class TOTPHeaderWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Login',
+          'Welcome!',
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.w700,
@@ -19,7 +19,7 @@ class TOTPHeaderWidget extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Enter the 6 digit password from the voting device',
+          "Click the 'Audit ballot' button to continue the verification process",
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: const Color.fromRGBO(133, 153, 170, 1),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
-import 'package:mobile_voting_verifier/screens/ballot_audit_screen.dart';
+import 'package:mobile_voting_verifier/screens/welcome_page.dart';
 import 'package:mobile_voting_verifier/widgets/TOTPHeaderWidget.dart';
+import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
 import 'package:mobile_voting_verifier/widgets/logo.dart';
 import 'package:mobile_voting_verifier/widgets/pinput_totp_widget.dart';
 
@@ -19,51 +20,45 @@ class ScanValidationScreen extends StatefulWidget {
 }
 
 class _ScanValidationScreenState extends State<ScanValidationScreen> {
-  bool pinValidated = false;
-  Function setPinValidated() => () => setState(() => pinValidated = true);
-  bool first = true; //Show checkmark widget
+  bool first = true;
 
+  Function setPinValidated() => () => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => const WelcomePage()));
 
   @override
   Widget build(BuildContext context) {
-    //Init crossfade animation
     if (first) {
-      Future.delayed(
-          const Duration(seconds: 2), () => setState(() => first = false));
+      Future.delayed(const Duration(milliseconds: 50),
+          () => setState(() => first = false));
     }
+
     return Scaffold(
-      body: widget.valid //QR code is valid
+      body: widget.valid //QR code is valid or invalid (true or false)
           ? SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedCrossFade(
-                    firstChild: Logo(validQr: widget.valid),
-                    crossFadeState: first
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: const Duration(milliseconds: 300),
-                    secondChild: AnimatedCrossFade(
-                      firstCurve: Curves.easeOut,
-                      secondCurve: Curves.easeIn,
-                      firstChild: SingleChildScrollView(
+                  const CurrentPageIndicator(
+                    currentStep: 2,
+                  ),
+                  Expanded(
+                    child: AnimatedOpacity(
+                      opacity: first ? 0.0 : 1.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: SingleChildScrollView(
                         padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
                         child: Column(
                           children: [
                             const TOTPHeaderWidget(),
-                            PinputWidget(qrCode: widget.qrCode, pinValidated: setPinValidated(),),
+                            PinputWidget(
+                              qrCode: widget.qrCode,
+                              pinValidated: setPinValidated(),
+                            ),
                           ],
                         ),
                       ),
-                      crossFadeState: !pinValidated
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      duration: const Duration(milliseconds: 300),
-                      secondChild: const SingleChildScrollView(
-                          padding: EdgeInsets.fromLTRB(24, 64, 24, 24),
-                          child: BallotAuditScreen()),
                     ),
-                  ),
+                  )
                 ],
               ),
             )
@@ -79,12 +74,11 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).popUntil((route) => !Navigator.canPop(context)),
+        onPressed: () => Navigator.of(context)
+            .popUntil((route) => !Navigator.canPop(context)),
         backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
     );
   }
 }
-
-

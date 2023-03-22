@@ -16,7 +16,7 @@ final pages = [
     title: "Info",
     headerDescription: "How to verify your ballot?",
     descriptions: [
-      ExpansionTile(
+      ListTile(
         title: Text(
           "Step 1",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -25,27 +25,27 @@ final pages = [
             "Open the QR-Code scanner by pressing the button at the bottom of the application"),
         //trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 2",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "Point your camera at the QR-Code on your voting device to scan it"),
         //trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 3",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text("Input the password from the voting device"),
         //trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 4",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "You will then be greeted by a welcome page, and can now select 'Audit ballot'."),
         //trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 5",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
@@ -59,7 +59,7 @@ final pages = [
 class PageData {
   final String title;
   final String headerDescription;
-  final List<ExpansionTile> descriptions;
+  final List<ListTile> descriptions;
   final IconData? icon;
   final Color bgColor;
   final Color textColor;

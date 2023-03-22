@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 final pages = [
   const PageData(
       icon: Icons.home_outlined,
-      title: "Home", //TODO: use electionData
-      headerDescription: "Press the button below to begin verifying your vote",
+      title: "Home",
+      headerDescription: "Press button below to scan QR-code",
       bgColor: Color.fromRGBO(244, 245, 247, 1),
       gradiantColor: Color.fromRGBO(126, 40, 83, 1),
       textColor: Color.fromRGBO(151, 36, 46, 1.0)),
@@ -16,41 +16,55 @@ final pages = [
     title: "Info",
     headerDescription: "How to verify your ballot?",
     descriptions: [
-      ListTile(
+      ExpansionTile(
         title: Text(
           "Step 1",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-            "Open the QR-Code scanner by pressing the button at the bottom of the application"),
-        //trailing: Icon(Icons.more_vert_outlined),
+            "Open the QR-Code scanner by pressing the button with the qr-code below"),
+        trailing: Icon(Icons.more_vert_outlined),
       ),
-      ListTile(
+      ExpansionTile(
         title: Text("Step 2",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "Point your camera at the QR-Code on your voting device to scan it"),
-        //trailing: Icon(Icons.more_vert_outlined),
+          "Allow the app to access your camera",
+        ),
+        trailing: Icon(Icons.more_vert_outlined),
       ),
-      ListTile(
+      ExpansionTile(
         title: Text("Step 3",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text("Input the password from the voting device"),
-        //trailing: Icon(Icons.more_vert_outlined),
+        subtitle: Text(
+            "Point your camera at the QR-Code on your ballot displayed on the main voting screen"),
+        trailing: Icon(Icons.more_vert_outlined),
       ),
-      ListTile(
+      ExpansionTile(
         title: Text("Step 4",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "You will then be greeted by a welcome page, and can now select 'Audit ballot'."),
-        //trailing: Icon(Icons.more_vert_outlined),
+            "If the QR-Code is valid, you will be redirected to the verification screen"),
+        trailing: Icon(Icons.more_vert_outlined),
       ),
-      ListTile(
+      ExpansionTile(
         title: Text("Step 5",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        subtitle: Text("Input the pin code from your voting device"),
+        trailing: Icon(Icons.more_vert_outlined),
+      ),
+      ExpansionTile(
+        title: Text("Step 6",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "You now need to verify that your validated vote, is cast as you intended"),
-        //trailing: Icon(Icons.more_vert_outlined),
+            "If the pin code is valid, your ballot will be displayed on the screen."),
+        trailing: Icon(Icons.more_vert_outlined),
+      ),
+      ExpansionTile(
+        title: Text("Step 7",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        subtitle: Text("Verify the ballot has been cast as intended"),
+        trailing: Icon(Icons.more_vert_outlined),
       ),
     ],
   ),
@@ -59,7 +73,7 @@ final pages = [
 class PageData {
   final String title;
   final String headerDescription;
-  final List<ListTile> descriptions;
+  final List<ExpansionTile> descriptions;
   final IconData? icon;
   final Color bgColor;
   final Color textColor;

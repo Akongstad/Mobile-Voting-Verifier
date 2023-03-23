@@ -26,6 +26,7 @@ class VerifiableSecondDeviceParameters {
   factory VerifiableSecondDeviceParameters.fromString(String jsonString) =>
       VerifiableSecondDeviceParameters.fromJson(json.decode(jsonString));
 
+
   //------UTILITIES for checking integrity of second device parameters----------
   /*
   * Read jsonObject from file.

@@ -48,7 +48,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
         });
 
     final pdf = await createPDF(electionID, voterID, signature, fingerprint);
-    await savePDF(electionID, voterID, signature, fingerprint, pdf);
+    await savePDF(pdf);
 
     setState(() => Navigator.of(context).pop());
     Future.delayed(
@@ -57,8 +57,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
             .popUntil((route) => !Navigator.canPop(context)));
   }
 
-  Future<void> savePDF(String electionID, String voterID, String signature,
-      String fingerprint, pw.Document pdf) async {
+  Future<void> savePDF(pw.Document pdf) async {
     if (Platform.isIOS) {
       final dir = await getApplicationDocumentsDirectory();
       await writePDFToFile(dir, pdf);

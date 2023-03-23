@@ -34,8 +34,8 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
   final fingerprint =
       "91dd5f592932c7c681f20310c801e7ea935f116527b65ce6524f14c6ad2f9dac";
 
-  Future<void> saveFile(String electionID, String voterID, String signature,
-      String fingerprint) async {
+  Future<void> beginSaveToFile(String electionID, String voterID,
+      String signature, String fingerprint) async {
     //Show progress indicator
     showDialog(
         context: context,
@@ -48,10 +48,20 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
         });
 
     final pdf = await createPDF(electionID, voterID, signature, fingerprint);
+    savePDF(electionID, voterID, signature, fingerprint, pdf);
 
+    setState(() => Navigator.of(context).pop());
+    Future.delayed(
+        const Duration(seconds: 2),
+        () => Navigator.of(context)
+            .popUntil((route) => !Navigator.canPop(context)));
+  }
+
+  Future<void> savePDF(String electionID, String voterID, String signature,
+      String fingerprint, pw.Document pdf) async {
     if (Platform.isIOS) {
       final dir = await getApplicationDocumentsDirectory();
-      await writeToFile(dir, pdf);
+      await writePDFToFile(dir, pdf);
     }
 
     if (Platform.isAndroid) {
@@ -61,12 +71,12 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
       }
       if (status.isGranted) {
         final dir = Directory('/storage/emulated/0/Download/');
-        await writeToFile(dir, pdf);
+        await writePDFToFile(dir, pdf);
       }
     }
   }
 
-  Future<void> writeToFile(Directory dir, pw.Document pdf) async {
+  Future<void> writePDFToFile(Directory dir, pw.Document pdf) async {
     try {
       var file = File('');
       file = File('${dir.path}/verification_receipt.pdf');
@@ -74,12 +84,6 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
       await OpenFilex.open('${dir.path}/verification_receipt.pdf');
     } on FileSystemException catch (err) {
       throw ArgumentError(err.message);
-    } finally {
-      Navigator.of(context).pop();
-      Future.delayed(
-          const Duration(seconds: 2),
-          () => Navigator.of(context)
-              .popUntil((route) => !Navigator.canPop(context)));
     }
   }
 
@@ -197,8 +201,8 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                   backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
                   child: const Icon(Icons.keyboard_return_outlined)),
               FloatingActionButton(
-                onPressed: () =>
-                    saveFile(electionID, voterID, signature, fingerprint),
+                onPressed: () => beginSaveToFile(
+                    electionID, voterID, signature, fingerprint),
                 backgroundColor: const Color.fromARGB(255, 36, 151, 44),
                 child: const Icon(Icons.file_download),
               )

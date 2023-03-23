@@ -79,6 +79,7 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
         backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
         child: const Icon(Icons.keyboard_return_outlined),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

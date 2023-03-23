@@ -49,5 +49,9 @@
 	<string>$(PRODUCT_NAME) camera use</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

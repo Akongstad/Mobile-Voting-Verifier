@@ -7,7 +7,8 @@ import 'package:pinput/pinput.dart';
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
 class PinputWidget extends StatefulWidget {
-   PinputWidget({Key? key, required this.qrCode, required this.pinValidated}) : super(key: key);
+  PinputWidget({Key? key, required this.qrCode, required this.pinValidated})
+      : super(key: key);
   final QRCode qrCode;
   Function pinValidated;
 
@@ -41,7 +42,6 @@ class _PinputWidgetState extends State<PinputWidget> {
   String? _validate(String? pin) {
     try {
       if (pin == "196308") {
-        sleep(const Duration(milliseconds: 500));
         widget.pinValidated();
         /*  TODO:
         String challengeCommitment =

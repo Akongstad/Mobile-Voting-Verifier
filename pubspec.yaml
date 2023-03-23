@@ -56,6 +56,7 @@ dependencies:
   permission_handler: ^10.2.0
   path_provider: ^2.0.14
   open_filex: ^4.3.2
+  pdf: ^3.8.4
 flutter_icons:
   android: true
   ios: true

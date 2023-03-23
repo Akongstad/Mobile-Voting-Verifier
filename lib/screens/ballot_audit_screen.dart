@@ -48,7 +48,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
         });
 
     final pdf = await createPDF(electionID, voterID, signature, fingerprint);
-    savePDF(electionID, voterID, signature, fingerprint, pdf);
+    await savePDF(electionID, voterID, signature, fingerprint, pdf);
 
     setState(() => Navigator.of(context).pop());
     Future.delayed(

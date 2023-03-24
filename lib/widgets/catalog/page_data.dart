@@ -16,43 +16,42 @@ final pages = [
     title: "Info",
     headerDescription: "How to verify your ballot?",
     descriptions: [
-      ExpansionTile(
+      ListTile(
         title: Text(
           "Begin the verification process",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
             "Open the QR-Code scanner by pressing the button at the bottom of the screen"),
-        trailing: Icon(Icons.more_vert_outlined),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 1",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
           "Point your camera at the QR-Code displayed on the voting device",
         ),
-        trailing: Icon(Icons.more_vert_outlined),
+        trailing: Icon(Icons.qr_code_scanner_rounded),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 2",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "Enter the 6 digit one-time password displayed on the voting device"),
-        trailing: Icon(Icons.more_vert_outlined),
+        trailing: Icon(Icons.password_rounded),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 3", 
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "Press the 'Audit ballot' button to proceed the verification process"),
-        trailing: Icon(Icons.more_vert_outlined),
+        trailing: Icon(Icons.ads_click_rounded),
       ),
-      ExpansionTile(
+      ListTile(
         title: Text("Step 4",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "Check that the vote shown is cast as intended and confirm that the vote is correct"),
-        trailing: Icon(Icons.more_vert_outlined),
+        trailing: Icon(Icons.search_rounded),
       ),
     ],
   ),
@@ -61,7 +60,7 @@ final pages = [
 class PageData {
   final String title;
   final String headerDescription;
-  final List<ExpansionTile> descriptions;
+  final List<ListTile> descriptions;
   final IconData? icon;
   final Color bgColor;
   final Color textColor;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:mobile_voting_verifier/screens/qr_scanner.dart';
 import 'package:mobile_voting_verifier/widgets/catalog/page_data.dart';
-import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
 
 class Catalog extends StatefulWidget {
   const Catalog({Key? key}) : super(key: key);

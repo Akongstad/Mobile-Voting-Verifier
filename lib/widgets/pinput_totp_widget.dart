@@ -103,7 +103,6 @@ class _PinputWidgetState extends State<PinputWidget> {
           decoration: defaultPinTheme.decoration!.copyWith(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(19),
-            border: Border.all(color: Colors.black),
           ),
         ),
         errorPinTheme: defaultPinTheme.copyBorderWith(

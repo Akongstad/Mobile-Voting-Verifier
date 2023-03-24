@@ -9,6 +9,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BallotAuditScreen extends StatefulWidget {
   const BallotAuditScreen({super.key});
@@ -52,9 +53,10 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
     final pdf = await createPDF(electionID, voterID, signature, fingerprint);
     await savePDF(pdf);
 
+    // Delay
     setState(() => Navigator.of(context).pop());
     Future.delayed(
-        const Duration(seconds: 2),
+        const Duration(milliseconds: 50),
         () => Navigator.of(context)
             .popUntil((route) => !Navigator.canPop(context)));
   }
@@ -116,7 +118,6 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
     return pdf;
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (first) {
@@ -141,54 +142,39 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.check_circle_outline_rounded,
-                          size: 100,
-                          color: Color.fromRGBO(0, 128, 64, 1.0),
+                        const Text('Your ballot has been recorded',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(0, 128, 64, 1.0)),
+                            textAlign: TextAlign.center),
+                        Divider(
+                          height: 20,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                         const Padding(
                             padding:
-                                EdgeInsetsDirectional.symmetric(vertical: 2.0)),
-                        const Text('Your ballot has been validated',
-                            style: TextStyle(
-                                fontSize: 28,
-                                color: Color.fromRGBO(0, 128, 64, 1.0)),
-                            textAlign: TextAlign.center),
-                        const Padding(
-                            padding:
                                 EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                        const Text(
-                            'Please note that the following is an image of your ballot or ballots in the ballot box.',
-                            textAlign: TextAlign.center),
-                        const Text('You can no longer change your ballot.',
+                        Text(
+                            'The following is an image of your ballot in the ballot box. You can no longer change your ballot.',
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center),
                         const Padding(
                             padding: EdgeInsetsDirectional.symmetric(
                                 vertical: 10.0)),
-                        const Text('BALLOT',
-                            textAlign:
-                                TextAlign.center), //TODO: INSERT BALLOT HERE
-                        const Padding(
-                            padding: EdgeInsetsDirectional.symmetric(
-                                vertical: 10.0)),
-                        const Text(
-                            'If the recorded vote is different from the vote you intended, please contact 12-345-678.',
-                            textAlign: TextAlign.center),
-                        const Padding(
-                            padding:
-                                EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                        const Text(
-                            'To end the verification process, you have the option to click the button at the bottom right of the page to download a receipt for your verification or return to the home page.',
-                            textAlign: TextAlign.center),
-                        const Padding(
-                            padding:
-                                EdgeInsetsDirectional.symmetric(vertical: 8.0)),
                         FutureBuilder(
-                          future: VerifiableSecondDeviceParameters.jsonFromFile("assets/mock_ballot_spec.json"), //TODO Dont switch to fetched data
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          future: VerifiableSecondDeviceParameters.jsonFromFile(
+                              "assets/mock_ballot_spec.json"),
+                          //TODO Dont switch to fetched data
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
-                              final ballotSpecs = VerifiableSecondDeviceParameters.fromJson(snapshot.data["publicParametersJson"]).ballots;
+                              final ballotSpecs =
+                                  VerifiableSecondDeviceParameters.fromJson(
+                                          snapshot.data["publicParametersJson"])
+                                      .ballots;
                               return ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: ballotSpecs.length,
                                 itemBuilder: (context, index) {
@@ -202,9 +188,130 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                             }
                           },
                         ),
+                        const Padding(
+                            padding: EdgeInsetsDirectional.symmetric(
+                                vertical: 10.0)),
+                        const Text(
+                            'Click the download button to receive a receipt that can be used to ensure that your ballot is included in the final tally.',
+                            textAlign: TextAlign.center),
+                        const Padding(
+                            padding: EdgeInsetsDirectional.symmetric(
+                                vertical: 10.0)),
+                        const Text(
+                            'The recorded vote is different from what you intended?',
+                            textAlign: TextAlign.center),
+                        const Padding(
+                            padding:
+                                EdgeInsetsDirectional.symmetric(vertical: 5.0)),
+                        Container(
+                          height: 35,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: <Color>[
+                                Color.fromRGBO(151, 36, 46, 1.0),
+                                Color.fromRGBO(126, 40, 83, 1),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.all(10),
+                              textStyle: const TextStyle(fontSize: 14),
+                            ),
+                            onPressed: () => showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Stack(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text("Report a problem",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Divider(
+                                          height: 20,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .displayLarge!
+                                              .color,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                            "If you believe that your vote has been recorded incorrectly, you can contact the election administrators.",
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Press continue to proceed to the support section of the official election website.",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text("Cancel"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async =>
+                                                await canLaunchUrl(Uri(
+                                                        scheme: "https",
+                                                        host: "github.com",
+                                                        path:
+                                                            "Akongstad/Mobile-Voting-Verifier"))
+                                                    ? await launchUrl(Uri(
+                                                        scheme: "https",
+                                                        host: "github.com",
+                                                        path:
+                                                            "Akongstad/Mobile-Voting-Verifier"))
+                                                    : debugPrint(
+                                                        "Could not launch url"),
+                                            child: const Text("Continue"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            child: const Text('Report a problem'),
+                          ),
+                        ),
+                        const Padding(
+                            padding:
+                                EdgeInsetsDirectional.symmetric(vertical: 8.0)),
+                        const Padding(
+                            padding:
+                                EdgeInsetsDirectional.symmetric(vertical: 8.0)),
                       ],
                     ),
-
                   ),
                 ),
               ),
@@ -226,6 +333,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                 onPressed: () => beginSaveToFile(
                     electionID, voterID, signature, fingerprint),
                 backgroundColor: const Color.fromARGB(255, 36, 151, 44),
+                heroTag: false,
                 child: const Icon(Icons.file_download),
               )
             ],

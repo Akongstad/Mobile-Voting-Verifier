@@ -51,7 +51,7 @@ final pages = [
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
             "Check that the vote shown is cast as intended and confirm that the vote is correct"),
-        trailing: Icon(Icons.search_rounded),
+        trailing: Icon(Icons.ballot_outlined),
       ),
     ],
   ),

@@ -6,10 +6,10 @@ class CurrentPageIndicator extends StatelessWidget {
   final int currentStep;
 
   static const List<Step> steps = [
-    Step(stepNumber: 1, title: "Scan QR-Code (1/4)"),
-    Step(stepNumber: 2, title: "Enter Password (2/4)"),
-    Step(stepNumber: 3, title: "Audit ballot (3/4)"),
-    Step(stepNumber: 4, title: "Verify Vote (4/4)")
+    Step(stepNumber: 1, title: "Scan QR-Code"),
+    Step(stepNumber: 2, title: "Enter Password"),
+    Step(stepNumber: 3, title: "Proceed to Audit"),
+    Step(stepNumber: 4, title: "Verify Vote")
   ];
 
   @override

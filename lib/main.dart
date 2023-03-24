@@ -54,10 +54,15 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             color: Color.fromRGBO(47, 67, 80,1),
           ),
           bodyLarge: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+            color: Color.fromRGBO(47, 67, 80,1),
+          ),
+          bodyMedium: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.normal,
             color: Color.fromRGBO(47, 67, 80,1),

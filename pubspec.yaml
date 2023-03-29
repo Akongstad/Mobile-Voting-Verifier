@@ -60,7 +60,7 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/appstore.png"
+  image_path: "assets/Group 1Logo.png"
 
 
 dev_dependencies:

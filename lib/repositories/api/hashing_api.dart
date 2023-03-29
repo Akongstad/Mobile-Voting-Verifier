@@ -28,6 +28,7 @@ class DefaultHashingAPI implements HashingAPI {
   Future<List<int>> encodeBigInt(BigInt bigInt) async =>
       _bigIntToBytesPadWithLength(bigInt);
 
+
   @override
   Future<List<int>> encodeECPoint(ECPoint point) async =>
       point.getEncoded(true);
@@ -51,7 +52,7 @@ class DefaultHashingAPI implements HashingAPI {
 
   // Specific conversion of BigInt to Uint8List with padding
   static Future<Uint8List> _bigIntToBytesPadWithLength(BigInt x) async {
-    final bytes = await _bigIntToBytes(x);
+    final bytes = await bigIntToBytes(x);
     final result = await _int32ToBytesBigEndian(bytes.length) + bytes;
     return Uint8List.fromList(result);
   }
@@ -61,7 +62,7 @@ class DefaultHashingAPI implements HashingAPI {
       Uint8List(4)..buffer.asByteData().setInt32(0, value, Endian.big);
 
   /// Convert a BigInt to a Uint8List
-  static Future<Uint8List> _bigIntToBytes(BigInt bigInt) async =>
+  static Future<Uint8List> bigIntToBytes(BigInt bigInt) async =>
       hexToBytes(bigInt.toRadixString(16).padLeft(32, "0"));
 
   /// Converts a hex string to a Uint8List
@@ -77,4 +78,6 @@ class DefaultHashingAPI implements HashingAPI {
   static Future<ECPoint> _bytesToECPoint(
           List<int> bytes, ECDomainParameters curveParams) async =>
       curveParams.curve.decodePoint(bytes)!;
+  static Future<String> pointToHex(ECPoint point) async => HEX.encode(point.getEncoded(true));
+
 }

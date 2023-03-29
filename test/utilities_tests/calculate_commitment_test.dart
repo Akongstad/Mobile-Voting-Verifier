@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hex/hex.dart';
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
@@ -23,7 +20,7 @@ void main() {
       var challengeRequest = ChallengeRequest(challenge: e, challengeRandomCoin: r);
       var ecRepo = EllipticCurveRepository.noSeed();
       var actual = await calculateChallengeCommitment(ecRepo, e, r);
-      //expect(actual.$1, challengeCommitmentExpected);
+      expect(actual.$1, challengeCommitmentExpected);
       expect(actual.$2.challengeRandomCoin, challengeRequest.challengeRandomCoin);
       expect(actual.$2.challenge, challengeRequest.challenge);
     });
@@ -46,38 +43,6 @@ void main() {
         "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f",
         radix: 16);
     final expectedGEncoded = "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798";
-
-    test('Test key generation', () async {
-      // Creating a seed for secp256k1
-      final seed = utf8.encode("xyz");
-
-      //INIT SECURE RANDOM "FORTUNA".
-      //Once seeded will produce an indefinite quantity of pseudo-random data.
-      final sGen = Random.secure();
-      final randSeed = Uint8List.fromList(
-          List.generate(32, (n) => sGen.nextInt(255)));
-      final secureRandom = FortunaRandom()
-        ..seed(KeyParameter(randSeed));
-
-      // Initialize secp256k1 with seed defined above
-      var domainParams = ECDomainParametersImpl(
-          secp256k1.domainName, secp256k1.curve, secp256k1.G, secp256k1.n,
-          secp256k1.h, seed);
-
-      // Initialize key generator from secp256k1 and FORTUNA random
-      var keyParams = ECKeyGeneratorParameters(domainParams);
-      var paramsWithRandom = ParametersWithRandom<ECKeyGeneratorParameters>(
-          keyParams, secureRandom);
-
-      // Initialize ElipticCurveKeyGenerator from paramaters above
-      var generator = ECKeyGenerator();
-      generator.init(paramsWithRandom);
-      var keyPair = generator.generateKeyPair();
-      var keyPart2 = generator.generateKeyPair();
-      var privateKey = keyPair.privateKey;
-      var publicKey = keyPair.publicKey;
-      expect(true, true);
-    });
 
     test('Test parameters against specification', () async {
       /*

@@ -1,14 +1,25 @@
+
 import 'package:elliptic/elliptic.dart';
+import 'package:hex/hex.dart';
 import 'package:mobile_voting_verifier/models/algorithms/tonelli_shanks.dart';
 import 'package:pointycastle/export.dart';
 
-abstract class ECEncodingAPI {
 
+abstract class ECEncodingAPI {
+  // Might be deprecated and replaced by:
+  /*
+   * ECDomainParameters('secp256k1').curve.decodePoint(encoded);
+   * ECDomainParameters('secp256k1').curve.fromBigInteger(x);
+   */
+
+  static Future<String> bigIntToPointHex(BigInt x, BigInt prime, ECDomainParameters ec)async  {
+    var decoded = await ECEncodingAPI.encodeToPoint(x, prime, ec);
+    return HEX.encode(decoded.getEncoded(true));
+  }
   // Function to decode from a point on the curve
   static Future<BigInt> decodeFromPoint(BigInt x, BigInt y,
           {int k = 80}) async =>
       (x - BigInt.one) ~/ BigInt.from(k);
-
 
   // Function to encode to a point on the curve
   static Future<ECPoint> encodeToPoint(

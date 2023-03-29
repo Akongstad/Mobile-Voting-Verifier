@@ -1,7 +1,7 @@
-import 'package:mobile_voting_verifier/repositories/api/ec_encoding_api.dart';
 import 'package:mobile_voting_verifier/repositories/eliptic_curve_repository.dart';
 import 'package:mobile_voting_verifier/repositories/api/hashing_api.dart';
 import 'package:mobile_voting_verifier/models/challenge_request.dart';
+import 'package:pointycastle/ecc/api.dart';
 
 /* Calculates a Pedersen commitment and returns a tuple of the commitment as hex
  *
@@ -10,17 +10,19 @@ import 'package:mobile_voting_verifier/models/challenge_request.dart';
 Future<(String, ChallengeRequest)> calculateChallengeCommitment(
     EllipticCurveRepository ecRepository, BigInt e, BigInt r) async {
   final p = IEllipticCurveRepository.p;
-  final q = IEllipticCurveRepository.q;
-  final k = IEllipticCurveRepository.compressedK;
-  final G = IEllipticCurveRepository.compressedG;
+  final k = IEllipticCurveRepository.hexK;
+  final G = IEllipticCurveRepository.hexG;
+
   // Sample random values for e and r
   /*final rng = ecRepository.random;
   final e = rng.nextBigInteger(q.bitLength) % q;
   final r = rng.nextBigInteger(q.bitLength) % q;*/
 
-  final c = await _pedCommit(G, k, e, r, p);
-  final bytesToHexString = await _cToPointToHex(c, ecRepository);
-  return (bytesToHexString, ChallengeRequest(
+  final gPoint =  await ecRepository.pointRepository.fromBigInt(G);
+  final kPoint = await ecRepository.pointRepository.fromBigInt(k);
+
+  final c = await _pedCommit(gPoint, kPoint, e, r, p);
+  return (c, ChallengeRequest(
       challenge: e, challengeRandomCoin: r));
 }
 
@@ -34,20 +36,12 @@ Future<(String, ChallengeRequest)> calculateChallengeCommitment(
  *
  * `p` is the order of the elliptic curve group `Zp`.
  */
-Future<BigInt> _pedCommit(BigInt G, BigInt k, BigInt e, BigInt r,
-    BigInt p) async =>
-    (G.modPow(r, p) * k.modPow(e, p)) % p;
-
-Future<String> _cToPointToHex(BigInt c,
-    EllipticCurveRepository ecRepository) async {
-  //Encode c to point on the curve.
-  final encodeToZqPoint = await ECEncodingAPI.encodeToPoint(
-      c, IEllipticCurveRepository.p, ecRepository.curve);
-
-  //Encode point(c) to bytes
-  final pointAsBytes = await DefaultHashingAPI().encodeECPoint(encodeToZqPoint);
-
-  //Decode bytes to hex
-  return await DefaultHashingAPI.bytesToHex(pointAsBytes);
+Future<String> _pedCommit(ECPoint G, ECPoint k, BigInt e, BigInt r,
+    BigInt p) async {
+  final intermed1 = G * e;
+  final intermed2 = k * r;
+  final challengeInt = intermed1! + intermed2!;
+  final challengeCommit = await DefaultHashingAPI.pointToHex(challengeInt!);
+  return challengeCommit;
 }
 

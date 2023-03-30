@@ -51,7 +51,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(candidateList.columnHeaders[index].default_,
-                      style: const TextStyle(fontWeight: FontWeight.bold)))
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold)))
               : Text(candidateList.columnHeaders[index].default_,
                   style: const TextStyle(fontWeight: FontWeight.bold))));
 
@@ -83,6 +83,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
                         ? candidate.columns[index].value.value.values
                             .first //TODO should we have a listbuilder here?
                         : candidate.columns[index].value.default_ ?? "No value",
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 )));
 
@@ -127,7 +128,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                       widget.ballotSpec.title.default_,
-                      style: Theme.of(context).textTheme.displayLarge),
+                      style: Theme.of(context).textTheme.displayMedium),
                 ),
               ),
               const Divider(

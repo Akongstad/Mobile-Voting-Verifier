@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/screens/catalog.dart';
 /*
 * Notes
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false, // For testing UI performance
       builder: (context, widget) { // Custom error widget for build phase errors
         Widget error = const Text('...rendering error...');
@@ -51,27 +53,31 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
+        textTheme: TextTheme(
+          displayLarge: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.normal,
             color: Color.fromRGBO(47, 67, 80,1),
           ),
-          bodyLarge: TextStyle(
+          displayMedium: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            color: const Color.fromRGBO(30, 60, 87, 1),
+          ),
+          bodyLarge: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.normal,
             color: Color.fromRGBO(47, 67, 80,1),
           ),
-          bodyMedium: TextStyle(
+          bodyMedium: GoogleFonts.poppins(
+            fontSize: 16,
+            color: const Color.fromRGBO(133, 153, 170, 1),
+          ),
+          bodySmall: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.normal,
-            color: Color.fromRGBO(47, 67, 80,1),
           ),
-          bodySmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.normal,
-            color: Color.fromRGBO(47, 67, 80,1),
-          ),
+
         ),
       ),
       themeMode: ThemeMode.light,

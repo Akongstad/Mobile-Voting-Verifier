@@ -96,7 +96,7 @@ Widget buildPage(BuildContext context, int index, double actionButtonSize,
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                  itemExtent: 100,
+                  itemExtent: 110,
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   itemCount: page.descriptions.length,
                   shrinkWrap: true,

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/models/verifiable_second_device_parameters.dart';
 import 'package:mobile_voting_verifier/widgets/BallotAuditWidgets/ballot_display_widget.dart';
+import 'package:mobile_voting_verifier/widgets/BallotAuditWidgets/bottom_modal_report.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -20,7 +21,7 @@ class BallotAuditScreen extends StatefulWidget {
 
 class _BallotAuditScreen extends State<BallotAuditScreen> {
   bool first = true;
-
+  int currentStep = 4;
   /*
   TODO:
   electionID should be electionId from SecondDeviceLoginResponse
@@ -130,8 +131,8 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CurrentPageIndicator(
-                currentStep: 4,
+               CurrentPageIndicator(
+                currentStep: currentStep,
               ),
               Expanded(
                 child: AnimatedOpacity(
@@ -142,11 +143,14 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Your ballot has been recorded',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(0, 128, 64, 1.0)),
-                            textAlign: TextAlign.center),
+                        Text(
+                          'Your ballot was recorded',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                  color: const Color.fromRGBO(36, 151, 44, 1)),
+                        ),
                         Divider(
                           height: 20,
                           color:
@@ -155,9 +159,11 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                         const Padding(
                             padding:
                                 EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                        Text(
-                            'The following is an image of your ballot in the ballot box. You can no longer change your ballot.',
-                            style: Theme.of(context).textTheme.bodyLarge,
+                        Text('You can no longer change your ballot.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.black),
                             textAlign: TextAlign.center),
                         const Padding(
                             padding: EdgeInsetsDirectional.symmetric(
@@ -192,14 +198,11 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                             padding: EdgeInsetsDirectional.symmetric(
                                 vertical: 10.0)),
                         const Text(
-                            'Click the download button to receive a receipt that can be used to ensure that your ballot is included in the final tally.',
+                            'Use the download button to receive an encrypted receipt that can be used to ensure that your ballot is included in the final tally.',
                             textAlign: TextAlign.center),
                         const Padding(
                             padding: EdgeInsetsDirectional.symmetric(
                                 vertical: 10.0)),
-                        const Text(
-                            'The recorded vote is different from what you intended?',
-                            textAlign: TextAlign.center),
                         const Padding(
                             padding:
                                 EdgeInsetsDirectional.symmetric(vertical: 5.0)),
@@ -222,84 +225,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                             ),
                             onPressed: () => showModalBottomSheet(
                               context: context,
-                              builder: (context) => Stack(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text("Report a problem",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0),
-                                        child: Divider(
-                                          height: 20,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .displayLarge!
-                                              .color,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                            "If you believe that your vote has been recorded incorrectly, you can contact the election administrators.",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          "Press continue to proceed to the support section of the official election website.",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: const Text("Cancel"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () async =>
-                                                await canLaunchUrl(Uri(
-                                                        scheme: "https",
-                                                        host: "github.com",
-                                                        path:
-                                                            "Akongstad/Mobile-Voting-Verifier"))
-                                                    ? await launchUrl(Uri(
-                                                        scheme: "https",
-                                                        host: "github.com",
-                                                        path:
-                                                            "Akongstad/Mobile-Voting-Verifier"))
-                                                    : debugPrint(
-                                                        "Could not launch url"),
-                                            child: const Text("Continue"),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              builder: (context) => const BottomModalReport(),
                             ),
                             child: const Text('Report a problem'),
                           ),
@@ -330,8 +256,10 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                   backgroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
                   child: const Icon(Icons.keyboard_return_outlined)),
               FloatingActionButton(
-                onPressed: () => beginSaveToFile(
+                onPressed: () => {beginSaveToFile(
                     electionID, voterID, signature, fingerprint),
+                  setState(() => currentStep = 5)
+                },
                 backgroundColor: const Color.fromARGB(255, 36, 151, 44),
                 heroTag: false,
                 child: const Icon(Icons.file_download),

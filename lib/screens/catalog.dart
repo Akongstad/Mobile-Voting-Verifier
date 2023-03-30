@@ -15,8 +15,6 @@ class _CatalogState extends State<Catalog> {
 
   // Store the currently visible page
   int _currentPage = 0;
-  //Define pageindicator
-
   // Define a controller for the pageview
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -101,7 +99,6 @@ class _CatalogState extends State<Catalog> {
                 color: themeColor,
                 size: 35,
               ),
-              //Text("Scan", style: TextStyle(color: Colors.grey, fontSize: 10),)
             ],
           ),
         ),

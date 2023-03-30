@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class BallotAuditCheckBox extends StatefulWidget {
-  const BallotAuditCheckBox({Key? key, required this.checkedMap,required this.id,
-   this.title = "Beware! This will not change your vote",
-    this.content = "Q: Why may I edit my ballot?\n"
-        "A: To prevent voter coercion and vote selling.\n\n"
-        "Q: What will happen if I edit my ballot?\n"
-        "A: This will have no effect on the vote you cast."}) : super(key: key);
+  const BallotAuditCheckBox(
+      {Key? key,
+      required this.checkedMap,
+      required this.id,
+      this.title = "Beware! This will not change your vote",
+      this.content = "This will only modify the visualisation on this device.\n\n"
+          "Q: Why may I edit my ballot?\n"
+          "A: To ensure a voter cannot produce a receipt which proves how they voted.\n\n"
+          "Q: What will happen if I edit my ballot?\n"
+          "A: This will have no effect on the vote you cast."})
+      : super(key: key);
   final Map<String, bool> checkedMap;
   final String id;
   final String title;
@@ -24,24 +29,26 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
         onChanged: (value) => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: Text(widget.title),
-              content: Text(widget.content),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      widget.checkedMap[widget.id] = value!;
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Accept'),
-                ),
-              ],
-            ))
-    );
+                  title: Text(
+                    widget.title,
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  content: Text(widget.content, style: Theme.of(context).textTheme.bodyMedium,),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.checkedMap[widget.id] = value!;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Accept'),
+                    ),
+                  ],
+                )));
   }
 }

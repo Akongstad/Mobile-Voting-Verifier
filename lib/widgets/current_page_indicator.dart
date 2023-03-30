@@ -9,7 +9,7 @@ class CurrentPageIndicator extends StatelessWidget {
     Step(stepNumber: 1, title: "Scan QR-Code"),
     Step(stepNumber: 2, title: "Enter Password"),
     Step(stepNumber: 3, title: "Proceed to Audit"),
-    Step(stepNumber: 4, title: "Verify Vote")
+    Step(stepNumber: 4, title: "Verify Vote"),
   ];
 
   @override
@@ -23,7 +23,7 @@ class CurrentPageIndicator extends StatelessWidget {
           Hero(
               tag: "ProgressTitle",
               child: Text(
-                steps[currentStep - 1].title,
+                currentStep < 5 ? steps[currentStep - 1].title : "Complete!",
                 style: Theme.of(context).textTheme.displayLarge,
               )),
           SizedBox(height: screenHeight * 0.01),

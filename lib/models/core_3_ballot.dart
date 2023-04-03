@@ -224,7 +224,7 @@ class CandidateSpec {
       maxVotes: json["maxVotes"] as int,
       minVotes: json["minVotes"] as int,
       writeInSize: json["writeInSize"] != null ? json["writeInSize"] as int : null,
-      RECEIVED_MOCKVOTES: json["RECEIVED_MOCKVOTES"] as bool,
+      RECEIVED_MOCKVOTES: json["RECEIVED_MOCKVOTES"] != null ? json["RECEIVED_MOCKVOTES"] as bool : false,
   );
 }
 

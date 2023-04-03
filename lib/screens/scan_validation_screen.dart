@@ -63,13 +63,10 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
               ),
             )
           : SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Logo(
-                    validQr: widget.valid,
-                  ),
-                ],
+              child: Center(
+                child: Logo(
+                  validQr: widget.valid,
+                ),
               ),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

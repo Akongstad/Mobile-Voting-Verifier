@@ -8,9 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
 import 'package:mobile_voting_verifier/widgets/current_page_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BallotAuditScreen extends StatefulWidget {
   const BallotAuditScreen({super.key});
@@ -159,7 +157,8 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                         const Padding(
                             padding:
                                 EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                        Text('You can no longer change your ballot.',
+                        Text('Please verify that the below images matches your choice.\n'
+                            'You can no longer change your ballot.',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!

@@ -1,15 +1,17 @@
 import 'package:mobile_voting_verifier/models/content.dart';
 import 'package:mobile_voting_verifier/models/i_18_n.dart';
 
-sealed class Core3Ballot {
+class Core3Ballot {
 
   Core3Ballot();
 
-  factory Core3Ballot.fromJson(Map<String, dynamic> json) =>
+  factory Core3Ballot.fromJson(Map<String, dynamic> json){
     switch(json["type"]) {
-      "STANDARD_BALLOT" => Core3StandardBallot.fromJson(json),
-      _ => Core3StandardBallot.fromJson(json)
+      case "STANDARD_BALLOT" : return Core3StandardBallot.fromJson(json);
+      default: return Core3StandardBallot.fromJson(json);
     };
+  }
+
 
   // Overridable getters, such that fields can be accessed polymorphically
   bool get calculateAvailableVotes => throw ArgumentError("The supertype Core3Ballot is not supposed to be instantiated");
@@ -203,6 +205,7 @@ class CandidateSpec {
   final int maxVotes;
   final int minVotes;
   final int? writeInSize;
+  final bool RECEIVED_MOCKVOTES;
 
   CandidateSpec({
     required this.columns,
@@ -211,6 +214,7 @@ class CandidateSpec {
     required this.maxVotes,
     required this.minVotes,
     this.writeInSize,
+    required this.RECEIVED_MOCKVOTES
   });
   factory CandidateSpec.fromJson(Map<String, dynamic> json)
   => CandidateSpec(
@@ -219,7 +223,8 @@ class CandidateSpec {
       id: json["id"],
       maxVotes: json["maxVotes"] as int,
       minVotes: json["minVotes"] as int,
-      writeInSize: json["writeInSize"] != null ? json["writeInSize"] as int : null
+      writeInSize: json["writeInSize"] != null ? json["writeInSize"] as int : null,
+      RECEIVED_MOCKVOTES: json["RECEIVED_MOCKVOTES"] as bool,
   );
 }
 

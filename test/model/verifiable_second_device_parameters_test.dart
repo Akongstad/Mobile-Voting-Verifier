@@ -64,7 +64,7 @@ void main() {
           id: "0",
           title: I18n(default_: "ballot 0", value: {}),
           lists: [CandidateList(
-              candidates: [CandidateSpec(columns: [], id: "0-0-0", maxVotes: 1, minVotes: 0), CandidateSpec(columns: [], id: "0-0-1", maxVotes: 1, minVotes: 0),],
+              candidates: [CandidateSpec(columns: [], id: "0-0-0", maxVotes: 1, minVotes: 0, RECEIVED_MOCKVOTES: false), CandidateSpec(columns: [], id: "0-0-1", maxVotes: 1, minVotes: 0, RECEIVED_MOCKVOTES: false )],
               columnHeaders: [I18n(default_: "ballot 0", value: {})],
               id: "0-0",
               maxVotesForList: 999,

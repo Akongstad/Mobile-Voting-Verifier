@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:mobile_voting_verifier/models/qr_code.dart';
@@ -11,23 +13,12 @@ class QrScannerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(children: [
         MobileScanner(
-            //TODO Disable Multiple QR code Scans.
             allowDuplicates: false,
-            onDetect: (barcode, args) {
-              if (barcode.rawValue == null) {
-                debugPrint('Failed to scan Barcode');
-              } else {
-                final String code = barcode.rawValue!;
-                debugPrint('Barcode found! $code');
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ScanValidationScreen(
-                        valid: QRCode.isValid(code),
-                        qrCode: QRCode.fromString(code))));
-              }
-            }),
+            onDetect: (barcode, args) => _onDetectBarcode(context, barcode, args)),
         QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1)),
         Padding(
             padding: MediaQuery.of(context).padding,
@@ -52,5 +43,27 @@ class QrScannerPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+void _onDetectBarcode(BuildContext context, Barcode barcode, MobileScannerArguments? mobileScannerArguments){
+  try {
+    if (barcode.rawValue == null) {
+      debugPrint('Failed to scan Barcode');
+    } else {
+      final String code = barcode.rawValue!;
+      log('Barcode found! $code');
+      final isValid = QRCode.isValid(code);
+      final qrCode = QRCode.fromString(code);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              ScanValidationScreen(
+                  valid: isValid,
+                  qrCode: qrCode)));
+    }
+  } on ArgumentError catch (e) {
+    log(e.toString());
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>  ScanValidationScreen(
+            valid: false, qrCode: QRCode(c: "", vid: "", nonce: ""))));
   }
 }

@@ -12,7 +12,7 @@
         "lists": [
           {
             "id": "0-0",
-            "title": {"default": "Folketingsaftemning", "value": {}},
+            "title": {"default": "Folketingsafstemning", "value": {}},
             "columnHeaders": [
               {"default": "Candidate", "value": {}}
             ],

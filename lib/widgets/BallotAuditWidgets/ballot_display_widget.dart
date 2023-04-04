@@ -65,6 +65,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
 
       // Add all candidates to the current candidateList table rows
       for (var candidate in candidateList.candidates) {
+        checkedMap[candidate.id] = candidate.RECEIVED_MOCKVOTES;
         List<Widget> cols = [
           Container(
               color: Theme.of(context).scaffoldBackgroundColor,

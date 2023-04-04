@@ -18,7 +18,7 @@
             ],
             "candidates": [
               {"id": "0-0-0", "maxVotes":  1, "minVotes": 0,  "columns": [
-                { "value" : {"default": "Trump", "value": {}}, "type": "TEXT"}]},
+                { "value" : {"default": "Trump", "value": {}}, "type": "TEXT"}], "RECEIVED_MOCK_VOTE": true},
               {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Biden", "value": {}}, "type": "TEXT"}]}
             ],

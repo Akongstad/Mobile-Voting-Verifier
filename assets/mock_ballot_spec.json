@@ -8,19 +8,39 @@
       {
         "type": "STANDARD_BALLOT",
         "id": "0",
-        "title": {"default": "Ballot title", "value": {}},
+        "title": {"default": "Official Ballot", "value": {}},
         "lists": [
           {
             "id": "0-0",
-            "title": {"default": "Who should be President?", "value": {}},
+            "title": {"default": "Folketingsaftemning", "value": {}},
             "columnHeaders": [
               {"default": "Candidate", "value": {}}
             ],
             "candidates": [
               {"id": "0-0-0", "maxVotes":  1, "minVotes": 0,  "columns": [
-                { "value" : {"default": "Trump", "value": {}}, "type": "TEXT"}], "RECEIVED_MOCK_VOTE": true},
+                { "value" : {"default": "Socialdemokratiet", "value": {}}, "type": "TEXT"}], "RECEIVED_MOCK_VOTE": true},
               {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
-                { "value" : {"default": "Biden", "value": {}}, "type": "TEXT"}]}
+                { "value" : {"default": "Venstre", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Moderaterne", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Socialistisk Folkeparti", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Danmarksdemokraterne", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Daddy", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Det Konservative Folkeparti", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Enhedslisten", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Radikale Venstre", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Dansk Folkeparti", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Alternativet", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-1", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Nye Borgerlige", "value": {}}, "type": "TEXT"}]}
             ],
             "maxVotesOnList": 999,
             "minVotesOnList": 0,

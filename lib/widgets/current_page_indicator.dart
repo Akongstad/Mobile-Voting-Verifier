@@ -6,7 +6,7 @@ class CurrentPageIndicator extends StatelessWidget {
   final int currentStep;
 
   static const List<Step> steps = [
-    Step(stepNumber: 1, title: "Scan QR-Code"),
+    Step(stepNumber: 1, title: "Scan QR-Code", color: Colors.white),
     Step(stepNumber: 2, title: "Enter Password"),
     Step(stepNumber: 3, title: "Proceed to Audit"),
     Step(stepNumber: 4, title: "Verify Vote"),
@@ -24,7 +24,12 @@ class CurrentPageIndicator extends StatelessWidget {
               tag: "ProgressTitle",
               child: Text(
                 currentStep < 5 ? steps[currentStep - 1].title : "Complete!",
-                style: Theme.of(context).textTheme.displayLarge,
+                style: steps[currentStep - 1].color != null
+                    ? Theme.of(context)
+                        .textTheme
+                        .displayLarge!
+                        .copyWith(color: steps[currentStep - 1].color)
+                    : Theme.of(context).textTheme.displayLarge,
               )),
           SizedBox(height: screenHeight * 0.01),
           Row(
@@ -62,6 +67,7 @@ class CurrentPageIndicator extends StatelessWidget {
 class Step {
   final int stepNumber;
   final String title;
+  final Color? color;
 
-  const Step({required this.stepNumber, required this.title});
+  const Step({required this.stepNumber, required this.title, this.color});
 }

@@ -9,7 +9,7 @@ class Core3Ballot {
     switch(json["type"]) {
       case "STANDARD_BALLOT" : return Core3StandardBallot.fromJson(json);
       default: return Core3StandardBallot.fromJson(json);
-    };
+    }
   }
 
 
@@ -205,7 +205,7 @@ class CandidateSpec {
   final int maxVotes;
   final int minVotes;
   final int? writeInSize;
-  final bool RECEIVED_MOCKVOTES;
+  final bool RECEIVED_MOCK_VOTE;
 
   CandidateSpec({
     required this.columns,
@@ -214,7 +214,7 @@ class CandidateSpec {
     required this.maxVotes,
     required this.minVotes,
     this.writeInSize,
-    required this.RECEIVED_MOCKVOTES
+    required this.RECEIVED_MOCK_VOTE
   });
   factory CandidateSpec.fromJson(Map<String, dynamic> json)
   => CandidateSpec(
@@ -224,7 +224,7 @@ class CandidateSpec {
       maxVotes: json["maxVotes"] as int,
       minVotes: json["minVotes"] as int,
       writeInSize: json["writeInSize"] != null ? json["writeInSize"] as int : null,
-      RECEIVED_MOCKVOTES: json["RECEIVED_MOCKVOTES"] != null ? json["RECEIVED_MOCKVOTES"] as bool : false,
+      RECEIVED_MOCK_VOTE: json["RECEIVED_MOCK_VOTE"] != null ? json["RECEIVED_MOCK_VOTE"] as bool : false,
   );
 }
 

@@ -157,7 +157,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                         const Padding(
                             padding:
                                 EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                        Text('Please verify that the below images matches your choice.\n'
+                        Text('Please verify that ballot below matches your choice.\n'
                             'You can no longer change your ballot.',
                             style: Theme.of(context)
                                 .textTheme

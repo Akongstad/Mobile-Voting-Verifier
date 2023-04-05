@@ -1,15 +1,8 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_voting_verifier/models/challenge_request.dart';
-import 'package:mobile_voting_verifier/models/response_bean.dart';
-import 'package:mobile_voting_verifier/models/second_device_final_msg.dart';
-import 'package:mobile_voting_verifier/repositories/post_challenge_request.dart';
+import 'package:local_cryptography/local_cryptography.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import 'post_challenge_request_test.mocks.dart';
 
 @GenerateMocks([http.Client])

@@ -1,0 +1,21 @@
+name: local_cryptography
+description: Dart package which manages the local spec cryptography domain.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: "^3.0.0-218.1.beta"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  elliptic: ^0.3.8
+  http: ^0.13.5
+  crypto: ^3.0.2
+  pointycastle: ^3.6.2
+  hex: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

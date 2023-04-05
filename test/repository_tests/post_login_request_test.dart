@@ -1,11 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_voting_verifier/models/content.dart';
-import 'package:mobile_voting_verifier/models/enums/language.dart';
-import 'package:mobile_voting_verifier/models/i_18_n.dart';
-import 'package:mobile_voting_verifier/models/second_device_login.dart';
-import 'package:mobile_voting_verifier/models/second_device_login_response.dart';
-import 'package:mobile_voting_verifier/repositories/post_login_request.dart';
+import 'package:local_cryptography/local_cryptography.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -48,7 +43,7 @@ void main() {
           publicLabel: "A",
           title: I18n(default_: "My Election Title", value: {}),
           contentAbove:
-              Text(value: I18n(default_: "This is content above", value: {})),
+          ContentText(value: I18n(default_: "This is content above", value: {})),
           token:
               "MDIwNWJmMmUxNDQ5NmY2OGMwZjg2ZjZiMzEzZjIxMGE5MzkzZWRiMDgzODIxZGNjNGY5OTE0Y2FiOWM1MWM5ZjJl");
 
@@ -63,10 +58,10 @@ void main() {
 
       expect(
           actual.contentAbove?.contentType, expected.contentAbove?.contentType);
-      expect((actual.contentAbove as Text).value.default_,
-          (expected.contentAbove as Text).value.default_);
-      expect((actual.contentAbove as Text).value.value,
-          (expected.contentAbove as Text).value.value);
+      expect((actual.contentAbove as ContentText).value.default_,
+          (expected.contentAbove as ContentText).value.default_);
+      expect((actual.contentAbove as ContentText).value.value,
+          (expected.contentAbove as ContentText).value.value);
 
       expect(actual.allowInvalid, expected.allowInvalid);
       expect(actual.ballotVoterId, expected.ballotVoterId);

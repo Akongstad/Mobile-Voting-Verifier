@@ -1,20 +1,20 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_voting_verifier/screens/catalog.dart';
+import 'package:mobile_voting_verifier/home/view/home_page.dart';
+import 'package:mobile_voting_verifier/themes/themes.dart';
+
 /*
 * Notes
 * Use icons.adaptive to auto fit platform
 */
 Future<void> main() async {
-  /*await myErrorsHandler.initialize();
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    myErrorsHandler.onErrorDetails(details);
+    if (kReleaseMode) exit(1);
   };
-  PlatformDispatcher.instance.onError = (error, stack) {
-    myErrorsHandler.onError(error, stack);
-    return true;
-  };*/
   runApp(const MyApp());
 }
 
@@ -26,8 +26,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      showPerformanceOverlay: false, // For testing UI performance
-      builder: (context, widget) { // Custom error widget for build phase errors
+      showPerformanceOverlay: false,
+      // For testing UI performance
+      builder: (context, widget) {
+        // Custom error widget for build phase errors
         Widget error = const Text('...rendering error...');
         if (widget is Scaffold || widget is Navigator) {
           error = Scaffold(body: Center(child: error));
@@ -37,52 +39,9 @@ class MyApp extends StatelessWidget {
         throw ('widget is null');
       },
       title: 'Mobile Vote Verifier',
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromRGBO(244, 245, 247, 1),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Color.fromRGBO(151, 36, 46, 1.0),
-          elevation: 0,
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: const Color.fromRGBO(151, 36, 46, 1.0),
-            textStyle: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        textTheme: TextTheme(
-          displayLarge: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.normal,
-            color: Color.fromRGBO(47, 67, 80,1),
-          ),
-          displayMedium: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: const Color.fromRGBO(30, 60, 87, 1),
-          ),
-          bodyLarge: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.normal,
-            color: Color.fromRGBO(47, 67, 80,1),
-          ),
-          bodyMedium: GoogleFonts.poppins(
-            fontSize: 16,
-            color: const Color.fromRGBO(133, 153, 170, 1),
-          ),
-          bodySmall: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-          ),
-
-        ),
-      ),
+      theme: appTheme,
+      home: const HomePage(),
       themeMode: ThemeMode.light,
-      home: const Catalog(),
     );
-
   }
 }

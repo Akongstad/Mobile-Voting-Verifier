@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_voting_verifier/models/election_data.dart';
-import 'package:mobile_voting_verifier/repositories/fetch_election_data.dart';
+import 'package:local_cryptography/local_cryptography.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

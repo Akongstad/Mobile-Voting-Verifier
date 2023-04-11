@@ -34,7 +34,7 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/Group 1Logo.png"
+  image_path: "assets/Nhnh_app_icon.png"
 
 
 dev_dependencies:

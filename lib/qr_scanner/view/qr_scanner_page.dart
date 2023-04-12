@@ -12,16 +12,19 @@ class QrScannerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(children: [
         MobileScanner(
             allowDuplicates: false,
-            onDetect: (barcode, args) => _onDetectBarcode(context, barcode, args)),
+            onDetect: (barcode, args) =>
+                _onDetectBarcode(context, barcode, args)),
         QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1)),
         Padding(
             padding: MediaQuery.of(context).padding,
-            child: const CurrentPageIndicator(currentStep: 1, failure: false,))
+            child: const CurrentPageIndicator(
+              currentStep: 1,
+              failure: false,
+            ))
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -44,7 +47,9 @@ class QrScannerPage extends StatelessWidget {
     );
   }
 }
-void _onDetectBarcode(BuildContext context, Barcode barcode, MobileScannerArguments? mobileScannerArguments){
+
+void _onDetectBarcode(BuildContext context, Barcode barcode,
+    MobileScannerArguments? mobileScannerArguments) {
   try {
     if (barcode.rawValue == null) {
       debugPrint('Failed to scan Barcode');
@@ -55,14 +60,12 @@ void _onDetectBarcode(BuildContext context, Barcode barcode, MobileScannerArgume
       final qrCode = QRCode.fromString(code);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              ScanValidationScreen(
-                  valid: isValid,
-                  qrCode: qrCode)));
+              ScanValidationScreen(valid: isValid, qrCode: qrCode)));
     }
   } on ArgumentError catch (e) {
     log(e.toString());
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>  ScanValidationScreen(
+        builder: (context) => ScanValidationScreen(
             valid: false, qrCode: QRCode(c: "", vid: "", nonce: ""))));
   }
 }

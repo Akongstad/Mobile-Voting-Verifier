@@ -126,7 +126,10 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CurrentPageIndicator(currentStep: 5, failure: false,),
+          CurrentPageIndicator(
+            currentStep: 5,
+            failure: false,
+          ),
           Expanded(
             child: AnimatedOpacity(
                 opacity: first ? 0.0 : 1.0,

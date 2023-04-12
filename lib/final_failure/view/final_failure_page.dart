@@ -22,7 +22,10 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CurrentPageIndicator(currentStep: 5, failure: true,),
+          CurrentPageIndicator(
+            currentStep: 5,
+            failure: true,
+          ),
           Expanded(
             child: AnimatedOpacity(
                 opacity: first ? 0.0 : 1.0,

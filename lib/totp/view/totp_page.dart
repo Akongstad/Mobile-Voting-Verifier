@@ -39,7 +39,8 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CurrentPageIndicator(
-                    currentStep: 2, failure: false,
+                    currentStep: 2,
+                    failure: false,
                   ),
                   Expanded(
                     child: AnimatedOpacity(

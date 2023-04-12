@@ -21,7 +21,7 @@ class QrScannerPage extends StatelessWidget {
         QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.1)),
         Padding(
             padding: MediaQuery.of(context).padding,
-            child: const CurrentPageIndicator(currentStep: 1,))
+            child: const CurrentPageIndicator(currentStep: 1, failure: false,))
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

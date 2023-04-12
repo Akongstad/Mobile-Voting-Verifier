@@ -27,7 +27,7 @@ class _WelcomePage extends State<WelcomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CurrentPageIndicator(
-            currentStep: 3,
+            currentStep: 3, failure: false,
           ),
           Expanded(
             child: AnimatedOpacity(

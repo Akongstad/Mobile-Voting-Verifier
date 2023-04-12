@@ -51,7 +51,10 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(candidateList.columnHeaders[index].default_,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold)))
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontWeight: FontWeight.bold)))
               : Text(candidateList.columnHeaders[index].default_,
                   style: const TextStyle(fontWeight: FontWeight.bold))));
 
@@ -69,11 +72,8 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
         List<Widget> cols = [
           Container(
               color: Theme.of(context).scaffoldBackgroundColor,
-              child: BallotAuditCheckBox(
-                  checkedMap: checkedMap,
-                  id: candidate.id)
-
-          )
+              child:
+                  BallotAuditCheckBox(checkedMap: checkedMap, id: candidate.id))
         ];
         cols.addAll(List.generate(
             candidate.columns.length,
@@ -99,8 +99,8 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
             children: rows),
       ));
     }
-    tables.add(Row(
-      children: [
+    /* tables.add(Row(
+      children: [r
         BallotAuditCheckBox(
           checkedMap: checkedMap,
           id: widget.ballotSpec.id),
@@ -109,7 +109,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
           style: TextStyle(color: Colors.grey[400]),
         )
       ],
-    ));
+    )); */
     return tables;
   }
 
@@ -127,8 +127,7 @@ class _BallotDisplayWidgetState extends State<BallotDisplayWidget> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      widget.ballotSpec.title.default_,
+                  child: Text(widget.ballotSpec.title.default_,
                       style: Theme.of(context).textTheme.displayMedium),
                 ),
               ),

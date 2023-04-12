@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CurrentPageIndicator extends StatelessWidget {
-  const CurrentPageIndicator({Key? key, required this.currentStep})
+  const CurrentPageIndicator(
+      {Key? key, required this.currentStep, required this.failure})
       : super(key: key);
   final int currentStep;
+  final bool failure;
 
   static const List<Step> steps = [
     Step(stepNumber: 1, title: "Scan QR-Code", color: Colors.white),
@@ -23,14 +25,18 @@ class CurrentPageIndicator extends StatelessWidget {
           Hero(
               tag: "ProgressTitle",
               child: Text(
-                currentStep < 5 ? steps[currentStep - 1].title : "Complete!",
-                style: steps[currentStep - 1].color != null
-                    ? Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(color: steps[currentStep - 1].color)
-                    : Theme.of(context).textTheme.displayLarge,
-              )),
+                  currentStep < 5 ? steps[currentStep - 1].title : "Complete!",
+                  style: currentStep < 5
+                      ? steps[currentStep - 1].color != null
+                          ? Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(color: steps[currentStep - 1].color)
+                          : Theme.of(context).textTheme.displayLarge
+                      : Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(color: steps[currentStep - 2].color))),
           SizedBox(height: screenHeight * 0.01),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -38,9 +44,15 @@ class CurrentPageIndicator extends StatelessWidget {
                   .map((item) => item.stepNumber < currentStep
                       ? Hero(
                           tag: "step${item.stepNumber}",
-                          child: Icon(Icons.check_circle_rounded,
-                              color: Colors.lightGreen,
-                              size: screenWidth * 0.06),
+                          child: /* failure 
+                              ? Icon(Icons.incomplete_circle_rounded,
+                                  color: Color.fromRGBO(151, 36, 46, 1.0),
+                                  size: screenWidth * 0.06)
+                              : */
+                              Icon(Icons.check_circle_rounded,
+                                  color: Colors.lightGreen,
+                                  size: screenWidth *
+                                      0.06), //TODO: Change on failure
                         )
                       : Hero(
                           tag: "step${item.stepNumber}",
@@ -52,7 +64,9 @@ class CurrentPageIndicator extends StatelessWidget {
                             margin: const EdgeInsets.all(2.0),
                             decoration: BoxDecoration(
                                 color: item.stepNumber < currentStep
-                                    ? Colors.lightGreen
+                                    ? failure
+                                        ? Color.fromRGBO(151, 36, 46, 1.0)
+                                        : Colors.lightGreen
                                     : const Color.fromRGBO(133, 153, 170, 0.5),
                                 borderRadius: BorderRadius.circular(10.0)),
                           ),

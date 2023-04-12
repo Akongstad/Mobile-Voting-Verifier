@@ -40,6 +40,7 @@ class _ScanValidationScreenState extends State<ScanValidationScreen> {
                 children: [
                   const CurrentPageIndicator(
                     currentStep: 2,
+                    failure: false,
                   ),
                   Expanded(
                     child: AnimatedOpacity(

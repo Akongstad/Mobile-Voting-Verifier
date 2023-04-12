@@ -28,6 +28,7 @@ class _WelcomePage extends State<WelcomePage> {
         children: [
           const CurrentPageIndicator(
             currentStep: 3,
+            failure: false,
           ),
           Expanded(
             child: AnimatedOpacity(

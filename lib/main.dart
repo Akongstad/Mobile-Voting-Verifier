@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/home/view/home_page.dart';
 import 'package:mobile_voting_verifier/themes/themes.dart';
 

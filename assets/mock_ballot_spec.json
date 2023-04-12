@@ -28,18 +28,16 @@
               {"id": "0-0-4", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Danmarksdemokraterne", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-5", "maxVotes":  1, "minVotes": 0, "columns": [
-                { "value" : {"default": "Daddy", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-6", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Det Konservative Folkeparti", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-8", "maxVotes":  1, "minVotes": 0, "columns": [
+              {"id": "0-0-6", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Enhedslisten", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-9", "maxVotes":  1, "minVotes": 0, "columns": [
+              {"id": "0-0-7", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Radikale Venstre", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-10", "maxVotes":  1, "minVotes": 0, "columns": [
+              {"id": "0-0-8", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Dansk Folkeparti", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-11", "maxVotes":  1, "minVotes": 0, "columns": [
+              {"id": "0-0-10", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Alternativet", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-12", "maxVotes":  1, "minVotes": 0, "columns": [
+              {"id": "0-0-11", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Nye Borgerlige", "value": {}}, "type": "TEXT"}]}
             ],
             "maxVotesOnList": 999,

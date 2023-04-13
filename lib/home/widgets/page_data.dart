@@ -18,17 +18,17 @@ final pages = [
     descriptions: [
       ListTile(
         title: Text(
-          "Begin the verification process",
+          "Begin the verification process.",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-            "Open the QR-Code scanner by pressing the button at the bottom of the screen"),
+            "Open the QR-Code scanner by pressing the button at the bottom of the screen."),
       ),
       ListTile(
         title: Text("Step 1",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-          "Point your camera at the QR-Code displayed on the voting device",
+          "Point your camera at the QR-Code displayed on the voting device.",
         ),
         trailing: Icon(Icons.qr_code_scanner_rounded),
       ),
@@ -36,21 +36,21 @@ final pages = [
         title: Text("Step 2",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "Enter the 6 digit one-time password displayed on the voting device"),
+            "Enter the 6 digit one-time password displayed on the voting device."),
         trailing: Icon(Icons.password_rounded),
       ),
       ListTile(
         title: Text("Step 3", 
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "Press the 'Audit ballot' button to proceed the verification process"),
+            "Press the 'Audit ballot' button to display your recorded vote."),
         trailing: Icon(Icons.ads_click_rounded),
       ),
       ListTile(
         title: Text("Step 4",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         subtitle: Text(
-            "Check that the vote shown is cast as intended and confirm that the vote is correct"),
+            "Verify that the vote displayed on the screen matches your choice."),
         trailing: Icon(Icons.ballot_outlined),
       ),
     ],

@@ -19,7 +19,7 @@ class TOTPHeaderWidget extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Enter the 6 digit password from the voting device',
+          'Enter the 6 digit password from the voting device.',
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: const Color.fromRGBO(133, 153, 170, 1),

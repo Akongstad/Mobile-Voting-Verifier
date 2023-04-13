@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/shared/current_page_indicator.dart';
 import 'package:open_filex/open_filex.dart';

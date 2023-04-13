@@ -168,36 +168,6 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                           )
                         ],
                       ),
-                      /* Container(
-                          height: 35,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: <Color>[
-                                Color.fromRGBO(151, 36, 46, 1.0),
-                                Color.fromRGBO(126, 40, 83, 1),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.all(10),
-                              textStyle: const TextStyle(fontSize: 14),
-                            ),
-                            onPressed: () => showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const BottomModalReport(),
-                            ),
-                            child: const Text('Report a problem'),
-                          ),
-                        ), */
-                      /* const Padding(
-                          padding:
-                              EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                      const Padding(
-                          padding:
-                              EdgeInsetsDirectional.symmetric(vertical: 8.0)), */
                     ],
                   ),
                 ),

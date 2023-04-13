@@ -12,9 +12,9 @@
         "lists": [
           {
             "id": "0-0",
-            "title": {"default": "Folketingsafstemning", "value": {}},
+            "title": {"default": "Danish General Election", "value": {}},
             "columnHeaders": [
-              {"default": "Candidate", "value": {}}
+              {"default": "Party", "value": {}}
             ],
             "candidates": [
               {"id": "0-0-0", "maxVotes":  1, "minVotes": 0,  "columns": [
@@ -27,13 +27,15 @@
                 { "value" : {"default": "Socialistisk Folkeparti", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-4", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Danmarksdemokraterne", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-7", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Liberal Alliance", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-5", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Det Konservative Folkeparti", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-6", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Enhedslisten", "value": {}}, "type": "TEXT"}]},
-              {"id": "0-0-7", "maxVotes":  1, "minVotes": 0, "columns": [
-                { "value" : {"default": "Radikale Venstre", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-8", "maxVotes":  1, "minVotes": 0, "columns": [
+                { "value" : {"default": "Radikale Venstre", "value": {}}, "type": "TEXT"}]},
+              {"id": "0-0-9", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Dansk Folkeparti", "value": {}}, "type": "TEXT"}]},
               {"id": "0-0-10", "maxVotes":  1, "minVotes": 0, "columns": [
                 { "value" : {"default": "Alternativet", "value": {}}, "type": "TEXT"}]},

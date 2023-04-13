@@ -14,7 +14,7 @@ class WelcomePageHeader extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          "Click the 'Audit ballot' button to continue the verification process",
+          "Press the 'Audit ballot' button to display your recorded vote.",
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 32)

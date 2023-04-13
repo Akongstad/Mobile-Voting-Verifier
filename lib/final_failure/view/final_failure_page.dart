@@ -72,7 +72,7 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                      "Press continue to proceed to the support section of the official election website.",
+                                      "Press \'Contact support\' to proceed to the support section of the official election website.",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -114,7 +114,7 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                                       "Akongstad/Mobile-Voting-Verifier"))
                                               : debugPrint(
                                                   "Could not launch url"),
-                                          child: const Text('Continue'),
+                                          child: const Text('Contact support'),
                                         ),
                                       ),
                                     ),

@@ -25,8 +25,9 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
-        value: widget.checkedMap[widget.id] ?? false,
-        onChanged: (value) => showDialog<String>(
+      value: widget.checkedMap[widget.id] ?? false,
+      onChanged: (value) => setState(() {}),
+      /* onChanged: (value) => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: Text(
@@ -49,6 +50,7 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
                       child: const Text('Accept'),
                     ),
                   ],
-                )));
+                )) */
+    );
   }
 }

@@ -211,10 +211,13 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
                                             textStyle:
                                                 const TextStyle(fontSize: 14),
                                           ),
-                                          onPressed: () => {
+                                          onPressed: () => Navigator.of(context)
+                                              .popUntil((route) =>
+                                                  !Navigator.canPop(context)),
+                                          /* () => {
                                             beginSaveToFile(electionID, voterID,
                                                 signature, fingerprint)
-                                          },
+                                          }, */
                                           child: Text(
                                               AppLocalizations.of(context)!
                                                   .finalScreenSuccessButton),

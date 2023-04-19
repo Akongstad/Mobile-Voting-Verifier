@@ -54,7 +54,7 @@
     "description": ""
   },   
 
-  "infoStepThreeDescription": "Press the 'Audit ballot' button to display your recorded vote.",   	
+  "infoStepThreeDescription": "Press the 'Inspect ballot' button to display your recorded vote.",   	
   "@infoStepThreeDescription": {
     "description": ""
   },  
@@ -114,12 +114,12 @@
     "description": ""
   },
   
-  "welcomeHeaderDescription": "Press the 'Audit ballot' button to display your recorded vote.",
+  "welcomeHeaderDescription": "Press the 'Inspect ballot' button to display your recorded vote.",
   "@welcomeHeaderDescription": {
     "description": ""
   },
 
-  "auditBallotButton": "Audit ballot",
+  "auditBallotButton": "Inspect ballot",
   "@auditBallotButton": {
     "description": ""
   },
@@ -169,12 +169,12 @@
     "description": ""
   },
 
-  "finalScreenSuccessDescription": "Use the download button to receive an encrypted receipt that can be used to ensure that your ballot is included in the final tally.",
+  "finalScreenSuccessDescription": "You can now close the application or return to the home page.",
   "@finalScreenSuccessDescription": {
     "description": ""
   },
 
-  "finalScreenSuccessButton": "Download",
+  "finalScreenSuccessButton": "Return to home",
   "@finalScreenSuccessButton": {
     "description": ""
   },

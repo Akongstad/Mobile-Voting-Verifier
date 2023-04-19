@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CurrentPageIndicator extends StatelessWidget {
   const CurrentPageIndicator(
@@ -7,17 +8,27 @@ class CurrentPageIndicator extends StatelessWidget {
   final int currentStep;
   final bool failure;
 
-  static const List<Step> steps = [
-    Step(stepNumber: 1, title: "Scan QR-Code", color: Colors.white),
-    Step(stepNumber: 2, title: "Enter Password"),
-    Step(stepNumber: 3, title: "Proceed to Audit"),
-    Step(stepNumber: 4, title: "Verify Vote"),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Step> steps = [
+      Step(
+          stepNumber: 1,
+          title: AppLocalizations.of(context)!.stepNumberOneTitle,
+          color: Colors.white),
+      Step(
+          stepNumber: 2,
+          title: AppLocalizations.of(context)!.stepNumberTwoTitle),
+      Step(
+          stepNumber: 3,
+          title: AppLocalizations.of(context)!.stepNumberThreeTitle),
+      Step(
+          stepNumber: 4,
+          title: AppLocalizations.of(context)!.stepNumberFourTitle),
+    ];
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
     return SizedBox(
       height: screenHeight * 0.1,
       child: Column(
@@ -25,7 +36,9 @@ class CurrentPageIndicator extends StatelessWidget {
           Hero(
               tag: "ProgressTitle",
               child: Text(
-                  currentStep < 5 ? steps[currentStep - 1].title : "Complete!",
+                  currentStep < 5
+                      ? steps[currentStep - 1].title
+                      : AppLocalizations.of(context)!.stepNumberFinalTitle,
                   style: currentStep < 5
                       ? steps[currentStep - 1].color != null
                           ? Theme.of(context)

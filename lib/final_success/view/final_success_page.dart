@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuditSuccessScreen extends StatefulWidget {
   const AuditSuccessScreen({super.key});
@@ -145,7 +146,8 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
                                   Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(
-                                        "Success!",
+                                        AppLocalizations.of(context)!
+                                            .finalScreenSuccessTitle,
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -167,7 +169,8 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                        "Thank you for verifying your vote!",
+                                        AppLocalizations.of(context)!
+                                            .finalScreenSuccessToast,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -175,7 +178,8 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                      "Use the download button to receive an encrypted receipt that can be used to ensure that your ballot is included in the final tally.",
+                                      AppLocalizations.of(context)!
+                                          .finalScreenSuccessDescription,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -211,7 +215,9 @@ class _AuditSuccessScreen extends State<AuditSuccessScreen> {
                                             beginSaveToFile(electionID, voterID,
                                                 signature, fingerprint)
                                           },
-                                          child: const Text('Download'),
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .finalScreenSuccessButton),
                                         ),
                                       ),
                                     ),

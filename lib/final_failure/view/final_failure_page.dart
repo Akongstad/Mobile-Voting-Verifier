@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/shared/current_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuditFailureScreen extends StatefulWidget {
   const AuditFailureScreen({super.key});
@@ -42,7 +43,8 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                   Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(
-                                        "Report a problem",
+                                        AppLocalizations.of(context)!
+                                            .finalScreenFailureTitle,
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -64,7 +66,8 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                        "Do you believe that your vote has been recorded incorrectly? You can contact the election administrators.",
+                                        AppLocalizations.of(context)!
+                                            .finalScreenFailureToast,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -72,7 +75,8 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: Text(
-                                      "Press \'Contact support\' to proceed to the support section of the official election website.",
+                                      AppLocalizations.of(context)!
+                                          .finalScreenFailureDescription,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -114,7 +118,9 @@ class _AuditFailureScreen extends State<AuditFailureScreen> {
                                                       "Akongstad/Mobile-Voting-Verifier"))
                                               : debugPrint(
                                                   "Could not launch url"),
-                                          child: const Text('Contact support'),
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .finalScreenFailureButton),
                                         ),
                                       ),
                                     ),

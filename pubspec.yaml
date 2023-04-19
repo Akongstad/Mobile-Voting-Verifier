@@ -31,6 +31,9 @@ dependencies:
   open_filex: ^4.3.2
   pdf: ^3.8.4
   qr_code_scanner: ^1.0.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 flutter_icons:
   android: true
   ios: true
@@ -45,6 +48,7 @@ flutter:
   assets:
     - "assets/public_parameters.json"
     - "assets/mock_ballot_spec.json"
+  generate: true 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

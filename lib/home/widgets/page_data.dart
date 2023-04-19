@@ -1,61 +1,5 @@
 import 'package:flutter/material.dart';
-
-final pages = [
-  const PageData(
-      icon: Icons.home_outlined,
-      title: "Home",
-      headerDescription: "Press button below to begin verifying your ballot",
-      bgColor: Color.fromRGBO(244, 245, 247, 1),
-      gradiantColor: Color.fromRGBO(126, 40, 83, 1),
-      textColor: Color.fromRGBO(151, 36, 46, 1.0)),
-  const PageData(
-    icon: Icons.info_outline,
-    bgColor: Color.fromRGBO(244, 245, 247, 1),
-    gradiantColor: Color.fromRGBO(126, 40, 83, 1),
-    textColor: Color.fromRGBO(151, 36, 46, 1.0),
-    title: "Info",
-    headerDescription: "How to verify your ballot?",
-    descriptions: [
-      ListTile(
-        title: Text(
-          "Begin the verification process.",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(
-            "Open the QR-Code scanner by pressing the button at the bottom of the screen."),
-      ),
-      ListTile(
-        title: Text("Step 1",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-          "Point your camera at the QR-Code displayed on the voting device.",
-        ),
-        trailing: Icon(Icons.qr_code_scanner_rounded),
-      ),
-      ListTile(
-        title: Text("Step 2",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            "Enter the 6 digit one-time password displayed on the voting device."),
-        trailing: Icon(Icons.password_rounded),
-      ),
-      ListTile(
-        title: Text("Step 3", 
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            "Press the 'Audit ballot' button to display your recorded vote."),
-        trailing: Icon(Icons.ads_click_rounded),
-      ),
-      ListTile(
-        title: Text("Step 4",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            "Verify that the vote displayed on the screen matches your choice."),
-        trailing: Icon(Icons.ballot_outlined),
-      ),
-    ],
-  ),
-];
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageData {
   final String title;
@@ -80,6 +24,60 @@ class PageData {
 
 Widget buildPage(BuildContext context, int index, double actionButtonSize,
     PageController pageController) {
+  final pages = [
+    PageData(
+        icon: Icons.home_outlined,
+        title: AppLocalizations.of(context)!.home,
+        headerDescription: AppLocalizations.of(context)!.homeHeaderDescription,
+        bgColor: Color.fromRGBO(244, 245, 247, 1),
+        gradiantColor: Color.fromRGBO(126, 40, 83, 1),
+        textColor: Color.fromRGBO(151, 36, 46, 1.0)),
+    PageData(
+      icon: Icons.info_outline,
+      bgColor: Color.fromRGBO(244, 245, 247, 1),
+      gradiantColor: Color.fromRGBO(126, 40, 83, 1),
+      textColor: Color.fromRGBO(151, 36, 46, 1.0),
+      title: AppLocalizations.of(context)!.info,
+      headerDescription: AppLocalizations.of(context)!.infoHeaderDescription,
+      descriptions: [
+        ListTile(
+          title: Text(
+            AppLocalizations.of(context)!.infoStepZeroTitle,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(AppLocalizations.of(context)!.infoStepZeroDescription),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.infoStepOneTitle,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          subtitle: Text(
+            AppLocalizations.of(context)!.infoStepOneDescription,
+          ),
+          trailing: Icon(Icons.qr_code_scanner_rounded),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.infoStepTwoTitle,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          subtitle: Text(AppLocalizations.of(context)!.infoStepTwoDescription),
+          trailing: Icon(Icons.password_rounded),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.infoStepThreeTitle,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          subtitle:
+              Text(AppLocalizations.of(context)!.infoStepThreeDescription),
+          trailing: Icon(Icons.ads_click_rounded),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.infoStepFourTitle,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          subtitle: Text(AppLocalizations.of(context)!.infoStepFourDescription),
+          trailing: Icon(Icons.ballot_outlined),
+        ),
+      ],
+    ),
+  ];
+
   final page = pages[index];
   return page.title == "Info"
       ? Column(
@@ -128,23 +126,6 @@ Widget buildPage(BuildContext context, int index, double actionButtonSize,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              /* TextButton(
-                onPressed: () => {pageController.jumpToPage(1)},
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [page.textColor, page.gradiantColor],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text("See Walkthrough",
-                      style: TextStyle(fontSize: 15, color: Colors.white)),
-                ),
-              ), */
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Icon(
                 Icons.arrow_downward_rounded,

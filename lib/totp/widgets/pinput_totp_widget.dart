@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/qr_scanner/models/qr_code.dart';
 import 'package:pinput/pinput.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //Inspiration: https://github.com/Tkko/Flutter_Pinput/blob/master/example/lib/demo/pinput_templates/rounded_with_shadow.dart
 //Screen with TOTP validation form.
@@ -38,7 +39,7 @@ class _PinputWidgetState extends State<PinputWidget> {
     controller = TextEditingController();
   }
 
-  String? _validate(String? pin) {
+  String? _validate(String? pin, BuildContext context) {
     try {
       if (pin == "196308") {
         widget.pinValidated();
@@ -49,11 +50,11 @@ class _PinputWidgetState extends State<PinputWidget> {
             widget.qrCode.vid, widget.qrCode.nonce, pin!, challengeCommitment); */
         return null;
       } else {
-        return "Invalid login";
+        return AppLocalizations.of(context)!.totpHeaderInvalidLogin;
       }
     } catch (e) {
       debugPrint(e.toString());
-      return "Invalid login";
+      return AppLocalizations.of(context)!.totpHeaderInvalidLogin;
     } finally {
       controller.clear();
     }
@@ -92,7 +93,7 @@ class _PinputWidgetState extends State<PinputWidget> {
       key: formKey,
       child: Pinput(
         length: 6,
-        validator: (pin) => _validate(pin),
+        validator: (pin) => _validate(pin, context),
         autofocus: false,
         onTapOutside: (e) => FocusScope.of(context).unfocus(),
         controller: controller,

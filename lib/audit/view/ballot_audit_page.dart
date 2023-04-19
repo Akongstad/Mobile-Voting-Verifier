@@ -4,6 +4,7 @@ import 'package:mobile_voting_verifier/audit/widgets/ballot_display_widget.dart'
 import 'package:mobile_voting_verifier/final_failure/view/final_failure_page.dart';
 import 'package:mobile_voting_verifier/final_success/final_success.dart';
 import 'package:mobile_voting_verifier/shared/current_page_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BallotAuditScreen extends StatefulWidget {
   const BallotAuditScreen({super.key});
@@ -41,7 +42,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Your ballot was recorded',
+                        AppLocalizations.of(context)!.auditScreenTitle,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
@@ -55,9 +56,7 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                       const Padding(
                           padding:
                               EdgeInsetsDirectional.symmetric(vertical: 8.0)),
-                      Text(
-                          'Please verify that ballot below matches your choice.\n'
-                          'You can no longer change your ballot.',
+                      Text(AppLocalizations.of(context)!.auditScreenDescription,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -100,19 +99,22 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                           textAlign: TextAlign.center), */
                       RichText(
                         text: TextSpan(
-                          text:
-                              'If your ballot matches your choice you can continue using the ',
+                          text: AppLocalizations.of(context)!
+                              .auditScreenTextSuccess,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(color: Colors.black),
                           children: <TextSpan>[
                             TextSpan(
-                                text: 'green',
+                                text: AppLocalizations.of(context)!
+                                    .auditScreenTextGreen,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 36, 151, 44))),
-                            TextSpan(text: ' button.'),
+                            TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .auditScreenTextButton),
                           ],
                         ),
                       ),
@@ -124,19 +126,22 @@ class _BallotAuditScreen extends State<BallotAuditScreen> {
                           textAlign: TextAlign.center), */
                       RichText(
                           text: TextSpan(
-                              text:
-                                  'If your have encountered an issue with your ballot. Please, continue using the ',
+                              text: AppLocalizations.of(context)!
+                                  .auditScreenTextFailure,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(color: Colors.black),
                               children: <TextSpan>[
                             TextSpan(
-                                text: 'red',
+                                text: AppLocalizations.of(context)!
+                                    .auditScreenTextRed,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromRGBO(151, 36, 46, 1.0))),
-                            TextSpan(text: ' button.')
+                            TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .auditScreenTextButton)
                           ])),
                       const Padding(
                           padding:

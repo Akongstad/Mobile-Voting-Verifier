@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/home/view/home_page.dart';
 import 'package:mobile_voting_verifier/themes/themes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /*
 * Notes
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       home: const HomePage(),
       themeMode: ThemeMode.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

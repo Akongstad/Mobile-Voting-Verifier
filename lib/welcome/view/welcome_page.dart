@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/audit/view/ballot_audit_page.dart';
 import 'package:mobile_voting_verifier/shared/current_page_indicator.dart';
 import 'package:mobile_voting_verifier/welcome/widgets/welcome_page_header.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -68,7 +69,8 @@ class _WelcomePage extends State<WelcomePage> {
                                   builder: (context) =>
                                       const BallotAuditScreen())),
                             },
-                            child: const Text('Audit ballot'),
+                            child: Text(AppLocalizations.of(context)!
+                                .auditBallotButton),
                           ),
                         ],
                       ),

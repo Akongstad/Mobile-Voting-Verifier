@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_voting_verifier/qr_scanner/view/qr_scanner_page.dart';
 import 'package:mobile_voting_verifier/home/widgets/page_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                           color: _currentPage == 0 ? themeColor : Colors.grey,
                         ),
                         Text(
-                          "Home",
+                          AppLocalizations.of(context)!.home,
                           style: TextStyle(
                               color:
                                   _currentPage == 0 ? themeColor : Colors.grey,
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                             color:
                                 _currentPage == 1 ? themeColor : Colors.grey),
                         Text(
-                          "Info",
+                          AppLocalizations.of(context)!.info,
                           style: TextStyle(
                               color:
                                   _currentPage == 1 ? themeColor : Colors.grey,
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
           splashColor: themeColor!.withOpacity(0.5),
           onPressed: () => {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const QrScannerPage())),
+                MaterialPageRoute(builder: (context) => const QrScannerPage())),
           },
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           child: Column(
@@ -108,14 +109,15 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: PageView.builder(
           controller: _pageController,
-          itemCount: pages.length,
+          itemCount: 2,
           onPageChanged: (int index) {
             setState(() {
               _currentPage = index;
             });
           },
           itemBuilder: (context, index) {
-            return buildPage(context, index, _actionButtonSize, _pageController);
+            return buildPage(
+                context, index, _actionButtonSize, _pageController);
           },
         ),
       ),

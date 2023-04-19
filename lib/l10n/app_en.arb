@@ -1,0 +1,201 @@
+{
+  "home": "Home",
+  "@home": {
+    "description": "Home screen and or menu"
+  },
+
+  "info": "Info",
+  "@home": {
+    "description": "Information menu"
+  },
+
+  "homeHeaderDescription": "Press button below to begin verifying your ballot",
+  "@homeHeaderDescription": {
+    "description": "Begin verification home description"
+  }, 
+
+  "infoHeaderDescription": "How to verify your ballot?",   	
+  "@infoHeaderDescription": {
+    "description": "How to verify info description"
+  },
+
+  "infoStepZeroTitle": "Begin the verification process.",   	
+  "@infoStepZeroTitle": {
+    "description": ""
+  },   
+
+  "infoStepZeroDescription": "Open the QR-Code scanner by pressing the button at the bottom of the screen.",   	
+  "@infoStepZeroDescription": {
+    "description": ""
+  },  
+
+  "infoStepOneTitle": "Step 1",   	
+  "@infoStepZeroTitle": {
+    "description": ""
+  },   
+
+  "infoStepOneDescription": "Point your camera at the QR-Code displayed on the voting device.",   	
+  "@infoStepOneDescription": {
+    "description": ""
+  },  
+
+  "infoStepTwoTitle": "Step 2",   	
+  "@infoStepTwoTitle": {
+    "description": ""
+  },   
+
+  "infoStepTwoDescription": "Enter the 6 digit one-time password displayed on the voting device.",   	
+  "@infoStepTwoDescription": {
+    "description": ""
+  },  
+
+  "infoStepThreeTitle": "Step 3",   	
+  "@infoStepThreeTitle": {
+    "description": ""
+  },   
+
+  "infoStepThreeDescription": "Press the 'Audit ballot' button to display your recorded vote.",   	
+  "@infoStepThreeDescription": {
+    "description": ""
+  },  
+
+  "infoStepFourTitle": "Step 4",   	
+  "@infoStepFourTitle": {
+    "description": ""
+  },   
+
+  "infoStepFourDescription": "Verify that the vote displayed on the screen matches your choice.",   	
+  "@infoStepFourDescription": {
+    "description": ""
+  },  
+
+  "stepNumberOneTitle": "Scan QR-Code",
+  "@stepNumberOneTitle": {
+    "description": ""
+  },
+
+  "stepNumberTwoTitle": "Enter Password",
+  "@stepNumberTwoTitle": {
+    "description": ""
+  },
+
+  "stepNumberThreeTitle": "Proceed to Audit",
+  "@stepNumberThreeTitle": {
+    "description": ""
+  },
+
+  "stepNumberFourTitle": "Verify Vote",
+  "@stepNumberFourTitle": {
+    "description": ""
+  },
+
+  "stepNumberFinalTitle": "Complete!",
+  "@stepNumberFinalTitle": {
+    "description": ""
+  },
+
+  "totpHeaderTitle": "Login",
+  "@totpHeaderTitle": {
+    "description": ""
+  },
+
+  "totpHeaderDescription": "Enter the 6 digit password from the voting device.",
+  "@totpHeaderDescription": {
+    "description": ""
+  },
+
+  "totpHeaderInvalidLogin": "Invalid login",
+  "@totpHeaderInvalidLogin": {
+    "description": ""
+  },
+
+  "welcomeHeaderTitle": "Welcome!",
+  "@welcomeHeaderTitle": {
+    "description": ""
+  },
+  
+  "welcomeHeaderDescription": "Press the 'Audit ballot' button to display your recorded vote.",
+  "@welcomeHeaderDescription": {
+    "description": ""
+  },
+
+  "auditBallotButton": "Audit ballot",
+  "@auditBallotButton": {
+    "description": ""
+  },
+
+  "auditScreenTitle": "Your ballot was recorded",
+  "@auditScreenTitle": {
+    "description": ""
+  },
+
+  "auditScreenDescription": "Please verify that ballot below matches your choice.\n You can no longer change your ballot.",
+  "@auditScreenDescription": {
+    "description": ""
+  },
+
+  "auditScreenTextSuccess": "If your ballot matches your choice you can continue using the ",
+  "@auditScreenTextSuccess": {
+    "description": ""
+  },
+
+  "auditScreenTextFailure": "If your have encountered an issue with your ballot. Please, continue using the ",
+  "@auditScreenTextFailure": {
+    "description": ""
+  },
+  
+  "auditScreenTextGreen": "green",
+  "@auditScreenTextGreen": {
+    "description": ""
+  },
+
+  "auditScreenTextRed": "red",
+  "@auditScreenTextRed": {
+    "description": ""
+  },
+
+  "auditScreenTextButton": " button.",
+  "@auditScreenTextButton": {
+    "description": ""
+  },
+
+  "finalScreenSuccessTitle": "Success!",
+  "@finalScreenSuccessTitle": {
+    "description": ""
+  },
+
+  "finalScreenSuccessToast": "Thank you for verifying your vote!",
+  "@finalScreenSuccessToast": {
+    "description": ""
+  },
+
+  "finalScreenSuccessDescription": "Use the download button to receive an encrypted receipt that can be used to ensure that your ballot is included in the final tally.",
+  "@finalScreenSuccessDescription": {
+    "description": ""
+  },
+
+  "finalScreenSuccessButton": "Download",
+  "@finalScreenSuccessButton": {
+    "description": ""
+  },
+
+  "finalScreenFailureTitle": "Report a problem",
+  "@finalScreenFailureTitle": {
+    "description": ""
+  },
+
+  "finalScreenFailureToast": "Do you believe that your vote has been recorded incorrectly? You can contact the election administrators.",
+  "@finalScreenFailureToast": {
+    "description": ""
+  },
+
+  "finalScreenFailureDescription": "Press 'Contact support' to proceed to the support section of the official election website.",
+  "@finalScreenFailureDescription": {
+    "description": ""
+  },
+
+  "finalScreenFailureButton": "Contact support",
+  "@finalScreenFailureButton": {
+    "description": ""
+  }
+}

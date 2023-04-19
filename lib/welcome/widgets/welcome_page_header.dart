@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePageHeader extends StatelessWidget {
   const WelcomePageHeader({Key? key}) : super(key: key);
@@ -9,12 +10,12 @@ class WelcomePageHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Welcome!',
+          AppLocalizations.of(context)!.welcomeHeaderTitle,
           style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 24),
         Text(
-          "Press the 'Audit ballot' button to display your recorded vote.",
+          AppLocalizations.of(context)!.welcomeHeaderDescription,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 32)

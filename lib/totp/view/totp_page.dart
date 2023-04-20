@@ -25,6 +25,7 @@ class TOTPPage extends StatefulWidget {
 
 class _TOTPPageState extends State<TOTPPage> {
   bool first = true;
+  bool validationProgress = false;
 
   /// TODO: moving to this page should spawn a thread that uses the
   /// [SecondDeviceLoginResponse] from the post/login request in validate to complete the following:
@@ -36,10 +37,16 @@ class _TOTPPageState extends State<TOTPPage> {
   /// 6. Decode users choice. [package:local_cryptography/src/spec_logic/decode_vote.dart]
   /// This should be done using a FutureWidget with a circular progress indicator while awaiting the thread.
   /// Thus we can begin the protocols before the user presses the [Go to ballot] button, that return the the [BallotAuditPage]
-  Function setPinValidated() => () => {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const WelcomePage()))
-      };
+  Function setPinValidated() => () => {setPinValidatedDelay()};
+
+  void setPinValidatedDelay() {
+    Future.delayed(const Duration(milliseconds: 50),
+        () => setState(() => setState(() => validationProgress = true)));
+    Future.delayed(
+        const Duration(milliseconds: 500),
+        () => setState(() => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const WelcomePage()))));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +74,14 @@ class _TOTPPageState extends State<TOTPPage> {
                         child: Column(
                           children: [
                             const TOTPHeaderWidget(),
-                            PinputWidget(
-                              qrCode: widget.qrCode,
-                              pinValidated: setPinValidated(),
-                            ),
+                            validationProgress
+                                ? CircularProgressIndicator(
+                                    color: Color.fromRGBO(151, 36, 46, 1.0),
+                                  )
+                                : PinputWidget(
+                                    qrCode: widget.qrCode,
+                                    pinValidated: setPinValidated(),
+                                  ),
                           ],
                         ),
                       ),

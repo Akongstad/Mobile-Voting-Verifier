@@ -43,7 +43,6 @@ class _PinputWidgetState extends State<PinputWidget> {
 
   String? _validate(String? pin, BuildContext context) {
     try {
-      sleep(Duration(milliseconds: 500));
       if (pin == "196308") {
         widget.pinValidated();
         // Simulate network request: POST rest/login that returns

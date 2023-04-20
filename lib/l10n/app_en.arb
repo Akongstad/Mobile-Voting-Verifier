@@ -198,6 +198,7 @@
   "@finalScreenFailureButton": {
     "description": ""
   },
+  
   "welcomeScreenProgress": "Loading...",
     "@welcomeScreenProgress": {
         "description": ""

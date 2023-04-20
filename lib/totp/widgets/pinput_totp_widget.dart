@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_voting_verifier/qr_scanner/models/qr_code.dart';
@@ -43,7 +45,10 @@ class _PinputWidgetState extends State<PinputWidget> {
     try {
       if (pin == "196308") {
         widget.pinValidated();
+        // Simulate network request: POST rest/login that returns
+        // SecondDeviceLoginResponse
         /*  TODO:
+
         String challengeCommitment =
             "challenge"; //calculateChallengeCommitment(); 
         var loginResponse = loginRequest(

@@ -40,5 +40,6 @@
     "finalScreenFailureTitle": "Anmeld et problem",
     "finalScreenFailureToast": "Mener du, at din stemme er blevet registreret forkert? Så skal du kontakte valgadministratorerne.",
     "finalScreenFailureDescription": "Tryk på 'Kontakt support' for at fortsætte til supportsektionen på det officielle valgwebsted.",
-    "finalScreenFailureButton": "Kontakt support"  
+    "finalScreenFailureButton": "Kontakt support",
+    "welcomeScreenProgress": "Indlæser..."
 }

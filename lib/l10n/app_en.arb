@@ -197,5 +197,10 @@
   "finalScreenFailureButton": "Contact support",
   "@finalScreenFailureButton": {
     "description": ""
-  }
+  },
+  
+  "welcomeScreenProgress": "Loading...",
+    "@welcomeScreenProgress": {
+        "description": ""
+    }
 }

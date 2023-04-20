@@ -6,14 +6,14 @@ import 'package:mobile_voting_verifier/final_success/final_success.dart';
 import 'package:mobile_voting_verifier/shared/current_page_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class BallotAuditScreen extends StatefulWidget {
-  const BallotAuditScreen({super.key});
+class BallotAuditPage extends StatefulWidget {
+  const BallotAuditPage({super.key});
 
   @override
-  State<BallotAuditScreen> createState() => _BallotAuditScreen();
+  State<BallotAuditPage> createState() => _BallotAuditScreen();
 }
 
-class _BallotAuditScreen extends State<BallotAuditScreen> {
+class _BallotAuditScreen extends State<BallotAuditPage> {
   bool first = true;
 
   @override

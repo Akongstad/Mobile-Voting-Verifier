@@ -25,6 +25,8 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
+      activeColor: Colors.grey,
+      checkColor: Colors.white,
       value: widget.checkedMap[widget.id] ?? false,
       onChanged: (value) => setState(() {}),
       /* onChanged: (value) => showDialog<String>(

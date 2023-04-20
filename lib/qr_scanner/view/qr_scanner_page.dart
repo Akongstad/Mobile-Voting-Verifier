@@ -60,12 +60,12 @@ void _onDetectBarcode(BuildContext context, Barcode barcode,
       final qrCode = QRCode.fromString(code);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              ScanValidationScreen(valid: isValid, qrCode: qrCode)));
+              TOTPPage(valid: isValid, qrCode: qrCode)));
     }
   } on ArgumentError catch (e) {
     log(e.toString());
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ScanValidationScreen(
+        builder: (context) => TOTPPage(
             valid: false, qrCode: QRCode(c: "", vid: "", nonce: ""))));
   }
 }

@@ -1,6 +1,19 @@
 
 import 'package:local_cryptography/src/models/models.dart';
 
+/// Model of the POLYAS response on succesful login.
+/// - [allowInvalid]
+/// - [ballotVoterId]
+/// - [contentAbove]
+/// - [electionId]
+/// - [initialMessageJSON]
+/// - [languages]
+/// - [logo]
+/// - [messages]
+/// - [publicLabel]
+/// - [title]
+/// - [token]
+///
 class SecondDeviceLoginResponse {
   final bool allowInvalid;
   final String ballotVoterId;

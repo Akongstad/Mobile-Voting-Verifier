@@ -8,7 +8,7 @@ class BallotAuditCheckBox extends StatefulWidget {
       this.title = "Beware! This will not change your vote",
       this.content = "This will only modify the visualisation on this device.\n\n"
           "Q: Why may I edit my ballot?\n"
-          "A: To ensure a voter cannot produce a receipt which proves how they voted.\n\n"
+          "A: To ensure a voter cannot produce a receipt which proves how they voted. This prevents the displayed ballot paper from being used as a receipt for vote buying.\n\n"
           "Q: What will happen if I edit my ballot?\n"
           "A: This will have no effect on the vote you cast."})
       : super(key: key);
@@ -28,8 +28,8 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
       activeColor: Colors.grey,
       checkColor: Colors.white,
       value: widget.checkedMap[widget.id] ?? false,
-      onChanged: (value) => setState(() {}),
-      /* onChanged: (value) => showDialog<String>(
+      //onChanged: (value) => setState(() {}),
+       onChanged: (value) => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: Text(
@@ -52,7 +52,7 @@ class _BallotAuditCheckBoxState extends State<BallotAuditCheckBox> {
                       child: const Text('Accept'),
                     ),
                   ],
-                )) */
+                ))
     );
   }
 }

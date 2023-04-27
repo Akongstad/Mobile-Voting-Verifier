@@ -36,9 +36,9 @@ Oksana Kulyk
 ### Ballot Audit Page
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/90042173/234817352-a4f0bf42-0dbd-4e94-988e-676a071d9036.PNG" width="390" height="844">
-  <img src="https://user-images.githubusercontent.com/90042173/234817380-f858407a-4198-4b8b-9b80-c9186fff680a.PNG" width="390" height="844">
-  <img src="https://user-images.githubusercontent.com/90042173/234817422-ed6e0d16-6d91-4cd2-84b6-a244e621376e.PNG" width="390" height="844">
+  <img src="https://user-images.githubusercontent.com/90042173/234817352-a4f0bf42-0dbd-4e94-988e-676a071d9036.PNG" width="312" height="675">
+  <img src="https://user-images.githubusercontent.com/90042173/234817380-f858407a-4198-4b8b-9b80-c9186fff680a.PNG" width="312" height="675">
+  <img src="https://user-images.githubusercontent.com/90042173/234817422-ed6e0d16-6d91-4cd2-84b6-a244e621376e.PNG" width="312" height="675">
 </p>
 
 <p float="left">

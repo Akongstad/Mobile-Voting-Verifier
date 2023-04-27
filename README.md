@@ -13,9 +13,9 @@ Oksana Kulyk
 
 ## App
 ### Home page
-![IMG_1800](https://user-images.githubusercontent.com/90042173/234815985-399bc141-6126-472e-9a59-be723314049c.PNG|width=200)
 <img src="https://user-images.githubusercontent.com/90042173/234815985-399bc141-6126-472e-9a59-be723314049c.PNG" width="400" height="800">
-![IMG_1801](https://user-images.githubusercontent.com/90042173/234816007-2ebae03b-ca5a-44e1-ad3c-94a89404e5d0.PNG)
+<img src="https://user-images.githubusercontent.com/90042173/234816007-2ebae03b-ca5a-44e1-ad3c-94a89404e5d0.PNG" width="400" height="800">
+
 
 ### QR scanner
 ![IMG_1802](https://user-images.githubusercontent.com/90042173/234816152-401de28c-71d9-4b8f-8247-6c98f72d9246.PNG)

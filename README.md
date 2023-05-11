@@ -11,6 +11,15 @@ Andreas Kongstad & Christian Emil Stender
 Supervised by:
 Oksana Kulyk
 
+## Running the Application
+Follow the steps below to run the application
+### Prerequisites
+- Install the flutter sdk: https://docs.flutter.dev/get-started/install
+### Steps
+- Open android or ios emulator of choice
+- Navigate to the mobile-voting-verifier folder in the terminal and execute ```flutter run```
+
+
 ## App UI
 ### Home page
 <p float="left">

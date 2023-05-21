@@ -41,11 +41,11 @@ class _TOTPPageState extends State<TOTPPage> {
 
   void setPinValidatedDelay() {
     Future.delayed(const Duration(milliseconds: 50),
-        () => setState(() => setState(() => validationProgress = true)));
+        () => setState(() => validationProgress = true));
     Future.delayed(
         const Duration(milliseconds: 500),
-        () => setState(() => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const WelcomePage()))));
+        () =>  Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const WelcomePage())));
   }
 
   @override
